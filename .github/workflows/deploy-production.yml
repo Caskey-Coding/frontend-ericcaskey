@@ -1,0 +1,119 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  S3_BUCKET: ericcaskey.com
+
+jobs:
+  build:
+    name: Build (static export)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      sha_short: ${{ steps.meta.outputs.sha_short }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: meta
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: static-export-${{ github.sha }}
+          path: out/
+          retention-days: 7
+
+  deploy:
+    name: Deploy to S3 + CloudFront
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build
+    environment: production
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: static-export-${{ github.sha }}
+          path: out/
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Sync to S3
+        run: aws s3 sync out/ s3://${{ env.S3_BUCKET }} --delete
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
+
+  healthcheck:
+    name: Healthcheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: deploy
+    steps:
+      - name: Check ericcaskey.com
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://ericcaskey.com)
+          if [ "$STATUS" != "200" ]; then
+            echo "Healthcheck failed — HTTP $STATUS"
+            exit 1
+          fi
+          BODY=$(curl -s https://ericcaskey.com)
+          if ! echo "$BODY" | grep -q "Eric Caskey"; then
+            echo "Healthcheck failed — 'Eric Caskey' not found in body"
+            exit 1
+          fi
+          echo "Healthcheck passed — HTTP $STATUS, body contains 'Eric Caskey'"
+
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: healthcheck
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `v${context.runNumber}`,
+              name: `Release ${context.runNumber} — ${context.sha.substring(0, 7)}`,
+              generate_release_notes: true,
+            });
+
+  notify:
+    name: Notify Discord
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [deploy, healthcheck, create-release]
+    if: always()
+    steps:
+      - name: Send Discord notification
+        run: |
+          if [ "${{ needs.healthcheck.result }}" = "success" ]; then
+            COLOR=3066993
+            STATUS="Production deploy succeeded — ericcaskey.com"
+          else
+            COLOR=15158332
+            STATUS="Production deploy failed — ericcaskey.com"
+          fi
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"embeds\":[{\"title\":\"$STATUS\",\"description\":\"Commit \`${{ github.sha }}\` · [View run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\",\"color\":$COLOR}]}"

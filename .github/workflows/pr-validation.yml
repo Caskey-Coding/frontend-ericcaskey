@@ -1,0 +1,201 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: pr-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  nda-scan:
+    name: NDA Content Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan for disallowed content
+        run: |
+          set +e
+
+          VIOLATIONS=0
+          REPORT=""
+
+          scan() {
+            local PATTERN="$1"
+            local REASON="$2"
+            MATCHES=$(grep -rn --include="*.ts" --include="*.tsx" --include="*.md" \
+              --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=out \
+              -i "$PATTERN" src/ public/ 2>/dev/null || true)
+            if [ -n "$MATCHES" ]; then
+              VIOLATIONS=$((VIOLATIONS + 1))
+              REPORT="$REPORT\n### NDA violation: $REASON\n\`\`\`\n$MATCHES\n\`\`\`\n"
+            fi
+          }
+
+          # Internal org names
+          scan "System Development Organization" "Internal org name: 'System Development Organization'"
+          scan "Reliability org" "Internal org name: 'Reliability org'"
+
+          # Internal tool names
+          scan "VitalNet" "Internal tool name: 'VitalNet'"
+
+          # Direct Amazon attribution patterns
+          scan "engineer at Amazon who" "Disallowed attribution: 'engineer at Amazon who'"
+          scan "At Amazon, I" "Disallowed attribution: 'At Amazon, I'"
+          scan "At Amazon, I've" "Disallowed attribution: 'At Amazon, I've'"
+          scan "At Amazon, I faced" "Disallowed attribution: 'At Amazon, I faced'"
+
+          # Overly specific internal metrics
+          scan "per day in us-east-1" "Internal metric: execution rate per region"
+          scan "account ID" "Potential internal detail: AWS account ID reference"
+
+          if [ "$VIOLATIONS" -gt 0 ]; then
+            echo -e "NDA scan found $VIOLATIONS violation(s):\n$REPORT"
+            exit 1
+          else
+            echo "NDA scan passed — no disallowed content found."
+          fi
+
+  voice-scan:
+    name: Voice Rule Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enforce voice rules from ericcaskey-com/frontend/001
+        run: |
+          set +e
+
+          VIOLATIONS=0
+          REPORT=""
+
+          scan() {
+            local PATTERN="$1"
+            local REASON="$2"
+            # Scan only source tree — excludes node_modules, .next, out, public assets
+            MATCHES=$(grep -rn --include="*.ts" --include="*.tsx" --include="*.md" \
+              --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=out \
+              "$PATTERN" src/ 2>/dev/null || true)
+            if [ -n "$MATCHES" ]; then
+              VIOLATIONS=$((VIOLATIONS + 1))
+              REPORT="$REPORT\n### Voice violation: $REASON\n\`\`\`\n$MATCHES\n\`\`\`\n"
+            fi
+          }
+
+          # Banned self-description titles (D1, D2)
+          scan "Senior Software Engineer" "Banned title in rendered copy: 'Senior Software Engineer' (OK only in JSON-LD jobTitle metadata strings)"
+          scan "Principal Engineer" "Banned title: 'Principal Engineer'"
+
+          # Marketing adjectives
+          scan "cutting-edge" "Marketing adjective: 'cutting-edge'"
+          scan "world-class" "Marketing adjective: 'world-class'"
+          scan "passionate" "Marketing adjective: 'passionate'"
+          scan "thought leader" "Marketing adjective: 'thought leader'"
+          scan "thought leadership" "Marketing adjective: 'thought leadership'"
+
+          if [ "$VIOLATIONS" -gt 0 ]; then
+            echo -e "Voice scan found $VIOLATIONS violation(s):\n$REPORT"
+            echo ""
+            echo "Note: 'Senior Software Engineer' is allowed inside schema.org JSON-LD jobTitle"
+            echo "strings only. If this is a false positive from JSON-LD, move the string into"
+            echo "a dedicated component file and the scan can be tightened."
+            exit 1
+          else
+            echo "Voice scan passed — no banned phrases in rendered copy."
+          fi
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+
+  build:
+    name: Build (static export)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [nda-scan, voice-scan, lint]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: static-export-pr-${{ github.event.pull_request.number }}
+          path: out/
+          retention-days: 3
+
+  pr-comment:
+    name: PR Comment
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [nda-scan, voice-scan, lint, build]
+    if: always()
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const results = {
+              nda:   '${{ needs.nda-scan.result }}',
+              voice: '${{ needs.voice-scan.result }}',
+              lint:  '${{ needs.lint.result }}',
+              build: '${{ needs.build.result }}',
+            };
+            const icon = (r) => r === 'success' ? 'Pass' : r === 'skipped' ? 'Skipped' : 'Fail';
+            const body = [
+              `## CI — PR #${context.issue.number}`,
+              '',
+              '| Check | Status |',
+              '|-------|--------|',
+              `| NDA Content Scan | ${icon(results.nda)} |`,
+              `| Voice Rule Scan | ${icon(results.voice)} |`,
+              `| Lint + Typecheck | ${icon(results.lint)} |`,
+              `| Build (static export) | ${icon(results.build)} |`,
+              '',
+              `[View run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(
+              (c) => c.user.type === 'Bot' && c.body.includes('CI — PR #')
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }

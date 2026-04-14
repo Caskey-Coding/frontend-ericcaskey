@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg:             #f9f9f8;
+  --color-surface:        #ffffff;
+  --color-border:         #e4e4e2;
+  --color-text-primary:   #111110;
+  --color-text-secondary: #6b6b68;
+  --color-accent:         #0c7c59;
+}
+
+[data-theme="dark"] {
+  --color-bg:             #111110;
+  --color-surface:        #1c1c1b;
+  --color-border:         #2e2e2c;
+  --color-text-primary:   #f0efec;
+  --color-text-secondary: #8f8f8b;
+  --color-accent:         #2baa7e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg:             #111110;
+    --color-surface:        #1c1c1b;
+    --color-border:         #2e2e2c;
+    --color-text-primary:   #f0efec;
+    --color-text-secondary: #8f8f8b;
+    --color-accent:         #2baa7e;
+  }
+}
+
+@theme inline {
+  --color-background: var(--color-bg);
+  --color-surface:    var(--color-surface);
+  --color-border:     var(--color-border);
+  --color-text:       var(--color-text-primary);
+  --color-muted:      var(--color-text-secondary);
+  --color-accent:     var(--color-accent);
+  --font-sans:        var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; }
+
+a:hover { color: var(--color-accent); }

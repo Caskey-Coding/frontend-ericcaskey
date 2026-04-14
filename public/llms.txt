@@ -1,0 +1,24 @@
+# Eric Caskey — ericcaskey.com
+
+> Senior Software Engineer at Amazon. Principal-scope platform engineer.
+> Owns ICON Monitoring (fleet-wide infrastructure observability across
+> the Amazon fleet) and a workflow orchestration control plane running
+> millions of executions across teams in Dublin, Seattle, San Jose,
+> New York, Bangalore, and Sydney. Former Cloud Engineering & SRE at
+> Prudential Financial. NJ Army National Guard veteran.
+
+## About
+- [About](https://ericcaskey.com/about): Full career narrative, values,
+  and mission.
+
+## Work
+- [Engineering Work](https://ericcaskey.com/work): Summary of platform
+  engineering scope. See caskeycoding.com for full case studies and
+  projects.
+
+## Contact
+- [Contact](https://ericcaskey.com/contact): Hiring, speaking, and
+  engineering inquiries.
+- Engineering brand: https://caskeycoding.com
+- GitHub:            https://github.com/ecaskey
+- LinkedIn:          https://www.linkedin.com/in/ericcaskey
