@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ValuesList } from '../components/ValuesList';
 import { Headshot } from '../components/Headshot';
+import { CrossSiteLink } from '../components/CrossSiteLink';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -96,9 +97,9 @@ export default function About() {
           I publish long-form essays on workflow orchestration, safety-critical
           platforms, and spec-driven development at{' '}
           <strong>
-            <a href="https://caskeycoding.com" rel="noopener">
+            <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
               Caskey Engineering
-            </a>
+            </CrossSiteLink>
           </strong>
           {' '}(caskeycoding.com). It is the engineering side of this website —
           a working notebook where the arguments get worked out in full. If
