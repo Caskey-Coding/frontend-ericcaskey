@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Shared design token contract — see specs/_shared/architecture/002 */
 :root {
   --color-bg:             #f9f9f8;
   --color-surface:        #ffffff;
@@ -7,6 +8,23 @@
   --color-text-primary:   #111110;
   --color-text-secondary: #6b6b68;
   --color-accent:         #0c7c59;
+  --color-accent-hover:   #095c43;
+  --color-accent-tint:    color-mix(in srgb, var(--color-accent) 18%, transparent);
+  --color-danger:         #d32f2f;
+
+  --radius-sm:    6px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-pill:  999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.12);
+
+  --ease-standard:  cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast:  120ms;
+  --duration-base:  150ms;
+  --duration-slow:  240ms;
 }
 
 [data-theme="dark"] {
@@ -16,6 +34,13 @@
   --color-text-primary:   #f0efec;
   --color-text-secondary: #8f8f8b;
   --color-accent:         #2baa7e;
+  --color-accent-hover:   #35c593;
+  --color-accent-tint:    color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --color-danger:         #ef6a6a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.55);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,6 +51,13 @@
     --color-text-primary:   #f0efec;
     --color-text-secondary: #8f8f8b;
     --color-accent:         #2baa7e;
+    --color-accent-hover:   #35c593;
+    --color-accent-tint:    color-mix(in srgb, var(--color-accent) 22%, transparent);
+    --color-danger:         #ef6a6a;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.55);
   }
 }
 
@@ -45,8 +77,71 @@ html, body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color var(--duration-base) var(--ease-standard),
+              color var(--duration-base) var(--ease-standard);
 }
 
-a { color: inherit; }
+a {
+  color: inherit;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
 
 a:hover { color: var(--color-accent); }
+
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+/* Shared interactive primitives — match caskeycoding grammar */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--duration-base) var(--ease-standard),
+              box-shadow var(--duration-base) var(--ease-standard),
+              transform var(--duration-base) var(--ease-standard);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-md);
+  color: #ffffff;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--duration-base) var(--ease-standard),
+              border-color var(--duration-base) var(--ease-standard),
+              color var(--duration-base) var(--ease-standard),
+              box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.btn-secondary:hover {
+  background: var(--color-accent-tint);
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+}

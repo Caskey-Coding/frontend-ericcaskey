@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { TimelineItem } from '../components/TimelineItem';
 import { ToolCard } from '../components/ToolCard';
+import { CrossSiteLink } from '../components/CrossSiteLink';
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -65,9 +66,9 @@ export default function Work() {
         <p className="leading-relaxed">
           A decade of the career in four rows. The deep case studies — with
           metrics, diagrams, and architectural decisions — live on{' '}
-          <a href="https://caskeycoding.com" rel="noopener">
+          <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
             Caskey Engineering
-          </a>
+          </CrossSiteLink>
           .
         </p>
       </header>
@@ -96,9 +97,9 @@ export default function Work() {
         style={{ color: 'var(--color-text-secondary)' }}
       >
         Everything above — and several things that are not — lives in full on{' '}
-        <a href="https://caskeycoding.com" rel="noopener">
+        <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
           Caskey Engineering
-        </a>
+        </CrossSiteLink>
         .
       </p>
     </article>

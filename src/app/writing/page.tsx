@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { EssayCard } from '../components/EssayCard';
+import { CrossSiteLink } from '../components/CrossSiteLink';
 
 export const metadata: Metadata = {
   title: 'Writing',
@@ -59,9 +60,9 @@ export default function Writing() {
         style={{ color: 'var(--color-text-secondary)' }}
       >
         The full archive lives at{' '}
-        <a href="https://caskeycoding.com/blog" rel="noopener">
+        <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
           caskeycoding.com/blog
-        </a>
+        </CrossSiteLink>
         .
       </p>
     </article>

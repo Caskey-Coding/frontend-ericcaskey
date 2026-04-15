@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Headshot } from './components/Headshot';
+import { CrossSiteLink } from './components/CrossSiteLink';
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
@@ -50,19 +51,14 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 mt-2">
-            <a
+            <CrossSiteLink
               href="https://caskeycoding.com"
               rel="noopener"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded font-medium"
-              style={{ background: 'var(--color-accent)', color: 'white' }}
+              className="btn-primary"
             >
               Read the work →
-            </a>
-            <Link
-              href="/about"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded font-medium border"
-              style={{ borderColor: 'var(--color-border)' }}
-            >
+            </CrossSiteLink>
+            <Link href="/about" className="btn-secondary">
               About →
             </Link>
           </div>
