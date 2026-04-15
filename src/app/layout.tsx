@@ -15,18 +15,19 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://ericcaskey.com'),
   title: {
-    default: 'Eric Caskey — Platform Engineering at Amazon Scale',
-    template: '%s | Eric Caskey',
+    default: 'Eric Caskey — Platform engineer',
+    template: '%s — Eric Caskey',
   },
   description:
-    'Senior Software Engineer at Amazon. Platform engineer owning fleet-wide infrastructure monitoring and multi-region workflow orchestration across global engineering teams.',
+    'Eric Caskey — I build the systems other engineers depend on. Platform engineering, workflow orchestration, safety-critical infrastructure at Amazon.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
     type: 'website',
     url: 'https://ericcaskey.com',
+    images: ['/eric-caskey-1200.jpg'],
   },
-  twitter: { card: 'summary' },
+  twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/' },
 };
 

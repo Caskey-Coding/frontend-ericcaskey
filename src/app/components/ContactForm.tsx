@@ -46,7 +46,7 @@ export function ContactForm() {
           name="name"
           type="text"
           required
-          placeholder="Eric Caskey"
+          placeholder="Full name"
           className="border rounded px-3 py-2 bg-transparent"
           style={{ borderColor: 'var(--color-border)' }}
         />
@@ -65,14 +65,16 @@ export function ContactForm() {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span style={{ color: 'var(--color-text-secondary)' }}>Message</span>
+        <span style={{ color: 'var(--color-text-secondary)' }}>
+          What&apos;s this about?
+        </span>
         <textarea
           name="message"
           required
           minLength={10}
           maxLength={2000}
           rows={6}
-          placeholder="What's this about?"
+          placeholder="Role, project, or inquiry"
           className="border rounded px-3 py-2 bg-transparent resize-y"
           style={{ borderColor: 'var(--color-border)' }}
         />
@@ -96,7 +98,8 @@ export function ContactForm() {
 
       {status === 'error' ? (
         <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-          That didn&apos;t go through. Try again, or email me directly at the address below.
+          That did not go through. Try again, or email me directly at the
+          address below.
         </p>
       ) : null}
 
