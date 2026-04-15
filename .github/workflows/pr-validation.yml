@@ -82,8 +82,11 @@ jobs:
             local PATTERN="$1"
             local REASON="$2"
             # Scan only source tree — excludes node_modules, .next, out, public assets
+            # PersonJsonLd.tsx is exempt: schema.org jobTitle is allowed per
+            # ericcaskey-com/frontend/001 §Voice rules and canonical-copy §Voice.
             MATCHES=$(grep -rn --include="*.ts" --include="*.tsx" --include="*.md" \
               --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=out \
+              --exclude="PersonJsonLd.tsx" \
               "$PATTERN" src/ 2>/dev/null || true)
             if [ -n "$MATCHES" ]; then
               VIOLATIONS=$((VIOLATIONS + 1))

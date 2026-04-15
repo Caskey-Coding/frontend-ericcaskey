@@ -23,6 +23,9 @@ export function Nav() {
               <Link href="/work">Work</Link>
             </li>
             <li>
+              <Link href="/writing">Writing</Link>
+            </li>
+            <li>
               <Link href="/contact">Contact</Link>
             </li>
           </ul>
