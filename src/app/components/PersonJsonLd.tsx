@@ -10,7 +10,7 @@ const person = {
   url: 'https://ericcaskey.com',
   sameAs: [
     'https://www.linkedin.com/in/ericcaskey',
-    'https://github.com/ecaskey',
+    'https://github.com/CaskeyCoding',
     'https://caskeycoding.com',
   ],
   knowsAbout: [
