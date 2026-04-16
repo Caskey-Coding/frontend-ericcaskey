@@ -1,91 +1,107 @@
 import type { Metadata } from 'next';
+import { TimelineItem } from '../components/TimelineItem';
+import { ToolCard } from '../components/ToolCard';
+import { CrossSiteLink } from '../components/CrossSiteLink';
 
 export const metadata: Metadata = {
   title: 'Work',
   description:
-    'Summary of platform engineering scope across Amazon and Prudential Financial. Links to full case studies on Caskey Engineering.',
+    'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
 };
 
 const employers = [
   {
-    name: 'Amazon',
-    role: 'Senior Software Engineer, Platform',
-    dates: '2023 – Present',
-    impact:
-      'ICON Monitoring (fleet-wide infrastructure observability) and a workflow orchestration control plane across six global offices, on a path to GA for all of Amazon.',
+    company: 'Amazon',
+    role: 'Platform engineer',
+    dates: 'Jun 2022 – Present',
+    oneLineImpact:
+      "Architected a workflow orchestration platform maintaining 3 million active monitors and powering 500,000 daily automated actions across Amazon's global fleet. Previously standardized monitoring across 2,750+ application stages.",
+    href: 'https://caskeycoding.com/case-studies/multi-region-workflow-orchestration',
   },
   {
-    name: 'Prudential Financial',
-    role: 'Senior Cloud Engineer / SRE',
-    dates: '2015 – 2023',
-    impact:
-      'Enterprise monitoring platform, COVID-era reporting continuity, RSA self-service MFA portal, and the MFA enrollment platform.',
+    company: 'Prudential Financial',
+    role: 'Remote Access SRE → Senior Remote Access SRE',
+    dates: 'Apr 2013 – Jun 2022',
+    oneLineImpact:
+      'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
+    href: 'https://caskeycoding.com/case-studies/qr-code-mfa-portal',
   },
   {
-    name: 'NJ Army National Guard',
-    role: 'Soldier',
-    dates: '2010 – 2016',
-    impact: 'Service.',
+    company: 'Caskey Coding, LLC',
+    role: 'Owner, operator',
+    dates: 'Feb 2015 – May 2018',
+    oneLineImpact:
+      'Ran a New Jersey WordPress shop. Delivered ten sites for small businesses and community organizations. SEO work for The Drain Guys took monthly organic clicks from 2 to 52 in six months.',
+  },
+  {
+    company: 'NJ Army National Guard',
+    role: 'Military Police Officer, 50th Brigade Special Troops Battalion',
+    dates: 'Jul 2009 – Jun 2015',
+    oneLineImpact:
+      'Reached senior Specialist rank. Activated for 2012 Superstorm Sandy recovery, assigned to safeguard and distribute 241,000 gallons of FEMA fuel for nearly a month.',
+  },
+];
+
+const tools = [
+  {
+    name: 'Marathon Coach',
+    tagline: 'Grounded AI marathon training plans with Garmin integration.',
+    url: 'https://caskeycoding.com/coach',
+  },
+  {
+    name: 'Finance Reviewer',
+    tagline:
+      'Committee-based AI investment analysis with a five-persona scoring model.',
+    url: 'https://caskeycoding.com/finance',
   },
 ];
 
 export default function Work() {
   return (
-    <article className="flex flex-col gap-10">
-      <header className="flex flex-col gap-2">
+    <article className="flex flex-col gap-12">
+      <header className="flex flex-col gap-4">
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-          Engineering Work
+          Work
         </h1>
+        <p className="leading-relaxed">
+          A decade of the career in four rows. The deep case studies — with
+          metrics, diagrams, and architectural decisions — live on{' '}
+          <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
+            Caskey Engineering
+          </CrossSiteLink>
+          .
+        </p>
       </header>
 
-      <p className="leading-relaxed">
-        A summary of the engineering platforms I&apos;ve built and operated.
-        For in-depth case studies and architecture writeups, see{' '}
-        <a href="https://caskeycoding.com/case-studies" rel="me noopener">
+      <section className="flex flex-col">
+        {employers.map((e) => (
+          <TimelineItem key={e.company} {...e} />
+        ))}
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h2 className="text-xl font-semibold">Tools I&apos;ve built</h2>
+        <p className="leading-relaxed">
+          Two small AI applications built on the same stack I use at work,
+          published as field notes on Caskey Engineering.
+        </p>
+        <div className="flex flex-col">
+          {tools.map((t) => (
+            <ToolCard key={t.name} {...t} />
+          ))}
+        </div>
+      </section>
+
+      <p
+        className="leading-relaxed"
+        style={{ color: 'var(--color-text-secondary)' }}
+      >
+        Everything above — and several things that are not — lives in full on{' '}
+        <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
           Caskey Engineering
-        </a>
+        </CrossSiteLink>
         .
       </p>
-
-      <ul className="flex flex-col gap-6">
-        {employers.map((e) => (
-          <li
-            key={e.name}
-            className="border rounded-lg p-5"
-            style={{
-              borderColor: 'var(--color-border)',
-              background: 'var(--color-surface)',
-            }}
-          >
-            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
-              <h2 className="font-semibold">{e.name}</h2>
-              <span
-                className="text-sm"
-                style={{ color: 'var(--color-text-secondary)' }}
-              >
-                {e.dates}
-              </span>
-            </div>
-            <p
-              className="text-sm mt-1"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              {e.role}
-            </p>
-            <p className="mt-3 leading-relaxed">{e.impact}</p>
-          </li>
-        ))}
-      </ul>
-
-      <div>
-        <a
-          href="https://caskeycoding.com/case-studies"
-          className="inline-flex items-center justify-center px-4 py-2 rounded font-medium"
-          style={{ background: 'var(--color-accent)', color: 'white' }}
-        >
-          See full case studies →
-        </a>
-      </div>
     </article>
   );
 }

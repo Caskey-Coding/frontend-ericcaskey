@@ -46,9 +46,9 @@ export function ContactForm() {
           name="name"
           type="text"
           required
-          placeholder="Eric Caskey"
-          className="border rounded px-3 py-2 bg-transparent"
-          style={{ borderColor: 'var(--color-border)' }}
+          placeholder="Full name"
+          className="border px-3 py-2 bg-transparent min-h-11"
+          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
         />
       </label>
 
@@ -59,22 +59,24 @@ export function ContactForm() {
           type="email"
           required
           placeholder="you@example.com"
-          className="border rounded px-3 py-2 bg-transparent"
-          style={{ borderColor: 'var(--color-border)' }}
+          className="border px-3 py-2 bg-transparent min-h-11"
+          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
         />
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span style={{ color: 'var(--color-text-secondary)' }}>Message</span>
+        <span style={{ color: 'var(--color-text-secondary)' }}>
+          What&apos;s this about?
+        </span>
         <textarea
           name="message"
           required
           minLength={10}
           maxLength={2000}
           rows={6}
-          placeholder="What's this about?"
-          className="border rounded px-3 py-2 bg-transparent resize-y"
-          style={{ borderColor: 'var(--color-border)' }}
+          placeholder="Role, project, or inquiry"
+          className="border px-3 py-2 bg-transparent resize-y"
+          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
         />
       </label>
 
@@ -86,17 +88,14 @@ export function ContactForm() {
         </label>
       </div>
 
-      <button
-        type="submit"
-        className="self-start px-4 py-2 rounded font-medium"
-        style={{ background: 'var(--color-accent)', color: 'white' }}
-      >
+      <button type="submit" className="btn-primary self-start">
         Send message
       </button>
 
       {status === 'error' ? (
         <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-          That didn&apos;t go through. Try again, or email me directly at the address below.
+          That did not go through. Try again, or email me directly at the
+          address below.
         </p>
       ) : null}
 

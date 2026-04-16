@@ -19,35 +19,28 @@ export const metadata: Metadata = {
     template: '%s | Eric Caskey',
   },
   description:
-    'Senior Software Engineer at Amazon. Platform engineer owning fleet-wide infrastructure monitoring and multi-region workflow orchestration across global engineering teams.',
+    'Eric Caskey — I build the systems other engineers depend on. Platform engineering, workflow orchestration, safety-critical infrastructure at Amazon.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
     type: 'website',
     url: 'https://ericcaskey.com',
+    images: ['/eric-caskey-1200.jpg'],
   },
-  twitter: { card: 'summary' },
+  twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/' },
 };
 
-const themeInitScript = `
-(function() {
-  try {
-    var stored = localStorage.getItem('theme');
-    if (stored === 'dark' || stored === 'light') {
-      document.documentElement.setAttribute('data-theme', stored);
-    }
-  } catch (e) {}
-})();
-`;
+const themeInitScript = `(function(){try{var KEY='eric-caskey-theme';var LEGACY=['theme','caskey-site-theme'];var v=null;try{var u=new URL(window.location.href);var q=u.searchParams.get('theme');if(q==='dark'||q==='light'){v=q;u.searchParams.delete('theme');var next=u.pathname+(u.searchParams.toString()?'?'+u.searchParams:'')+u.hash;window.history.replaceState(null,'',next);localStorage.setItem(KEY,v);}}catch(e){}if(!v){var s=localStorage.getItem(KEY);if(s==='dark'||s==='light')v=s;}if(!v){for(var i=0;i<LEGACY.length;i++){var k=LEGACY[i];var lv=localStorage.getItem(k);if(lv==='dark'||lv==='light'){v=lv;localStorage.setItem(KEY,v);localStorage.removeItem(k);break;}}}var t=v||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);var m=document.getElementById('meta-theme-color');if(m)m.setAttribute('content',t==='dark'?'#111110':'#f9f9f8');}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <meta id="meta-theme-color" name="theme-color" content="#f9f9f8" />
         <PersonJsonLd />
         {gaId ? (
           <>

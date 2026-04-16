@@ -4,7 +4,7 @@ import { ContactForm } from '../components/ContactForm';
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Get in touch with Eric Caskey — hiring, speaking, and engineering inquiries.',
+    'Get in touch with Eric Caskey — hiring, engineering, and press inquiries.',
 };
 
 const contactPageJsonLd = {
@@ -34,21 +34,24 @@ export default function Contact() {
       </header>
 
       <p className="leading-relaxed">
-        For hiring, speaking, or engineering inquiries — the form below is the
-        fastest route. LinkedIn works too.
+        I read everything. I reply to serious inquiries within a week. The
+        form below is the fastest route.
       </p>
 
       <ContactForm />
 
       <section
-        className="flex flex-col gap-2 mt-4 pt-6 border-t text-sm"
+        className="flex flex-col gap-3 mt-4 pt-6 border-t text-sm"
         style={{
           borderColor: 'var(--color-border)',
           color: 'var(--color-text-secondary)',
         }}
       >
+        <h2 className="text-base font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+          Direct
+        </h2>
         <p>
-          <strong>Email:</strong> e [at] ericcaskey.com
+          <strong>Email:</strong> e at ericcaskey dot com
         </p>
         <p>
           <strong>LinkedIn:</strong>{' '}
