@@ -51,7 +51,7 @@ export default function Contact() {
           Direct
         </h2>
         <p>
-          <strong>Email:</strong> eric at ericcaskey dot com
+          <strong>Email:</strong> e at ericcaskey dot com
         </p>
         <p>
           <strong>LinkedIn:</strong>{' '}
@@ -65,8 +65,8 @@ export default function Contact() {
         </p>
         <p>
           <strong>GitHub:</strong>{' '}
-          <a href="https://github.com/ecaskey" rel="me noopener" target="_blank">
-            github.com/ecaskey
+          <a href="https://github.com/CaskeyCoding" rel="me noopener" target="_blank">
+            github.com/CaskeyCoding
           </a>
         </p>
       </section>

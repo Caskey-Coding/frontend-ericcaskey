@@ -32,7 +32,7 @@ export function Footer() {
             </li>
             <li>
               <a
-                href="https://github.com/ecaskey"
+                href="https://github.com/CaskeyCoding"
                 rel="me noopener"
                 target="_blank"
               >

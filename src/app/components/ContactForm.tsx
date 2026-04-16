@@ -34,7 +34,7 @@ export function ContactForm() {
 
     const subject = `Inquiry from ${name}`;
     const body = `${message}\n\n— ${name} (${email})`;
-    const mailto = `mailto:eric@caskeycoding.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailto = `mailto:e@ericcaskey.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
   }
 

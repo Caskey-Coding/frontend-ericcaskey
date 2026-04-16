@@ -7,7 +7,7 @@ const person = {
   sameAs: [
     'https://caskeycoding.com',
     'https://www.linkedin.com/in/ericcaskey',
-    'https://github.com/ecaskey',
+    'https://github.com/CaskeyCoding',
   ],
   jobTitle: 'Senior Software Engineer',
   worksFor: { '@type': 'Organization', name: 'Amazon' },
