@@ -15,8 +15,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://ericcaskey.com'),
   title: {
-    default: 'Eric Caskey — Platform engineer',
-    template: '%s — Eric Caskey',
+    default: 'Eric Caskey — Platform Engineering at Amazon Scale',
+    template: '%s | Eric Caskey',
   },
   description:
     'Eric Caskey — I build the systems other engineers depend on. Platform engineering, workflow orchestration, safety-critical infrastructure at Amazon.',
