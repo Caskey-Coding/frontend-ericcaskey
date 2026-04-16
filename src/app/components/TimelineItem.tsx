@@ -1,3 +1,5 @@
+import { CrossSiteLink } from './CrossSiteLink';
+
 interface TimelineItemProps {
   company: string;
   role: string;
@@ -41,13 +43,13 @@ export function TimelineItem({
 
   if (href) {
     return (
-      <a
+      <CrossSiteLink
         href={href}
         rel="noopener"
-        className="block hover:opacity-90 transition-opacity"
+        className="block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)]"
       >
         {content}
-      </a>
+      </CrossSiteLink>
     );
   }
 

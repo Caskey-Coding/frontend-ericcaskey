@@ -1,3 +1,5 @@
+import { CrossSiteLink } from './CrossSiteLink';
+
 interface EssayCardProps {
   title: string;
   url: string;
@@ -17,9 +19,9 @@ export function EssayCard({
       style={{ borderColor: 'var(--color-border)' }}
     >
       <h3 className="text-lg font-semibold leading-snug">
-        <a href={url} rel="noopener">
+        <CrossSiteLink href={url} rel="noopener">
           {title}
-        </a>
+        </CrossSiteLink>
       </h3>
       <p
         className="text-sm"
