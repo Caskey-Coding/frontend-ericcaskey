@@ -105,6 +105,7 @@ jobs:
     timeout-minutes: 5
     needs: [deploy, healthcheck, create-release]
     if: always()
+    environment: production
     steps:
       - name: Send Discord notification
         run: |
