@@ -39,15 +39,16 @@ export default function Home() {
           </p>
 
           <p className="text-base md:text-lg leading-relaxed">
-            Ten years at enterprise scale — most of it spent making fleet-wide
-            infrastructure safer, more predictable, and less demanding of the
-            engineers who use it. At Amazon I architect a multi-region workflow
-            orchestration platform maintaining 3 million active monitors and
-            powering 500,000 daily automated actions. Before that I
-            standardized monitoring across more than 2,750 application stages
-            and built the MFA self-service portal that got 60,000 Prudential
-            users through the first months of COVID. I write about how this
-            work actually gets done at Caskey Engineering.
+            Fifteen years at enterprise scale, most of it spent making
+            fleet-wide infrastructure safer, more predictable, and less
+            demanding of the engineers who use it. At Amazon I architect a
+            multi-region workflow orchestration platform maintaining 7,000+
+            services and 3 million active monitors, powering 500,000 daily
+            automated actions. Before that, at Prudential Financial, I built
+            the MFA self-service portal that got 60,000 corporate users
+            through the first months of COVID and supported Vital Net
+            monitoring across 400,000 router and switch monitors. I write
+            about how this work actually gets done at Caskey Engineering.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 mt-2">

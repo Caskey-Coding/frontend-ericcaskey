@@ -15,7 +15,7 @@ const employers = [
     role: 'Platform engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
-      "Architected a workflow orchestration platform maintaining 3 million active monitors and powering 500,000 daily automated actions across Amazon's global fleet. Previously standardized monitoring across 2,750+ application stages.",
+      "Architects a workflow orchestration platform maintaining 7,000+ services and 3 million active monitors, powering 500,000 daily automated actions across Amazon's global fleet.",
     href: 'https://caskeycoding.com/case-studies/multi-region-workflow-orchestration',
   },
   {
@@ -23,7 +23,7 @@ const employers = [
     role: 'Remote Access SRE → Senior Remote Access SRE',
     dates: 'Apr 2013 – Jun 2022',
     oneLineImpact:
-      'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
+      'Built the MFA self-service portal used over 18,000 times in six languages, supported Vital Net monitoring across 400,000 router and switch monitors, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
     href: 'https://caskeycoding.com/case-studies/qr-code-mfa-portal',
   },
   {
@@ -64,8 +64,8 @@ export default function Work() {
           Work
         </h1>
         <p className="leading-relaxed">
-          A decade of the career in four rows. The deep case studies — with
-          metrics, diagrams, and architectural decisions — live on{' '}
+          Fifteen years of the career in four rows. The deep case studies,
+          with metrics, diagrams, and architectural decisions, live on{' '}
           <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
             Caskey Engineering
           </CrossSiteLink>
@@ -96,7 +96,7 @@ export default function Work() {
         className="leading-relaxed"
         style={{ color: 'var(--color-text-secondary)' }}
       >
-        Everything above — and several things that are not — lives in full on{' '}
+        Everything above, and several things that are not, lives in full on{' '}
         <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
           Caskey Engineering
         </CrossSiteLink>

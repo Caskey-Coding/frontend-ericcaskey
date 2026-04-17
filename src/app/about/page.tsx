@@ -16,11 +16,7 @@ const values = [
   },
   {
     title: 'Structure before code.',
-    body: 'Design before you dive in. The hard part is rarely the implementation — it is the thinking that has to precede it. Specs, folder structure, decision logs. The structure does not follow the AI; the AI follows the structure.',
-  },
-  {
-    title: 'Scope, not labels.',
-    body: 'A title is a claim; scale is evidence. I would rather describe the systems I am responsible for than the level I am paid at.',
+    body: 'Design before you dive in. The hard part is rarely the implementation; it is the thinking that has to precede it. Specs, folder structure, decision logs. The structure does not follow the AI; the AI follows the structure.',
   },
   {
     title: 'Earned lessons only.',
@@ -39,39 +35,45 @@ export default function About() {
 
       <section className="flex flex-col gap-5 leading-relaxed">
         <p>
-          I started writing code in 2013 as the Remote Access Analyst at
-          Prudential Financial — Tier 3 help desk work with a side project
-          generating QR codes for MFA enrollment. That side project ran for
-          eight years and produced over 300,000 activation codes. It also
-          convinced me the job I wanted was the engineering one, not the
-          support one.
+          I started writing code in 2011 at WOS, where our first app was a
+          prototype volunteer-registration website. I was learning HTML,
+          Java, and SQL at the same time, and in parallel consulting for
+          Prudential Financial on smaller automations.
+        </p>
+        <p>
+          In 2013 I joined Prudential full-time as the Remote Access Analyst,
+          Tier 3 help desk work with a side project generating QR codes for
+          MFA enrollment. That side project ran for eight years and produced
+          over 300,000 activation codes. It also convinced me the job I
+          wanted was the engineering one, not the support one.
         </p>
         <p>
           From there I moved up through Remote Access SRE and Senior Remote
-          Access SRE at Prudential, where I built the MFA self-service portal
-          used more than 18,000 times in six languages, automated over 200,000
-          administrative actions, and kept the VPN running for 60,000
-          corporate users through the early months of COVID. Most of that work
-          was figuring out how to make safety-critical infrastructure quiet —
-          how to remove failure modes rather than paper over them.
+          Access SRE at Prudential, where I built the MFA self-service
+          portal used more than 18,000 times in six languages, supported
+          Vital Net monitoring across 400,000 router and switch monitors,
+          and kept the VPN running for 60,000 corporate users through the
+          early months of COVID. Most of that work was figuring out how to
+          make safety-critical infrastructure quiet: how to remove failure
+          modes rather than paper over them.
         </p>
         <p>
-          In June 2022 I joined Amazon, where I built a monitoring lifecycle
-          platform that onboarded more than 2,750 application stages and over
-          200,000 monitors, and hired and mentored eight new-to-industry
+          In June 2022 I joined Amazon, where I built a monitoring
+          lifecycle platform and hired and mentored eight new-to-industry
           engineers in New York. In August 2024 I moved into the platform
-          engineering role I have now — architecting a twelve-service
-          workflow orchestration platform that maintains 3 million active
-          monitors and powers 500,000 daily automated actions across
-          Amazon&apos;s global fleet.
+          engineering role I have now, architecting a twelve-service
+          workflow orchestration platform that maintains 7,000+ services
+          and 3 million active monitors and powers 500,000 daily automated
+          actions across Amazon&apos;s global fleet.
         </p>
         <p>
-          Along the way I ran a New Jersey WordPress shop called Caskey Coding
-          from 2015 to 2018 — ten sites for small businesses and community
-          organizations — and served as a Military Police Officer in the 50th
-          Brigade of the NJ Army National Guard from 2009 to 2015, including a
-          2012 Superstorm Sandy activation where I safeguarded the
-          distribution of 241,000 gallons of FEMA fuel for nearly a month.
+          Along the way I ran a New Jersey WordPress shop called Caskey
+          Coding from 2015 to 2018, ten sites for small businesses and
+          community organizations, and served as a Military Police Officer
+          in the 50th Brigade of the NJ Army National Guard from 2009 to
+          2015, including a 2012 Superstorm Sandy activation where I
+          safeguarded the distribution of 241,000 gallons of FEMA fuel for
+          nearly a month.
         </p>
       </section>
 
@@ -101,7 +103,7 @@ export default function About() {
               Caskey Engineering
             </CrossSiteLink>
           </strong>
-          {' '}(caskeycoding.com). It is the engineering side of this website —
+          {' '}(caskeycoding.com). It is the engineering side of this website,
           a working notebook where the arguments get worked out in full. If
           you are here looking for proof, that is where the proof lives.
         </p>

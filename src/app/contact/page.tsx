@@ -4,7 +4,7 @@ import { ContactForm } from '../components/ContactForm';
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Get in touch with Eric Caskey — hiring, engineering, and press inquiries.',
+    'Get in touch with Eric Caskey. Hiring, engineering, and press inquiries.',
 };
 
 const contactPageJsonLd = {
