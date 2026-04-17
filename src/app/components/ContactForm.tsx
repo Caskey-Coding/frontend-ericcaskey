@@ -2,7 +2,9 @@
 
 import { useState, type FormEvent } from 'react';
 
-type Status = 'idle' | 'error';
+type Status = 'idle' | 'sending' | 'success' | 'error';
+
+const API_URL = process.env.NEXT_PUBLIC_CONTACT_API_URL ?? '';
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
@@ -18,7 +20,6 @@ export function ContactForm() {
     const data = new FormData(form);
 
     if (getString(data, 'company')) {
-      // Honeypot tripped — drop silently.
       setStatus('idle');
       return;
     }
@@ -32,10 +33,21 @@ export function ContactForm() {
       return;
     }
 
-    const subject = `Inquiry from ${name}`;
-    const body = `${message}\n\n— ${name} (${email})`;
-    const mailto = `mailto:e@ericcaskey.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    setStatus('sending');
+
+    fetch(`${API_URL}/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(String(res.status));
+        setStatus('success');
+        form.reset();
+      })
+      .catch(() => {
+        setStatus('error');
+      });
   }
 
   return (
@@ -88,24 +100,26 @@ export function ContactForm() {
         </label>
       </div>
 
-      <button type="submit" className="btn-primary self-start">
-        Send message
+      <button
+        type="submit"
+        className="btn-primary self-start"
+        disabled={status === 'sending'}
+      >
+        {status === 'sending' ? 'Sending\u2026' : 'Send message'}
       </button>
 
-      {status === 'error' ? (
+      {status === 'success' && (
+        <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          Message sent. I&apos;ll get back to you soon.
+        </p>
+      )}
+
+      {status === 'error' && (
         <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
           That did not go through. Try again, or email me directly at the
           address below.
         </p>
-      ) : null}
-
-      {/*
-        Server Action stub — uncomment when SES vs Resend decision lands
-        (spec 003 OQ-3). The mailto: above is the v1 fallback.
-
-        import { sendContactMessage } from './actions';
-        const result = await sendContactMessage({ name, email, message });
-      */}
+      )}
     </form>
   );
 }
