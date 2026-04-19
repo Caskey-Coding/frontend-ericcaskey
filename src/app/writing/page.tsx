@@ -20,14 +20,14 @@ const essays = [
   {
     title: 'Designing Safety Guardrails for Distributed Workflow Orchestration',
     url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
-    publishedDate: '2026',
+    publishedDate: 'March 25, 2026',
     editorNote:
       "What I've learned building validation engines for infrastructure where an incorrect \u201Cyes\u201D is a production incident.",
   },
   {
     title: 'Building an AI Finance App',
     url: 'https://caskeycoding.com/blog/building-an-ai-finance-app',
-    publishedDate: '2026',
+    publishedDate: 'April 10, 2026',
     editorNote:
       'An honest account of what worked, what did not, and why the hard part is rarely the AI.',
   },
