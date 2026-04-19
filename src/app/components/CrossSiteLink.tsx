@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, type AnchorHTMLAttributes } from 'react';
-import { withThemeQuery } from './theme';
+import { withThemeQuery } from '../lib/theme';
 
 type Props = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 

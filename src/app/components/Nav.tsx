@@ -7,7 +7,7 @@ import {
   resolveEffectiveTheme,
   setTheme,
   type SiteThemeMode,
-} from './theme';
+} from '../lib/theme';
 
 function SunIcon() {
   return (
