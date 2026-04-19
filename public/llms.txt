@@ -2,7 +2,7 @@
 
 Platform engineer. I build the systems other engineers depend on.
 
-I work on safety-critical workflow orchestration at Amazon, where I architect a platform maintaining 3 million active monitors and powering 500,000 daily automated actions across a global fleet. Before that I spent nine years at Prudential Financial building MFA self-service and VPN automation for 60,000 corporate users.
+Fifteen years at enterprise scale. I work on safety-critical workflow orchestration at Amazon, where I architect a platform maintaining 3 million active monitors and powering 500,000 daily automated actions across a global fleet. Before Amazon I spent nine years at Prudential Financial — Remote Access SRE work, building the MFA self-service portal used over 18,000 times in six languages, and keeping the VPN running for 60,000 corporate users through the early months of COVID.
 
 This site is the personal front door — career, how to reach me, a short reading shelf. For long-form engineering writing, case studies, and the tools I have built, see Caskey Engineering at https://caskeycoding.com.
 
