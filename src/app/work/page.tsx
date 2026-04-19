@@ -64,8 +64,8 @@ export default function Work() {
           Work
         </h1>
         <p className="leading-relaxed">
-          A decade of the career in four rows. The deep case studies — with
-          metrics, diagrams, and architectural decisions — live on{' '}
+          Fifteen years in four rows. The deep case studies — with metrics,
+          diagrams, and architectural decisions — live on{' '}
           <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
             Caskey Engineering
           </CrossSiteLink>
