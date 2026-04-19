@@ -13,7 +13,7 @@ const essays = [
     title:
       'Spec-Driven Development and the Folder Architecture That Makes It Work',
     url: 'https://caskeycoding.com/blog/spec-driven-development-and-the-folder-architecture-that-makes-it-work',
-    publishedDate: 'June 20, 2025',
+    publishedDate: 'April 2026',
     editorNote:
       'How I structure projects so AI agents and humans can both find their way around. This is the methodology behind everything else.',
   },
