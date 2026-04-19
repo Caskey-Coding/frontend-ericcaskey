@@ -39,7 +39,7 @@ export default function Home() {
           </p>
 
           <p className="text-base md:text-lg leading-relaxed">
-            Ten years at enterprise scale — most of it spent making fleet-wide
+            Fifteen years at enterprise scale — most of it spent making fleet-wide
             infrastructure safer, more predictable, and less demanding of the
             engineers who use it. At Amazon I architect a multi-region workflow
             orchestration platform maintaining 3 million active monitors and

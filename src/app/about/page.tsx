@@ -39,12 +39,18 @@ export default function About() {
 
       <section className="flex flex-col gap-5 leading-relaxed">
         <p>
-          I started writing code in 2013 as the Remote Access Analyst at
-          Prudential Financial — Tier 3 help desk work with a side project
-          generating QR codes for MFA enrollment. That side project ran for
-          eight years and produced over 300,000 activation codes. It also
-          convinced me the job I wanted was the engineering one, not the
-          support one.
+          I started writing code in 2013 as the Remote Access Analyst at{' '}
+          <a
+            href="https://medium.com/@wforceorg/success-story-eric-caskey-prudential-financial-d2d2e7258f49"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Prudential Financial
+          </a>{' '}
+          — Tier 3 help desk work with a side project generating QR codes for
+          MFA enrollment. That side project ran for eight years and produced
+          over 300,000 activation codes. It also convinced me the job I wanted
+          was the engineering one, not the support one.
         </p>
         <p>
           From there I moved up through Remote Access SRE and Senior Remote
@@ -102,8 +108,7 @@ export default function About() {
             </CrossSiteLink>
           </strong>
           {' '}(caskeycoding.com). It is the engineering side of this website —
-          a working notebook where the arguments get worked out in full. If
-          you are here looking for proof, that is where the proof lives.
+          a working notebook where the arguments get worked out in full.
         </p>
       </section>
 
