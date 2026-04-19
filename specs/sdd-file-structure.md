@@ -14,12 +14,12 @@
 
 ## Purpose
 
-This spec defines the minimum viable SDD structure for the `frontend-ericcaskey`
-repository and proposes one code change (a `lib/` extraction). It deliberately
-does not mirror the full financial-reviewer integration package shape. This is a
-static site with ~10 components and 5 pages — spec surface should stay proportional
-to code surface. New steering, feature, and decision files are added when a real
-decision or feature boundary needs one, not pre-created as empty scaffolding.
+This spec defines the SDD structure for the `frontend-ericcaskey` repository and
+proposes one code change (a `lib/` extraction). It deliberately does not mirror
+the full financial-reviewer integration package shape. This is a static site with
+~10 components and 5 pages — spec surface should stay proportional to code surface.
+New steering, feature, and decision files are added when a real decision or feature
+boundary needs one, not pre-created as empty scaffolding.
 
 ---
 
@@ -48,8 +48,7 @@ frontend-ericcaskey/
 ├── CLAUDE.md                     ← NEW — agent entry point
 ├── specs/
 │   ├── README.md                 ← NEW — directory map
-│   └── steering/
-│       └── (add files when a real steering decision exists)
+│   └── (steering/ created when first file is needed)
 └── src/app/
     ├── components/               ← UI components only
     │   └── (theme.ts removed)
@@ -87,10 +86,8 @@ Static Next.js export. S3 + CloudFront. No runtime, no API routes.
 
 1. Read `specs/README.md`
 2. Read all files in `specs/steering/` if any exist
-3. For content changes, load `caskeycoding-specs/ericcaskey-com/content/001-canonical-copy.md`
-   and `caskeycoding-specs/caskeycoding-com/content-strategy/steering/nda-guidelines.md`
-4. For architectural decisions, check `caskeycoding-specs/decision/` and
-   `caskeycoding-specs/ericcaskey-com/frontend/001-site-architecture.md`
+3. For all strategic specs (content, architecture, decisions), start at
+   `caskeycoding-specs/README.md` — it is the stable index and owns current paths
 
 ## Hard rules
 
@@ -104,13 +101,18 @@ Static Next.js export. S3 + CloudFront. No runtime, no API routes.
 
 | Task | File | Reference |
 |------|------|-----------|
-| Any copy change | `src/app/*/page.tsx` | `caskeycoding-specs/ericcaskey-com/content/001-canonical-copy.md` |
-| Design tokens | `src/app/globals.css` | `caskeycoding-specs/ericcaskey-com/frontend/001-site-architecture.md` |
-| Theme / dark mode | `src/app/lib/theme.ts` | `caskeycoding-specs/_shared/architecture/002-cross-domain-design-system.md` |
+| Any copy change | `src/app/*/page.tsx` | `caskeycoding-specs` → `ericcaskey-com/content/` |
+| Design tokens | `src/app/globals.css` | `caskeycoding-specs` → `ericcaskey-com/frontend/` |
+| Theme / dark mode | `src/app/lib/theme.ts` | `caskeycoding-specs` → `_shared/architecture/002` |
 | Cross-site links | `src/app/components/CrossSiteLink.tsx` | Same |
+| llms.txt | `public/llms.txt` | Falls under "Any copy change" — canonical facts apply |
 | Contact form | `src/app/contact/page.tsx`, `ContactForm.tsx` | `specs/steering/` when spec exists |
-| CI/CD | `.github/workflows/` | `caskeycoding-specs/caskeycoding-com/infra/005-cicd-pipeline.md` |
+| CI/CD | `.github/workflows/` | `caskeycoding-specs` → `caskeycoding-com/infra/` |
 ```
+
+**Why `caskeycoding-specs/README.md` as the entry point:** routing table paths
+in this file would need updating on every caskeycoding-specs reorg. Pointing
+at `README.md` instead means one file to update across repo moves, not N.
 
 ---
 
@@ -119,12 +121,12 @@ Static Next.js export. S3 + CloudFront. No runtime, no API routes.
 ```markdown
 # ericcaskey.com Specs
 
-Minimum viable SDD package for the ericcaskey.com personal authority site.
+SDD package for the ericcaskey.com personal authority site.
 
 ## What lives here
 
-- `steering/` — add a file when a decision or convention needs to be durable
-  across sessions. Currently empty.
+- `steering/` — created when the first file is needed. Add a file when a
+  convention needs to outlive a session and isn’t already in caskeycoding-specs.
 
 ## What lives in caskeycoding-specs
 
@@ -160,11 +162,16 @@ no JSX. It does not belong in `components/`. Next.js App Router convention is
 ## Implementation sequence
 
 ```
+Step 0 — pre-delete check
+  grep -r 'content-spec' . --include='*.md'
+  Confirm no in-flight branch references specs/content-spec.md before deleting.
+  PR #8 created it; check that no branch branched off #8 and references it.
+
 Step 1 — specs scaffolding (no code changes)
   - Create CLAUDE.md (post-#47-move paths — see note below)
   - Create specs/README.md
   - Delete specs/content-spec.md
-  - Create specs/steering/.gitkeep (placeholder; remove when first real file is added)
+  (Do NOT create specs/steering/ — the directory is created when the first file is needed)
 
 Step 2 — lib/ extraction
   - Create src/app/lib/theme.ts (copy of components/theme.ts)
@@ -210,4 +217,5 @@ org-wide ADRs. Do not add files to fill a template.
 | Date | Change |
 |------|--------|
 | 2026-04-19 | Initial draft — full integration package shape |
-| 2026-04-19 | Revised to MVP shape; removed pre-created steering/feature/decision scaffolding; moved content ownership to caskeycoding-specs; fixed CLAUDE.md paths to post-migration targets; added sequencing note |
+| 2026-04-19 | Revised to leaner shape; removed pre-created steering/feature/decision scaffolding; moved content ownership to caskeycoding-specs; fixed CLAUDE.md paths to post-migration targets; added sequencing note |
+| 2026-04-19 | Revised: removed .gitkeep (no empty dir scaffolding); CLAUDE.md points at caskeycoding-specs/README.md as stable entry; added llms.txt to routing table; added Step 0 pre-delete grep; dropped ‘minimum viable’ framing from Purpose |
