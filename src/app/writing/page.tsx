@@ -13,7 +13,7 @@ const essays = [
     title:
       'Spec-Driven Development and the Folder Architecture That Makes It Work',
     url: 'https://caskeycoding.com/blog/spec-driven-development-and-the-folder-architecture-that-makes-it-work',
-    publishedDate: 'April 2026',
+    publishedDate: 'March 25, 2026',
     editorNote:
       'How I structure projects so AI agents and humans can both find their way around. This is the methodology behind everything else.',
   },
@@ -22,7 +22,7 @@ const essays = [
     url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
     publishedDate: 'March 25, 2026',
     editorNote:
-      "What I've learned building validation engines for infrastructure where an incorrect \u201Cyes\u201D is a production incident.",
+      "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.",
   },
   {
     title: 'Building an AI Finance App',
