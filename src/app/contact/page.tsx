@@ -56,11 +56,11 @@ export default function Contact() {
         <p>
           <strong>LinkedIn:</strong>{' '}
           <a
-            href="https://www.linkedin.com/in/ericcaskey"
+            href="https://www.linkedin.com/in/ericrcaskey"
             rel="me noopener"
             target="_blank"
           >
-            linkedin.com/in/ericcaskey
+            linkedin.com/in/ericrcaskey
           </a>
         </p>
         <p>

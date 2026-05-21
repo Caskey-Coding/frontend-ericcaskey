@@ -23,7 +23,7 @@ export function Footer() {
           <ul className="flex items-center gap-6">
             <li>
               <a
-                href="https://www.linkedin.com/in/ericcaskey"
+                href="https://www.linkedin.com/in/ericrcaskey"
                 rel="me noopener"
                 target="_blank"
               >
