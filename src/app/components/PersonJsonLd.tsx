@@ -6,7 +6,7 @@ const person = {
   image: 'https://ericcaskey.com/eric-caskey-1200.jpg',
   sameAs: [
     'https://caskeycoding.com',
-    'https://www.linkedin.com/in/ericcaskey',
+    'https://www.linkedin.com/in/ericrcaskey',
     'https://github.com/CaskeyCoding',
   ],
   jobTitle: 'Senior Software Engineer',
