@@ -81,6 +81,19 @@ html, body {
               color var(--duration-base) var(--ease-standard);
 }
 
+/*
+ * Cross-domain design system §clash #8 (spec _shared/architecture/002):
+ * canonical h1 size. Both ericcaskey.com and caskeycoding.com must
+ * render h1 at the same clamp scale so the wordmark + page-title
+ * hierarchy matches across the domain handoff. Tailwind utilities on
+ * specific h1 elements still override locally.
+ */
+h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  line-height: var(--lh-tight, 1.2);
+  letter-spacing: var(--ls-tight, -0.02em);
+}
+
 a {
   color: inherit;
   transition: color var(--duration-fast) var(--ease-standard);
