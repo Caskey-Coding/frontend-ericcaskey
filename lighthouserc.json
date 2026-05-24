@@ -2,6 +2,13 @@
   "ci": {
     "collect": {
       "staticDistDir": "./out",
+      "url": [
+        "http://localhost/",
+        "http://localhost/about",
+        "http://localhost/work",
+        "http://localhost/writing",
+        "http://localhost/contact"
+      ],
       "settings": {
         "preset": "desktop"
       }
