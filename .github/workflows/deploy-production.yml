@@ -31,7 +31,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
@@ -71,11 +71,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run healthcheck
-        # The previous single-curl healthcheck on / would survive a
-        # PR #16-class CloudFront errorResponses fallback (every
-        # sub-route returns the home page with HTTP 200). The script
-        # asserts each route returns 200 AND a route-specific body
-        # marker, so a fallback cannot mask the break.
         run: bash .github/scripts/healthcheck.sh https://ericcaskey.com
 
   create-release:
