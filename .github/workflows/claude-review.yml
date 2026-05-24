@@ -24,10 +24,15 @@ jobs:
           fetch-depth: 0
 
       - name: Run Claude Code review
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          direct_prompt: |
+          claude_args: |
+            --allowedTools Bash(git diff:*),Bash(git log:*),Bash(ls:*),Bash(grep:*),Bash(rg:*),Read,Glob
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+
             You are reviewing a PR in caskey-coding/frontend-ericcaskey —
             the ericcaskey.com personal-authority site. Next.js 15 static
             export to S3 + CloudFront.
@@ -68,4 +73,3 @@ jobs:
             Skip: style / formatting (eslint), praise.
 
             Output: bulleted findings with file path + line number.
-          allowed_tools: "Bash(git diff:*),Bash(git log:*),Bash(ls:*),Bash(grep:*),Bash(rg:*),Read,Glob"
