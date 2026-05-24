@@ -1,5 +1,0 @@
-# This .patch file is informational only. The actual change to package.json
-# is the inclusion of @playwright/test + serve in devDependencies and the
-# addition of test:e2e + test:e2e:install scripts. See the companion PR
-# description for the exact diff. Applied via the package.json file in
-# this same commit.
