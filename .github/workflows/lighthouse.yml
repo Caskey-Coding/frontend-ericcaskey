@@ -21,7 +21,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-      - run: npm install --no-audit --no-fund
+      - run: npm ci
       - run: npm run build
       - uses: treosh/lighthouse-ci-action@v12
         with:

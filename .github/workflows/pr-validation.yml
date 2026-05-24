@@ -99,11 +99,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-      # Using `npm install` (not `npm ci`) until package-lock.json is
-      # regenerated to include @playwright/test + serve. Flip back to
-      # `npm ci` once the user runs `npm install` locally and commits
-      # the updated lock.
-      - run: npm install --no-audit --no-fund
+      - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
 
@@ -118,7 +114,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-      - run: npm install --no-audit --no-fund
+      - run: npm ci
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
@@ -137,7 +133,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-      - run: npm install --no-audit --no-fund
+      - run: npm ci
       - uses: actions/download-artifact@v4
         with:
           name: static-export-pr-${{ github.event.pull_request.number }}
@@ -164,7 +160,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-      - run: npm install --no-audit --no-fund
+      - run: npm ci
       - run: npm audit --omit=dev --audit-level=high
 
   pr-comment:
