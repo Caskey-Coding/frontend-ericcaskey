@@ -1,0 +1,3 @@
+# Default owner for everything in the repo.
+# Auto-requests review when anyone other than the owner opens a PR.
+*  @CaskeyCoding

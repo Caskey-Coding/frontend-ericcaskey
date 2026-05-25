@@ -1,9 +1,16 @@
-name: Deploy Production
+name: Rollback Production (ericcaskey.com)
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to redeploy (tag, branch, or SHA)'
+        required: true
+        type: string
+      reason:
+        description: 'Rollback reason (logged to Discord)'
+        required: true
+        type: string
 
 concurrency:
   group: deploy-production
@@ -18,15 +25,13 @@ env:
 
 jobs:
   build:
-    name: Build (static export)
+    name: Build @ ${{ inputs.ref }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    outputs:
-      sha_short: ${{ steps.meta.outputs.sha_short }}
     steps:
       - uses: actions/checkout@v4
-      - id: meta
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
@@ -35,7 +40,7 @@ jobs:
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
-          name: static-export-${{ github.sha }}
+          name: rollback-static-export-${{ github.run_id }}
           path: out/
           retention-days: 7
 
@@ -48,7 +53,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: static-export-${{ github.sha }}
+          name: rollback-static-export-${{ github.run_id }}
           path: out/
       - uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -70,43 +75,36 @@ jobs:
     needs: deploy
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
       - name: Run healthcheck
         run: bash .github/scripts/healthcheck.sh https://ericcaskey.com
 
-  create-release:
-    name: Create GitHub Release
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: healthcheck
-    steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: `v${context.runNumber}`,
-              name: `Release ${context.runNumber} — ${context.sha.substring(0, 7)}`,
-              generate_release_notes: true,
-            });
-
   notify:
-    name: Notify Discord
+    name: Notify Discord (ROLLBACK)
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: [deploy, healthcheck, create-release]
+    needs: [deploy, healthcheck]
     if: always()
     environment: production
     steps:
       - name: Send Discord notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          REF: ${{ inputs.ref }}
+          REASON: ${{ inputs.reason }}
         run: |
+          if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
+            echo "DISCORD_WEBHOOK_URL not set — skipping notification"
+            exit 0
+          fi
           if [ "${{ needs.healthcheck.result }}" = "success" ]; then
-            COLOR=3066993
-            STATUS="Production deploy succeeded — ericcaskey.com"
+            COLOR=15844367
+            STATUS="↩️ ericcaskey.com ROLLBACK to ${REF} succeeded"
           else
             COLOR=15158332
-            STATUS="Production deploy failed — ericcaskey.com"
+            STATUS="❌ ericcaskey.com ROLLBACK to ${REF} FAILED"
           fi
-          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+          curl -s --max-time 15 -X POST "${DISCORD_WEBHOOK_URL}" \
             -H "Content-Type: application/json" \
-            -d "{\"embeds\":[{\"title\":\"$STATUS\",\"description\":\"Commit \`${{ github.sha }}\` · [View run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\",\"color\":$COLOR}]}"
+            -d "{\"embeds\":[{\"title\":\"${STATUS}\",\"description\":\"Ref: \`${REF}\` · Reason: ${REASON} · [View run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\",\"color\":${COLOR},\"footer\":{\"text\":\"caskeycoding.com CI/CD\"}}]}" || true
