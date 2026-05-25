@@ -170,7 +170,7 @@ jobs:
     needs: [nda-scan, voice-scan, lint, build, e2e, npm-audit]
     if: always()
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v9
         with:
           script: |
             const results = {
