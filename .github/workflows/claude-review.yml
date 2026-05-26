@@ -1,8 +1,10 @@
 name: Claude Code Review
 
 on:
+  # Only run on open/reopen to save Actions minutes. Comment `@claude`
+  # on the PR to re-trigger a review against the latest commit.
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, reopened]
   issue_comment:
     types: [created]
 
@@ -14,9 +16,13 @@ permissions:
 
 jobs:
   claude-review:
+    # Kill switch: set org variable CI_PAUSED=true to skip Claude review.
+    # See AGENTS.md.
     if: |
-      (github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]') ||
-      (github.event_name == 'issue_comment' && github.event.issue.pull_request != null && contains(github.event.comment.body, '@claude'))
+      vars.CI_PAUSED != 'true' && (
+        (github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]') ||
+        (github.event_name == 'issue_comment' && github.event.issue.pull_request != null && contains(github.event.comment.body, '@claude'))
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

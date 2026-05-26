@@ -12,6 +12,8 @@ permissions:
 jobs:
   lighthouse:
     name: Lighthouse (advisory)
+    # Kill switch: set org var CI_PAUSED=true to skip. See AGENTS.md.
+    if: vars.CI_PAUSED != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     continue-on-error: true
