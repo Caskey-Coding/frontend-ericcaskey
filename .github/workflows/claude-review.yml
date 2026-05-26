@@ -1,8 +1,10 @@
 name: Claude Code Review
 
 on:
+  # Only run on open/reopen to save Actions minutes. Comment `@claude`
+  # on the PR to re-trigger a review against the latest commit.
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, reopened]
   issue_comment:
     types: [created]
 
