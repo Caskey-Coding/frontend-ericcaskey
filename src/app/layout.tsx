@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 const themeInitScript = `(function(){try{var KEY='eric-caskey-theme';var LEGACY=['theme','caskey-site-theme'];var v=null;try{var u=new URL(window.location.href);var q=u.searchParams.get('theme');if(q==='dark'||q==='light'){v=q;u.searchParams.delete('theme');var next=u.pathname+(u.searchParams.toString()?'?'+u.searchParams:'')+u.hash;window.history.replaceState(null,'',next);localStorage.setItem(KEY,v);}}catch(e){}if(!v){var s=localStorage.getItem(KEY);if(s==='dark'||s==='light')v=s;}if(!v){for(var i=0;i<LEGACY.length;i++){var k=LEGACY[i];var lv=localStorage.getItem(k);if(lv==='dark'||lv==='light'){v=lv;localStorage.setItem(KEY,v);localStorage.removeItem(k);break;}}}var t=v||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);var m=document.getElementById('meta-theme-color');if(m)m.setAttribute('content',t==='dark'?'#111110':'#f9f9f8');}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-01C9GQ8W3Q';
 
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
@@ -44,6 +44,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <PersonJsonLd />
         {gaId ? (
           <>
+            <Script id="ga4-consent" strategy="beforeInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('consent', 'default', {
+                  ad_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied',
+                  analytics_storage: 'granted',
+                  wait_for_update: 500,
+                });
+                gtag('consent', 'default', {
+                  ad_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied',
+                  analytics_storage: 'denied',
+                  region: ['AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR','GR','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','IS','LI','NO'],
+                });
+              `}
+            </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
               strategy="afterInteractive"
