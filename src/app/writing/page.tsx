@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Writing',
   description:
     'Three selected essays by Eric Caskey on spec-driven development, safety-critical distributed systems, and AI application engineering.',
+  alternates: { canonical: '/writing' },
 };
 
 const essays = [

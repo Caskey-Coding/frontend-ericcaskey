@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: 'Contact',
   description:
     'Get in touch with Eric Caskey — hiring, engineering, and press inquiries.',
+  alternates: { canonical: '/contact' },
 };
 
 const contactPageJsonLd = {
