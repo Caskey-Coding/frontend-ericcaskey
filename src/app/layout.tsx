@@ -80,8 +80,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ) : null}
       </head>
       <body className="min-h-screen flex flex-col">
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <Nav />
-        <main className="flex-1 mx-auto w-full max-w-3xl px-6 py-12 md:py-20">
+        <main
+          id="main"
+          className="flex-1 mx-auto w-full max-w-3xl px-6 py-12 md:py-20"
+        >
           {children}
         </main>
         <Footer />
