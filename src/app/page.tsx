@@ -11,6 +11,15 @@ const websiteJsonLd = {
     '@type': 'Person',
     name: 'Eric Caskey',
     url: 'https://ericcaskey.com',
+    jobTitle: 'Platform Engineer',
+    // Declare the cross-domain + social profiles so search engines resolve
+    // ericcaskey.com and caskeycoding.com to one entity (caskeycoding's Person
+    // already links back here) rather than treating them as competitors.
+    sameAs: [
+      'https://caskeycoding.com',
+      'https://www.linkedin.com/in/ericrcaskey',
+      'https://github.com/CaskeyCoding',
+    ],
   },
 };
 
