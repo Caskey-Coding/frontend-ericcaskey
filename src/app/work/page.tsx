@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   title: 'Work',
   description:
     'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
+  openGraph: {
+    title: 'Work',
+    description:
+      'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
+    url: 'https://ericcaskey.com/work',
+  },
   alternates: { canonical: '/work' },
 };
 

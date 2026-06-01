@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: 'Contact',
   description:
     'Get in touch with Eric Caskey — hiring, engineering, and press inquiries.',
+  openGraph: {
+    title: 'Contact',
+    description: 'Get in touch with Eric Caskey: hiring, engineering, and press inquiries.',
+    url: 'https://ericcaskey.com/contact',
+  },
   alternates: { canonical: '/contact' },
 };
 
