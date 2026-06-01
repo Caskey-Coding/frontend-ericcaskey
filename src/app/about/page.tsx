@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   title: 'About',
   description:
     "Career narrative, values, and the mission behind Eric Caskey's platform engineering work.",
+  openGraph: {
+    title: 'About',
+    description:
+      "Career narrative, values, and the mission behind Eric Caskey's platform engineering work.",
+    url: 'https://ericcaskey.com/about',
+  },
   alternates: { canonical: '/about' },
 };
 

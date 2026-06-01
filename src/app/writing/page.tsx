@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   title: 'Writing',
   description:
     'Three selected essays by Eric Caskey on spec-driven development, safety-critical distributed systems, and AI application engineering.',
+  openGraph: {
+    title: 'Writing',
+    description:
+      'Three selected essays by Eric Caskey on spec-driven development, safety-critical distributed systems, and AI application engineering.',
+    url: 'https://ericcaskey.com/writing',
+  },
   alternates: { canonical: '/writing' },
 };
 
