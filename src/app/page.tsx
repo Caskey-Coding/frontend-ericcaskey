@@ -9,6 +9,9 @@ const websiteJsonLd = {
   url: 'https://ericcaskey.com',
   author: {
     '@type': 'Person',
+    // Same @id as the canonical Person node (see PersonJsonLd.tsx) so this
+    // author reference resolves to the one entity rather than spawning a new one.
+    '@id': 'https://ericcaskey.com/#person',
     name: 'Eric Caskey',
     url: 'https://ericcaskey.com',
     jobTitle: 'Platform Engineer',
