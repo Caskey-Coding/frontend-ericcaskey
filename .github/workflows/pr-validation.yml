@@ -20,37 +20,24 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Scan for disallowed content
+      # Shared voice/NDA scanner lives in the PRIVATE caskeycoding-specs repo
+      # (_shared/tooling/voice_scan.py, FLEET-1). This repo is PUBLIC, so the
+      # default GITHUB_TOKEN cannot read it: requires a fine-grained read-only
+      # PAT for caskeycoding-specs stored as the GH_CROSS_REPO_TOKEN secret
+      # (FLEET-1b). The frontend-nda profile carries this repo's NDA ruleset.
+      - name: Check out shared scan tooling (caskeycoding-specs)
+        uses: actions/checkout@v4
+        with:
+          repository: Caskey-Coding/caskeycoding-specs
+          path: .specs-tooling
+          token: ${{ secrets.GH_CROSS_REPO_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Scan for disallowed content (shared voice_scan.py, frontend-nda)
         run: |
-          set +e
-          VIOLATIONS=0
-          REPORT=""
-          scan() {
-            local PATTERN="$1"
-            local REASON="$2"
-            MATCHES=$(grep -rn --include="*.ts" --include="*.tsx" --include="*.md" \
-              --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=out \
-              -i "$PATTERN" src/ public/ 2>/dev/null || true)
-            if [ -n "$MATCHES" ]; then
-              VIOLATIONS=$((VIOLATIONS + 1))
-              REPORT="$REPORT\n### NDA violation: $REASON\n\`\`\`\n$MATCHES\n\`\`\`\n"
-            fi
-          }
-          scan "System Development Organization" "Internal org name: 'System Development Organization'"
-          scan "Reliability org" "Internal org name: 'Reliability org'"
-          scan "VitalNet" "Internal tool name: 'VitalNet'"
-          scan "engineer at Amazon who" "Disallowed attribution: 'engineer at Amazon who'"
-          scan "At Amazon, I" "Disallowed attribution: 'At Amazon, I'"
-          scan "At Amazon, I've" "Disallowed attribution: 'At Amazon, I've'"
-          scan "At Amazon, I faced" "Disallowed attribution: 'At Amazon, I faced'"
-          scan "per day in us-east-1" "Internal metric: execution rate per region"
-          scan "account ID" "Potential internal detail: AWS account ID reference"
-          if [ "$VIOLATIONS" -gt 0 ]; then
-            echo -e "NDA scan found $VIOLATIONS violation(s):\n$REPORT"
-            exit 1
-          else
-            echo "NDA scan passed."
-          fi
+          python3 .specs-tooling/_shared/tooling/voice_scan.py \
+            --profile frontend-nda --root . src public
 
   voice-scan:
     name: Voice Rule Scan
@@ -58,36 +45,21 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Enforce voice rules from ericcaskey-com/frontend/001
+      - name: Check out shared scan tooling (caskeycoding-specs)
+        uses: actions/checkout@v4
+        with:
+          repository: Caskey-Coding/caskeycoding-specs
+          path: .specs-tooling
+          token: ${{ secrets.GH_CROSS_REPO_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      # The voice profile carries the case-sensitive marketing/title rules and
+      # excludes PersonJsonLd.tsx (structured schema, not rendered copy).
+      - name: Enforce voice rules (shared voice_scan.py, voice profile)
         run: |
-          set +e
-          VIOLATIONS=0
-          REPORT=""
-          scan() {
-            local PATTERN="$1"
-            local REASON="$2"
-            MATCHES=$(grep -rn --include="*.ts" --include="*.tsx" --include="*.md" \
-              --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=out \
-              --exclude="PersonJsonLd.tsx" \
-              "$PATTERN" src/ 2>/dev/null || true)
-            if [ -n "$MATCHES" ]; then
-              VIOLATIONS=$((VIOLATIONS + 1))
-              REPORT="$REPORT\n### Voice violation: $REASON\n\`\`\`\n$MATCHES\n\`\`\`\n"
-            fi
-          }
-          scan "Senior Software Engineer" "Banned title in rendered copy"
-          scan "Principal Engineer" "Banned title: 'Principal Engineer'"
-          scan "cutting-edge" "Marketing adjective: 'cutting-edge'"
-          scan "world-class" "Marketing adjective: 'world-class'"
-          scan "passionate" "Marketing adjective: 'passionate'"
-          scan "thought leader" "Marketing adjective: 'thought leader'"
-          scan "thought leadership" "Marketing adjective: 'thought leadership'"
-          if [ "$VIOLATIONS" -gt 0 ]; then
-            echo -e "Voice scan found $VIOLATIONS violation(s):\n$REPORT"
-            exit 1
-          else
-            echo "Voice scan passed."
-          fi
+          python3 .specs-tooling/_shared/tooling/voice_scan.py \
+            --profile voice --root . src
 
   lint:
     name: Lint
