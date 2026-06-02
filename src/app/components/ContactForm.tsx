@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 
-type Status = 'idle' | 'sending' | 'success' | 'error';
+type Status = 'idle' | 'sending' | 'success' | 'invalid' | 'error';
 
 const API_URL = process.env.NEXT_PUBLIC_CONTACT_API_URL ?? '';
 
@@ -28,8 +28,10 @@ export function ContactForm() {
     const email = getString(data, 'email');
     const message = getString(data, 'message');
 
+    // Client validation failure is distinct from a send failure: tell the
+    // user what to fix rather than implying the message bounced.
     if (!name || !email || message.length < 10 || message.length > 2000) {
-      setStatus('error');
+      setStatus('invalid');
       return;
     }
 
@@ -108,18 +110,27 @@ export function ContactForm() {
         {status === 'sending' ? 'Sending\u2026' : 'Send message'}
       </button>
 
-      {status === 'success' && (
-        <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-          Message sent. I&apos;ll get back to you soon.
-        </p>
-      )}
+      {/* Status region: announced to assistive tech (aria-live), with errors
+          raised as alerts. Success and the two failure kinds are distinct. */}
+      <div aria-live="polite" className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+        {status === 'success' && (
+          <p>Message sent. I&apos;ll get back to you soon.</p>
+        )}
 
-      {status === 'error' && (
-        <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-          That did not go through. Try again, or email me directly at the
-          address below.
-        </p>
-      )}
+        {status === 'invalid' && (
+          <p role="alert">
+            Please add your name, a valid email, and a message between 10 and
+            2000 characters.
+          </p>
+        )}
+
+        {status === 'error' && (
+          <p role="alert">
+            That did not go through. Try again, or email me directly at the
+            address below.
+          </p>
+        )}
+      </div>
     </form>
   );
 }
