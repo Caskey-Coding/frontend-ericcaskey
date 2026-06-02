@@ -24,7 +24,7 @@ jobs:
     outputs:
       sha_short: ${{ steps.meta.outputs.sha_short }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - id: meta
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v6
@@ -69,7 +69,7 @@ jobs:
     timeout-minutes: 5
     needs: deploy
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Run healthcheck
         run: bash .github/scripts/healthcheck.sh https://ericcaskey.com
 
