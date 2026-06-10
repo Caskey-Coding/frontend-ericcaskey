@@ -15,7 +15,23 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: /mobile-overflow\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
+    },
+    // Mobile project scoped (testMatch) to the overflow spec only: CI
+    // minutes are metered (see AGENTS.md), and the rest of the suite is
+    // viewport-independent content/behavior checks — running it twice
+    // would roughly double e2e time for no extra signal.
+    // Explicit 375px chromium viewport rather than devices['iPhone SE'],
+    // which defaults to WebKit — CI only installs chromium
+    // (pr-validation.yml: `playwright install --with-deps chromium`).
+    {
+      name: 'mobile-chromium',
+      testMatch: /mobile-overflow\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 375, height: 667 },
+      },
     },
   ],
   // No --single: that flag rewrites EVERY route to index.html, so the suite
