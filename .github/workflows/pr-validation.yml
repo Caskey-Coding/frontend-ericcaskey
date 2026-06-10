@@ -97,6 +97,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
+      - name: Public asset guard (size + GPS EXIF)
+        run: python3 scripts/check-public-assets.py
       - uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'

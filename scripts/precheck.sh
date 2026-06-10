@@ -5,6 +5,9 @@
 set -e
 cd "$(dirname "$0")/.."
 
+echo "==> public asset guard (size + GPS EXIF)"
+python3 scripts/check-public-assets.py
+
 echo "==> lint"
 npm run lint
 
