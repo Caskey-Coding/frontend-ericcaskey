@@ -48,16 +48,8 @@ export default function Contact() {
 
       <ContactForm />
 
-      <section
-        className="flex flex-col gap-3 mt-4 pt-6 border-t text-sm"
-        style={{
-          borderColor: 'var(--color-border)',
-          color: 'var(--color-text-secondary)',
-        }}
-      >
-        <h2 className="text-base font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-          Direct
-        </h2>
+      <section className="flex flex-col gap-3 mt-4 pt-6 border-t border-border text-sm text-muted">
+        <h2 className="text-base font-semibold text-text">Direct</h2>
         <p>
           <strong>Email:</strong> e at ericcaskey dot com
         </p>

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
   applyTheme,
@@ -26,7 +27,15 @@ function MoonIcon() {
   );
 }
 
+const navLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/work', label: 'Work' },
+  { href: '/writing', label: 'Writing' },
+  { href: '/contact', label: 'Contact' },
+] as const;
+
 export function Nav() {
+  const pathname = usePathname();
   const [mode, setMode] = useState<SiteThemeMode>('light');
   const [mounted, setMounted] = useState(false);
 
@@ -47,61 +56,67 @@ export function Nav() {
 
   return (
     <header
-      className="sticky top-0 z-10 border-b"
+      className="sticky top-0 z-10 border-b border-border"
       style={{
         backgroundColor: 'color-mix(in srgb, var(--color-bg) 88%, transparent)',
-        borderColor: 'var(--color-border)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        height: 56,
+        height: 'var(--nav-height)',
       }}
     >
       <div className="mx-auto w-full max-w-3xl px-6 flex items-center justify-between h-full">
         <Link
           href="/"
-          className="inline-flex items-center min-h-11 font-semibold tracking-tight"
-          style={{ fontSize: '1.0625rem', color: 'var(--color-text-primary)' }}
+          className="inline-flex items-center min-h-11 font-semibold tracking-tight text-text"
+          style={{ fontSize: '1.0625rem' }}
           aria-label="Eric Caskey — home"
         >
           {/* Below md the full wordmark + links + toggle overflow a 360px
               viewport, so collapse to a monogram. aria-label keeps the
               accessible name as the full wordmark. */}
           <span className="md:hidden" aria-hidden="true">
-            E<span style={{ color: 'var(--color-accent)' }}>C</span>
+            E<span className="text-accent">C</span>
           </span>
           <span className="hidden md:inline">
-            Eric <span style={{ color: 'var(--color-accent)' }}>Caskey</span>
+            Eric <span className="text-accent">Caskey</span>
           </span>
         </Link>
         <div className="flex items-center gap-3 md:gap-4">
           <nav aria-label="Primary">
             <ul className="flex items-center gap-3 md:gap-5 text-[0.8125rem] md:text-sm font-medium">
-              <li>
-                <Link href="/about" className="inline-flex items-center min-h-11">About</Link>
-              </li>
-              <li>
-                <Link href="/work" className="inline-flex items-center min-h-11">Work</Link>
-              </li>
-              <li>
-                <Link href="/writing" className="inline-flex items-center min-h-11">Writing</Link>
-              </li>
-              <li>
-                <Link href="/contact" className="inline-flex items-center min-h-11">Contact</Link>
-              </li>
+              {navLinks.map(({ href, label }) => {
+                const active = pathname === href;
+                return (
+                  <li key={href}>
+                    {/* Active treatment is color + underline only — both are
+                        zero-width, so the 320px header (B-073: zero slack)
+                        never reflows between states. No weight change, no
+                        padding/letter-spacing change. */}
+                    <Link
+                      href={href}
+                      aria-current={active ? 'page' : undefined}
+                      className={`inline-flex items-center min-h-11${
+                        active
+                          ? ' text-accent underline decoration-2 underline-offset-[6px]'
+                          : ''
+                      }`}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
           <button
             type="button"
             onClick={toggle}
             aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="inline-flex items-center justify-center border"
+            className="inline-flex items-center justify-center border border-border bg-surface text-muted"
             style={{
               minWidth: 44,
               minHeight: 44,
               borderRadius: 'var(--radius-md)',
-              borderColor: 'var(--color-border)',
-              background: 'var(--color-surface)',
-              color: 'var(--color-text-secondary)',
               transition: 'color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), background-color var(--duration-base) var(--ease-standard)',
             }}
           >

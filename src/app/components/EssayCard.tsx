@@ -14,19 +14,13 @@ export function EssayCard({
   editorNote,
 }: EssayCardProps) {
   return (
-    <article
-      className="flex flex-col gap-2 py-5 border-b"
-      style={{ borderColor: 'var(--color-border)' }}
-    >
+    <article className="flex flex-col gap-2 py-5 border-b border-border">
       <h3 className="text-lg font-semibold leading-snug">
         <CrossSiteLink href={url} rel="noopener">
           {title}
         </CrossSiteLink>
       </h3>
-      <p
-        className="text-sm"
-        style={{ color: 'var(--color-text-secondary)' }}
-      >
+      <p className="text-sm text-muted">
         {publishedDate} · Caskey Engineering
       </p>
       <p className="leading-relaxed">{editorNote}</p>

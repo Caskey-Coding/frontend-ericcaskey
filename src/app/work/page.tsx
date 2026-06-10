@@ -108,10 +108,7 @@ export default function Work() {
         </div>
       </section>
 
-      <p
-        className="leading-relaxed"
-        style={{ color: 'var(--color-text-secondary)' }}
-      >
+      <p className="leading-relaxed text-muted">
         Everything above — and several things that are not — lives in full on{' '}
         <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
           Caskey Engineering

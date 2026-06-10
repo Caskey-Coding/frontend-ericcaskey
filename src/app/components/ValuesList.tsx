@@ -13,12 +13,7 @@ export function ValuesList({ values }: ValuesListProps) {
       {values.map((v, i) => (
         <li key={i} className="flex flex-col gap-1">
           <p className="font-semibold">{v.title}</p>
-          <p
-            className="leading-relaxed"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            {v.body}
-          </p>
+          <p className="leading-relaxed text-muted">{v.body}</p>
         </li>
       ))}
     </ol>

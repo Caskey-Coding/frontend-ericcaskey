@@ -95,13 +95,7 @@ export default function About() {
         <ValuesList values={values} />
       </section>
 
-      <blockquote
-        className="border-l-2 pl-4 italic text-lg leading-snug"
-        style={{
-          borderColor: 'var(--color-accent)',
-          color: 'var(--color-text-primary)',
-        }}
-      >
+      <blockquote className="border-l-2 border-accent pl-4 italic text-lg leading-snug text-text">
         Build the systems other engineers depend on. Write honestly about how
         it goes.
       </blockquote>

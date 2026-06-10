@@ -55,31 +55,31 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6" noValidate>
       <label className="flex flex-col gap-1 text-sm">
-        <span style={{ color: 'var(--color-text-secondary)' }}>Your name</span>
+        <span className="text-muted">Your name</span>
         <input
           name="name"
           type="text"
           required
           placeholder="Full name"
-          className="border px-3 py-2 bg-transparent min-h-11"
-          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
+          className="border border-border px-3 py-2 bg-transparent min-h-11"
+          style={{ borderRadius: 'var(--radius-md)' }}
         />
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span style={{ color: 'var(--color-text-secondary)' }}>Email</span>
+        <span className="text-muted">Email</span>
         <input
           name="email"
           type="email"
           required
           placeholder="you@example.com"
-          className="border px-3 py-2 bg-transparent min-h-11"
-          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
+          className="border border-border px-3 py-2 bg-transparent min-h-11"
+          style={{ borderRadius: 'var(--radius-md)' }}
         />
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span style={{ color: 'var(--color-text-secondary)' }}>
+        <span className="text-muted">
           What&apos;s this about?
         </span>
         <textarea
@@ -89,8 +89,8 @@ export function ContactForm() {
           maxLength={2000}
           rows={6}
           placeholder="Role, project, or inquiry"
-          className="border px-3 py-2 bg-transparent resize-y"
-          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
+          className="border border-border px-3 py-2 bg-transparent resize-y"
+          style={{ borderRadius: 'var(--radius-md)' }}
         />
       </label>
 
@@ -116,7 +116,7 @@ export function ContactForm() {
           for both failure kinds. */}
       <div aria-live="polite" className="text-sm">
         {status === 'success' && (
-          <p style={{ color: 'var(--color-accent)' }}>
+          <p className="text-accent">
             Message sent. I&apos;ll get back to you soon.
           </p>
         )}
