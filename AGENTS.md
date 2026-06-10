@@ -41,6 +41,7 @@ entirely, not just the soft kill switch), deploy from your laptop:
 
 ```bash
 export CLOUDFRONT_DISTRIBUTION_ID=<your-distribution-id>
+export NEXT_PUBLIC_CONTACT_API_URL=<contact-api-endpoint>
 bash scripts/deploy.sh
 ```
 
@@ -48,3 +49,19 @@ Mirrors `deploy-production.yml`: builds the static export, syncs to
 S3, invalidates CloudFront, runs the multi-route healthcheck.
 Requires `aws` CLI configured with the same credentials the workflow
 uses.
+
+## Contact form API URL (B-070)
+
+The contact form (`src/app/components/ContactForm.tsx`) POSTs to
+`${NEXT_PUBLIC_CONTACT_API_URL}/contact`. The URL is inlined at build
+time; production builds (workflow and `scripts/deploy.sh`) refuse to
+proceed if it is unset or missing from the built export, because the
+fallback is a relative `/contact` POST against CloudFront that fails
+every submission. PR/preview builds may build without it.
+
+- Source of truth: repo Actions variable
+  (`gh variable set NEXT_PUBLIC_CONTACT_API_URL --body "<url>"`).
+- Backend: `ContactFn` + HTTP API `ericcaskey-contact` in
+  `ai-blog-infra/lib/ericcaskey-frontend-stack.ts` (CDK output
+  `ContactApiUrl`). If the stack is redeployed and the API ID changes,
+  update the variable to the new `https://<api-id>.execute-api.us-east-1.amazonaws.com`.

@@ -6,16 +6,28 @@
 #
 # Usage:
 #   export CLOUDFRONT_DISTRIBUTION_ID=<distribution-id>
+#   export NEXT_PUBLIC_CONTACT_API_URL=<contact-api-endpoint>
 #   bash scripts/deploy.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 : "${CLOUDFRONT_DISTRIBUTION_ID:?Required: set CLOUDFRONT_DISTRIBUTION_ID}"
+# Without this the contact form POSTs relative /contact against CloudFront
+# and every submission fails (B-070). Use the same value as the repo
+# Actions variable: gh variable list | grep NEXT_PUBLIC_CONTACT_API_URL
+: "${NEXT_PUBLIC_CONTACT_API_URL:?Required: set NEXT_PUBLIC_CONTACT_API_URL (contact form API endpoint)}"
+export NEXT_PUBLIC_CONTACT_API_URL
 S3_BUCKET="ericcaskey.com"
 
 echo "==> npm ci + build (static export)"
 npm ci
 npm run build
+
+echo "==> verify contact API URL baked into export"
+if ! grep -rqF "$NEXT_PUBLIC_CONTACT_API_URL" out/_next/static/; then
+  echo "ERROR: built export does not contain NEXT_PUBLIC_CONTACT_API_URL; refusing to deploy." >&2
+  exit 1
+fi
 
 echo "==> aws s3 sync to s3://$S3_BUCKET"
 aws s3 sync out/ "s3://$S3_BUCKET" --delete

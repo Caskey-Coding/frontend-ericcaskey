@@ -32,7 +32,35 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci
+      # The contact form is the site's only conversion path. A production
+      # build without NEXT_PUBLIC_CONTACT_API_URL bakes in a relative
+      # /contact POST against CloudFront, which fails every submission.
+      # Fail the deploy loudly instead of shipping a broken form (B-070).
+      - name: Assert contact API URL is configured
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+        run: |
+          if [ -z "$NEXT_PUBLIC_CONTACT_API_URL" ]; then
+            echo "::error::Repository variable NEXT_PUBLIC_CONTACT_API_URL is not set." \
+                 "The contact form would POST to the static origin and fail every" \
+                 "submission. Set it with:" \
+                 "gh variable set NEXT_PUBLIC_CONTACT_API_URL --body \"<api-endpoint>\""
+            exit 1
+          fi
+          echo "Contact API URL configured: $NEXT_PUBLIC_CONTACT_API_URL"
       - run: npm run build
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+      - name: Verify contact API URL baked into export
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+        run: |
+          if ! grep -rqF "$NEXT_PUBLIC_CONTACT_API_URL" out/_next/static/; then
+            echo "::error::Built static export does not contain NEXT_PUBLIC_CONTACT_API_URL —" \
+                 "the contact form would still POST relative /contact. Refusing to deploy."
+            exit 1
+          fi
+          echo "Static export contains the contact API URL."
       - uses: actions/upload-artifact@v7
         with:
           name: static-export-${{ github.sha }}
