@@ -41,7 +41,7 @@ export default function About() {
   return (
     <article className="flex flex-col gap-12">
       <header className="flex flex-col gap-2">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-semibold">
           About
         </h1>
       </header>
@@ -91,17 +91,19 @@ export default function About() {
       </section>
 
       <section className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold">Values</h2>
+        <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Values</h2>
         <ValuesList values={values} />
       </section>
 
-      <blockquote className="border-l-2 border-accent pl-4 italic text-lg leading-snug text-text">
+      {/* Hairlines only (v2.1 §2.5): 1px border; 2px belongs to the focus
+          ring alone. */}
+      <blockquote className="border-l border-accent pl-4 italic text-lg leading-snug text-text">
         Build the systems other engineers depend on. Write honestly about how
         it goes.
       </blockquote>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold">On writing</h2>
+        <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">On writing</h2>
         <p className="leading-relaxed">
           I publish long-form essays on workflow orchestration, safety-critical
           platforms, and spec-driven development at{' '}

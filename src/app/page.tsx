@@ -94,8 +94,10 @@ export default function Home() {
 
       <div className="grid md:grid-cols-[1fr_280px] gap-10 items-start">
         <header className="flex flex-col gap-5">
+          {/* Tracking/leading come from the global h1 rule
+              (--ls-tight/--lh-tight, family design spec v2.1 §2.4). */}
           <h1
-            className="font-semibold tracking-tight leading-[1.05]"
+            className="font-semibold"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}
           >
             Eric Caskey
@@ -136,20 +138,26 @@ export default function Home() {
 
       <section
         aria-label="Scale in numbers"
-        className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8 border-y border-border"
+        className="flex flex-col gap-4 py-8 border-y border-border"
       >
-        {stats.map((s) => (
-          <div key={s.label} className="flex flex-col gap-1">
-            <span className="text-3xl md:text-4xl font-semibold tracking-tight tabular-nums">
-              {s.figure}
-            </span>
-            <span className="text-sm text-muted">{s.label}</span>
-          </div>
-        ))}
+        <p className="eyebrow">Numbers</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {stats.map((s) => (
+            <div key={s.label} className="flex flex-col gap-1">
+              <span className="text-3xl md:text-4xl font-semibold [letter-spacing:var(--ls-tight)] tabular-nums">
+                {s.figure}
+              </span>
+              <span className="text-sm text-muted">{s.label}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold">Featured work</h2>
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Work</p>
+          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Featured work</h2>
+        </div>
         <div className="flex flex-col">
           {featuredWork.map((e) => (
             <TimelineItem key={e.company} {...e} />
@@ -161,7 +169,10 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold">Selected writing</h2>
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Writing</p>
+          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Selected writing</h2>
+        </div>
         <div className="flex flex-col">
           {selectedWriting.map((e) => (
             <EssayCard key={e.url} {...e} />
@@ -173,7 +184,7 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col items-start gap-4">
-        <h2 className="text-xl font-semibold">Get in touch</h2>
+        <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Get in touch</h2>
         <p className="leading-relaxed">
           I read everything. The contact form is the fastest route.
         </p>

@@ -25,13 +25,14 @@ export function TimelineItem({
   metrics,
 }: TimelineItemProps) {
   const content = (
-    <div className="flex flex-col gap-2 py-5 border-b border-border">
+    <div className="flex flex-col gap-2 py-5 border-b border-border transition-colors">
       <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
         <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
           <span className="font-semibold">{company}</span>
           <span className="text-sm text-muted">{role}</span>
         </div>
-        <span className="text-sm text-muted">{dates}</span>
+        {/* tabular-nums: date ranges are comparable data (v2.1 §2.2). */}
+        <span className="text-sm text-muted tabular-nums">{dates}</span>
       </div>
       {metrics && metrics.length > 0 && (
         // flex-wrap so chips stack instead of overflowing at 375/320px.
@@ -68,7 +69,9 @@ export function TimelineItem({
       <CrossSiteLink
         href={href}
         rel="noopener"
-        className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)]"
+        // Border-led hover (v2.1 §2.1): the row's hairline steps up to
+        // border-strong; no lift, no shadow on flat rows.
+        className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
       >
         {content}
         <span className="sr-only">(opens Caskey Engineering)</span>

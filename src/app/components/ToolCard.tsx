@@ -12,7 +12,8 @@ export function ToolCard({ name, tagline, url }: ToolCardProps) {
     <CrossSiteLink
       href={url}
       rel="noopener"
-      className="link-plain flex flex-col gap-2 py-4 border-b border-border min-h-11 transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)]"
+      // Border-led hover (v2.1 §2.1): hairline steps up to border-strong.
+      className="link-plain flex flex-col gap-2 py-4 border-b border-border min-h-11 transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:border-[color:var(--color-border-strong)]"
     >
       <span className="flex flex-col md:flex-row md:items-baseline md:gap-3">
         <span className="font-semibold">{name}</span>
