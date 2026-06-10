@@ -59,15 +59,23 @@ export function Nav() {
       <div className="mx-auto w-full max-w-3xl px-6 flex items-center justify-between h-full">
         <Link
           href="/"
-          className="font-semibold tracking-tight"
+          className="inline-flex items-center min-h-11 font-semibold tracking-tight"
           style={{ fontSize: '1.0625rem', color: 'var(--color-text-primary)' }}
           aria-label="Eric Caskey — home"
         >
-          Eric <span style={{ color: 'var(--color-accent)' }}>Caskey</span>
+          {/* Below md the full wordmark + links + toggle overflow a 360px
+              viewport, so collapse to a monogram. aria-label keeps the
+              accessible name as the full wordmark. */}
+          <span className="md:hidden" aria-hidden="true">
+            E<span style={{ color: 'var(--color-accent)' }}>C</span>
+          </span>
+          <span className="hidden md:inline">
+            Eric <span style={{ color: 'var(--color-accent)' }}>Caskey</span>
+          </span>
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <nav aria-label="Primary">
-            <ul className="flex items-center gap-5 text-sm font-medium">
+            <ul className="flex items-center gap-3 md:gap-5 text-[0.8125rem] md:text-sm font-medium">
               <li>
                 <Link href="/about" className="inline-flex items-center min-h-11">About</Link>
               </li>
