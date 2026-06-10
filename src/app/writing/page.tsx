@@ -49,9 +49,14 @@ export default function Writing() {
   return (
     <article className="flex flex-col gap-10">
       <header className="flex flex-col gap-4">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-          Selected writing
-        </h1>
+        {/* Eyebrow microlabel (family design spec v2.1 §2.3) — generic
+            one-word label, no claims. */}
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Essays</p>
+          <h1 className="text-3xl md:text-4xl font-semibold">
+            Selected writing
+          </h1>
+        </div>
         <p className="leading-relaxed text-muted">
           Three essays from Caskey Engineering that cover how I think about
           this work. Each opens on caskeycoding.com.

@@ -12,8 +12,9 @@ export default function NotFound() {
       <p className="text-sm font-medium tracking-wide text-[var(--color-accent)]">
         404
       </p>
+      {/* Tracking/leading come from the global h1 rule (v2.1 §2.4). */}
       <h1
-        className="font-semibold tracking-tight leading-[1.05]"
+        className="font-semibold"
         style={{ fontSize: 'clamp(2rem, 5vw, 3rem)' }}
       >
         This page doesn’t exist

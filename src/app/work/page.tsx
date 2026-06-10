@@ -76,9 +76,14 @@ export default function Work() {
   return (
     <article className="flex flex-col gap-12">
       <header className="flex flex-col gap-4">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-          Work
-        </h1>
+        {/* Eyebrow microlabel (family design spec v2.1 §2.3) — generic
+            one-word label, no claims. */}
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Experience</p>
+          <h1 className="text-3xl md:text-4xl font-semibold">
+            Work
+          </h1>
+        </div>
         <p className="leading-relaxed">
           Fifteen years in four rows. The deep case studies — with metrics,
           diagrams, and architectural decisions — live on{' '}
@@ -96,7 +101,10 @@ export default function Work() {
       </section>
 
       <section className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold">Tools I&apos;ve built</h2>
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Projects</p>
+          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Tools I&apos;ve built</h2>
+        </div>
         <p className="leading-relaxed">
           Two small AI applications built on the same stack I use at work,
           published as field notes on Caskey Engineering.

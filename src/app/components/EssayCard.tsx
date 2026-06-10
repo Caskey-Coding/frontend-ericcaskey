@@ -20,7 +20,8 @@ export function EssayCard({
           {title}
         </CrossSiteLink>
       </h3>
-      <p className="text-sm text-muted">
+      {/* tabular-nums: dates are comparable data (v2.1 §2.2). */}
+      <p className="text-sm text-muted tabular-nums">
         {publishedDate} · Caskey Engineering
       </p>
       <p className="leading-relaxed">{editorNote}</p>
