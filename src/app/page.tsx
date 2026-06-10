@@ -65,22 +65,22 @@ const featuredWork = [
 ];
 
 // Two of the three /writing cards, copy verbatim from
-// src/app/writing/page.tsx.
+// src/app/writing/page.tsx (newest-first, B-077).
 const selectedWriting = [
+  {
+    title: 'Designing Safety Guardrails for Distributed Workflow Orchestration',
+    url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
+    publishedDate: 'April 10, 2026',
+    editorNote:
+      "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.",
+  },
   {
     title:
       'Spec-Driven Development and the Folder Architecture That Makes It Work',
     url: 'https://caskeycoding.com/blog/spec-driven-development-and-the-folder-architecture-that-makes-it-work',
-    publishedDate: 'April 2026',
+    publishedDate: 'June 20, 2025',
     editorNote:
       'How I structure projects so AI agents and humans can both find their way around. This is the methodology behind everything else.',
-  },
-  {
-    title: 'Designing Safety Guardrails for Distributed Workflow Orchestration',
-    url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
-    publishedDate: 'March 25, 2026',
-    editorNote:
-      "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.",
   },
 ];
 
@@ -101,10 +101,7 @@ export default function Home() {
             Eric Caskey
           </h1>
 
-          <p
-            className="text-xl md:text-2xl leading-snug"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
+          <p className="text-xl md:text-2xl leading-snug text-muted">
             I build the systems other engineers depend on.
           </p>
 
@@ -139,20 +136,14 @@ export default function Home() {
 
       <section
         aria-label="Scale in numbers"
-        className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8 border-y"
-        style={{ borderColor: 'var(--color-border)' }}
+        className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8 border-y border-border"
       >
         {stats.map((s) => (
           <div key={s.label} className="flex flex-col gap-1">
             <span className="text-3xl md:text-4xl font-semibold tracking-tight tabular-nums">
               {s.figure}
             </span>
-            <span
-              className="text-sm"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              {s.label}
-            </span>
+            <span className="text-sm text-muted">{s.label}</span>
           </div>
         ))}
       </section>
