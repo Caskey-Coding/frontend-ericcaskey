@@ -111,21 +111,25 @@ export function ContactForm() {
       </button>
 
       {/* Status region: announced to assistive tech (aria-live), with errors
-          raised as alerts. Success and the two failure kinds are distinct. */}
-      <div aria-live="polite" className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          raised as alerts. Success and the two failure kinds are distinct,
+          and color reinforces the distinction: accent for success, danger
+          for both failure kinds. */}
+      <div aria-live="polite" className="text-sm">
         {status === 'success' && (
-          <p>Message sent. I&apos;ll get back to you soon.</p>
+          <p style={{ color: 'var(--color-accent)' }}>
+            Message sent. I&apos;ll get back to you soon.
+          </p>
         )}
 
         {status === 'invalid' && (
-          <p role="alert">
+          <p role="alert" style={{ color: 'var(--color-danger)' }}>
             Please add your name, a valid email, and a message between 10 and
             2000 characters.
           </p>
         )}
 
         {status === 'error' && (
-          <p role="alert">
+          <p role="alert" style={{ color: 'var(--color-danger)' }}>
             That did not go through. Try again, or email me directly at the
             address below.
           </p>
