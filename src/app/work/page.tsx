@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { TimelineItem } from '../components/TimelineItem';
 import { ToolCard } from '../components/ToolCard';
 import { CrossSiteLink } from '../components/CrossSiteLink';
+import { ogImage } from '../lib/og';
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     description:
       'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
     url: 'https://ericcaskey.com/work',
+    images: [ogImage],
   },
   alternates: { canonical: '/work' },
 };

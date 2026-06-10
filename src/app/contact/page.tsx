@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ContactForm } from '../components/ContactForm';
+import { ogImage } from '../lib/og';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     title: 'Contact',
     description: 'Get in touch with Eric Caskey: hiring, engineering, and press inquiries.',
     url: 'https://ericcaskey.com/contact',
+    images: [ogImage],
   },
   alternates: { canonical: '/contact' },
 };

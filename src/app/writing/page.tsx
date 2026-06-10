@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { EssayCard } from '../components/EssayCard';
 import { CrossSiteLink } from '../components/CrossSiteLink';
+import { ogImage } from '../lib/og';
 
 export const metadata: Metadata = {
   title: 'Writing',
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     description:
       'Three selected essays by Eric Caskey on spec-driven development, safety-critical distributed systems, and AI application engineering.',
     url: 'https://ericcaskey.com/writing',
+    images: [ogImage],
   },
   alternates: { canonical: '/writing' },
 };
