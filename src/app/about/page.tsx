@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ValuesList } from '../components/ValuesList';
 import { Headshot } from '../components/Headshot';
 import { CrossSiteLink } from '../components/CrossSiteLink';
+import { ogImage } from '../lib/og';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     description:
       "Career narrative, values, and the mission behind Eric Caskey's platform engineering work.",
     url: 'https://ericcaskey.com/about',
+    images: [ogImage],
   },
   alternates: { canonical: '/about' },
 };

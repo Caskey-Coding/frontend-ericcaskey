@@ -25,7 +25,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
     url: 'https://ericcaskey.com',
-    images: ['/eric-caskey-1200.jpg'],
+    // og:image comes from src/app/opengraph-image.tsx (file convention):
+    // a designed 1200x630 card that all routes inherit.
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: 'https://ericcaskey.com/' },

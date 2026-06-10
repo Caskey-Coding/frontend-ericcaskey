@@ -32,6 +32,19 @@ fi
 echo "==> aws s3 sync to s3://$S3_BUCKET"
 aws s3 sync out/ "s3://$S3_BUCKET" --delete
 
+echo "==> fix Content-Type on opengraph-image files"
+# Next.js opengraph-image.tsx emits the PNG without a .png extension;
+# s3 sync defaults extensionless files to application/octet-stream,
+# which OG scrapers reject.
+aws s3 cp "s3://$S3_BUCKET/" "s3://$S3_BUCKET/" \
+  --recursive \
+  --exclude "*" \
+  --include "opengraph-image" \
+  --include "*/opengraph-image" \
+  --metadata-directive REPLACE \
+  --content-type image/png \
+  --cache-control "public, max-age=3600"
+
 echo "==> CloudFront invalidation"
 aws cloudfront create-invalidation \
   --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
