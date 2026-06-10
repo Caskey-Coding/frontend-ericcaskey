@@ -1,14 +1,14 @@
-// Shared Open Graph image descriptor for pages that export their own
-// `openGraph` metadata. Next.js replaces the parent's resolved openGraph
-// object wholesale when a child segment defines one, which drops the
-// file-convention image from src/app/opengraph-image.tsx — so subpages
-// must reference the card explicitly. The URL is the stable metadata
-// route the static export emits for that file.
+// Shared Open Graph image descriptor: the designed share card rendered
+// by src/app/og.png/route.ts. The root layout sets it as the default;
+// subpages that export their own `openGraph` must include it too,
+// because Next.js replaces the parent's resolved openGraph object
+// wholesale when a child segment defines one. twitter:image autofills
+// from openGraph, so no separate twitter wiring is needed.
 export const OG_IMAGE_ALT =
   'Eric Caskey — I build the systems other engineers depend on.';
 
 export const ogImage = {
-  url: '/opengraph-image',
+  url: '/og.png',
   width: 1200,
   height: 630,
   alt: OG_IMAGE_ALT,

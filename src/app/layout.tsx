@@ -5,6 +5,7 @@ import './globals.css';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { PersonJsonLd } from './components/PersonJsonLd';
+import { ogImage } from './lib/og';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,8 +26,9 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
     url: 'https://ericcaskey.com',
-    // og:image comes from src/app/opengraph-image.tsx (file convention):
-    // a designed 1200x630 card that all routes inherit.
+    // Designed 1200x630 share card (src/app/og.png/route.ts). Subpages
+    // that export their own openGraph re-add it via the same descriptor.
+    images: [ogImage],
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: 'https://ericcaskey.com/' },
