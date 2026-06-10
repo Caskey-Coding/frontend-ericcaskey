@@ -1,25 +1,25 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./out",
+      "startServerCommand": "npx serve out -l 4174 -L",
+      "startServerReadyPattern": "Accepting connections",
       "url": [
-        "http://localhost/",
-        "http://localhost/about",
-        "http://localhost/work",
-        "http://localhost/writing",
-        "http://localhost/contact"
+        "http://localhost:4174/",
+        "http://localhost:4174/about",
+        "http://localhost:4174/work",
+        "http://localhost:4174/writing",
+        "http://localhost:4174/contact"
       ],
       "settings": {
         "preset": "desktop"
       }
     },
     "assert": {
-      "preset": "lighthouse:no-pwa",
       "assertions": {
         "categories:performance": ["warn", { "minScore": 0.85 }],
-        "categories:accessibility": ["warn", { "minScore": 0.95 }],
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
         "categories:best-practices": ["warn", { "minScore": 0.9 }],
-        "categories:seo": ["warn", { "minScore": 0.95 }]
+        "categories:seo": ["error", { "minScore": 0.95 }]
       }
     }
   }
