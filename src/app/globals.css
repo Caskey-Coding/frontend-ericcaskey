@@ -10,6 +10,7 @@
   --color-accent:         #0c7c59;
   --color-accent-hover:   #095c43;
   --color-accent-tint:    color-mix(in srgb, var(--color-accent) 18%, transparent);
+  --color-on-accent:      #ffffff; /* on #0c7c59: 5.2:1 (family design spec v2.1 §1.3) */
   --color-danger:         #d32f2f;
 
   --radius-sm:    6px;
@@ -36,6 +37,7 @@
   --color-accent:         #2baa7e;
   --color-accent-hover:   #35c593;
   --color-accent-tint:    color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --color-on-accent:      #0b0b0a; /* on #2baa7e: 6.7:1 (family design spec v2.1 §1.3) */
   --color-danger:         #ef6a6a;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
@@ -53,6 +55,7 @@
     --color-accent:         #2baa7e;
     --color-accent-hover:   #35c593;
     --color-accent-tint:    color-mix(in srgb, var(--color-accent) 22%, transparent);
+    --color-on-accent:      #0b0b0a;
     --color-danger:         #ef6a6a;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
@@ -115,7 +118,7 @@ html {
   margin: 0.5rem;
   padding: 0.5rem 1rem;
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
   font-weight: 600;
   font-size: 0.875rem;
   border-radius: var(--radius-sm);
@@ -126,7 +129,7 @@ html {
 
 .skip-link:focus {
   transform: translateY(0);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }
 
 /*
@@ -149,6 +152,24 @@ a {
 
 a:hover { color: var(--color-accent); }
 
+/*
+ * In-prose link affordance (WCAG 1.4.1): anchors inside the content area
+ * (<main>) get a visible non-hover underline in the accent so links are
+ * distinguishable from body text without relying on color alone. Chrome
+ * outside <main> (nav, wordmark, footer, skip-link) is unaffected.
+ * Inside <main>, .btn-primary/.btn-secondary already opt out via
+ * `text-decoration: none` (class specificity beats `main a`), and
+ * card-wrapper rows opt out with .link-plain.
+ */
+main a {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.link-plain { text-decoration: none; }
+
 *:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
@@ -164,7 +185,7 @@ a:hover { color: var(--color-accent); }
   padding: 0.625rem 1.25rem;
   border-radius: var(--radius-md);
   background: var(--color-accent);
-  color: #ffffff;
+  color: var(--color-on-accent);
   font-weight: 600;
   font-family: var(--font-sans);
   border: 1px solid transparent;
@@ -178,7 +199,7 @@ a:hover { color: var(--color-accent); }
 .btn-primary:hover {
   background: var(--color-accent-hover);
   box-shadow: var(--shadow-md);
-  color: #ffffff;
+  color: var(--color-on-accent);
 }
 
 .btn-secondary {

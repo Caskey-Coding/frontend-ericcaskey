@@ -46,7 +46,7 @@ export function TimelineItem({
       <CrossSiteLink
         href={href}
         rel="noopener"
-        className="block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)]"
+        className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)]"
       >
         {content}
       </CrossSiteLink>
