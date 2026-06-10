@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/work' },
 };
 
+// B-076: `metrics` chips are verbatim substrings of each row's
+// oneLineImpact — additive display metadata, no new claims, prose
+// unchanged (canonical copy spec ericcaskey-com/content/001 still holds).
 const employers = [
   {
     company: 'Amazon',
@@ -25,6 +28,7 @@ const employers = [
     dates: 'Jun 2022 – Present',
     oneLineImpact:
       "Architected a workflow orchestration platform maintaining 3 million active monitors and powering 500,000 daily automated actions across Amazon's global fleet. Previously standardized monitoring across 2,750+ application stages.",
+    metrics: ['3 million active monitors', '500,000 daily automated actions'],
     href: 'https://caskeycoding.com/case-studies/multi-region-workflow-orchestration',
   },
   {
@@ -33,6 +37,7 @@ const employers = [
     dates: 'Apr 2013 – Jun 2022',
     oneLineImpact:
       'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
+    metrics: ['200,000+ administrative actions', '60,000 corporate users'],
     href: 'https://caskeycoding.com/case-studies/qr-code-mfa-portal',
   },
   {
@@ -41,6 +46,7 @@ const employers = [
     dates: 'Feb 2015 – May 2018',
     oneLineImpact:
       'Ran a New Jersey WordPress shop. Delivered ten sites for small businesses and community organizations. SEO work for The Drain Guys took monthly organic clicks from 2 to 52 in six months.',
+    metrics: ['ten sites', 'clicks from 2 to 52'],
   },
   {
     company: 'NJ Army National Guard',
@@ -48,6 +54,7 @@ const employers = [
     dates: 'Jul 2009 – Jun 2015',
     oneLineImpact:
       'Reached senior Specialist rank. Activated for 2012 Superstorm Sandy recovery, assigned to safeguard and distribute 241,000 gallons of FEMA fuel for nearly a month.',
+    metrics: ['241,000 gallons of FEMA fuel'],
   },
 ];
 
