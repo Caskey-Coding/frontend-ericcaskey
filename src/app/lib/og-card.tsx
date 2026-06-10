@@ -1,15 +1,15 @@
 import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { OG_IMAGE_ALT } from './lib/og';
 
-// Default share card for every route (subpages override og:title via
-// metadata; this file-convention image wins everywhere). Build-time only:
-// static export renders it once to /opengraph-image as a 1200x630 PNG.
-export const dynamic = 'force-static';
-export const alt = OG_IMAGE_ALT;
-export const size = { width: 1200, height: 630 };
-export const contentType = 'image/png';
+// The 1200x630 share card, rendered at build time by the /og.png route
+// handler. Deliberately NOT the opengraph-image file convention: that
+// emits an extensionless /opengraph-image route, and the CloudFront
+// viewer-request function (ai-blog-infra ericcaskey-frontend-stack)
+// rewrites every extensionless URI to <uri>.html, which 404s. A .png
+// path passes the rewrite untouched and lets `aws s3 sync` set
+// Content-Type image/png from the extension.
+export const OG_CARD_SIZE = { width: 1200, height: 630 };
 
 // Light-theme tokens from globals.css. ImageResponse can't read CSS custom
 // properties, so the values are mirrored here; keep in sync with :root.
@@ -18,7 +18,7 @@ const TEXT_PRIMARY = '#111110';
 const TEXT_SECONDARY = '#6b6b68';
 const ACCENT = '#0c7c59';
 
-export default async function OpengraphImage() {
+export async function renderOgCard(): Promise<ImageResponse> {
   // Embed the headshot at build time as a data URI (static export has no
   // runtime to serve relative assets to the OG renderer).
   const headshot = await readFile(
@@ -117,6 +117,6 @@ export default async function OpengraphImage() {
         />
       </div>
     ),
-    { ...size },
+    { ...OG_CARD_SIZE },
   );
 }
