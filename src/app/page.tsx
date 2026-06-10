@@ -40,7 +40,9 @@ const stats = [
 ];
 
 // Top two rows of the /work timeline, copy verbatim from
-// src/app/work/page.tsx — same claims, same hrefs.
+// src/app/work/page.tsx — same claims, same hrefs, same chip metrics
+// (B-076 mirror rule: metrics are verbatim substrings of oneLineImpact,
+// additive metadata only; any change here must match /work byte-for-byte).
 const featuredWork = [
   {
     company: 'Amazon',
@@ -48,6 +50,7 @@ const featuredWork = [
     dates: 'Jun 2022 – Present',
     oneLineImpact:
       "Architected a workflow orchestration platform maintaining 3 million active monitors and powering 500,000 daily automated actions across Amazon's global fleet. Previously standardized monitoring across 2,750+ application stages.",
+    metrics: ['3 million active monitors', '500,000 daily automated actions'],
     href: 'https://caskeycoding.com/case-studies/multi-region-workflow-orchestration',
   },
   {
@@ -56,6 +59,7 @@ const featuredWork = [
     dates: 'Apr 2013 – Jun 2022',
     oneLineImpact:
       'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
+    metrics: ['200,000+ administrative actions', '60,000 corporate users'],
     href: 'https://caskeycoding.com/case-studies/qr-code-mfa-portal',
   },
 ];
