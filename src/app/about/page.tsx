@@ -40,13 +40,16 @@ const values = [
 export default function About() {
   return (
     <article className="flex flex-col gap-12">
-      <header className="flex flex-col gap-2">
+      {/* FDS-8: seat the masthead with an eyebrow + hairline rule, matching
+          the writing index / work page family grammar (v2.1 §2.3). */}
+      <header className="flex flex-col gap-1 border-b border-border pb-8">
+        <p className="eyebrow">Background</p>
         <h1 className="text-3xl md:text-4xl font-semibold">
           About
         </h1>
       </header>
 
-      <section className="flex flex-col gap-5 leading-relaxed">
+      <section className="flex flex-col gap-5 leading-relaxed text-pretty">
         <p>
           I started writing code in 2013 as the Remote Access Analyst at{' '}
           <a
@@ -117,7 +120,9 @@ export default function About() {
         </p>
       </section>
 
-      <div className="max-w-xs">
+      {/* FDS-8: border-led frame on the headshot (v2.1 §2.1, no lift),
+          matching the hero treatment. */}
+      <div className="max-w-xs overflow-hidden rounded-[var(--radius-lg)] border border-border">
         <Headshot alt="Eric Caskey" />
       </div>
     </article>
