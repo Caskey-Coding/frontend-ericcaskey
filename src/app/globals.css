@@ -112,6 +112,27 @@ html {
   }
 }
 
+/*
+ * Masthead page-load reveal (family design spec v2.1 §motion discipline:
+ * one orchestrated load, not scattered micro-interactions). Base state is
+ * visible, so the content is never trapped hidden if animations don't run;
+ * the keyframe rises from a small offset. Stagger via inline
+ * --reveal-delay. Honors prefers-reduced-motion below.
+ */
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  animation: reveal-rise var(--duration-slow) var(--ease-out) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; }
+}
+
 /* Screen-reader-only: visually hidden but available to assistive tech. */
 .sr-only {
   position: absolute;

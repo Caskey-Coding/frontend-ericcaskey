@@ -1,8 +1,14 @@
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { Headshot } from './components/Headshot';
 import { CrossSiteLink } from './components/CrossSiteLink';
 import { TimelineItem } from './components/TimelineItem';
 import { EssayCard } from './components/EssayCard';
+
+// Staggered page-load reveal delay (one orchestrated load, family design
+// spec v2.1 §motion). Custom property consumed by `.reveal` in globals.css.
+const reveal = (ms: number): CSSProperties =>
+  ({ '--reveal-delay': `${ms}ms` }) as CSSProperties;
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
@@ -92,66 +98,104 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
 
-      <div className="grid md:grid-cols-[1fr_280px] gap-10 items-start">
-        <header className="flex flex-col gap-5">
-          {/* Tracking/leading come from the global h1 rule
-              (--ls-tight/--lh-tight, family design spec v2.1 §2.4). */}
-          <h1
-            className="font-semibold"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}
-          >
-            Eric Caskey
-          </h1>
-
-          <p className="text-xl md:text-2xl leading-snug text-muted">
-            I build the systems other engineers depend on.
-          </p>
-
-          <p className="text-base md:text-lg leading-relaxed">
-            Fifteen years at enterprise scale — most of it spent making fleet-wide
-            infrastructure safer, more predictable, and less demanding of the
-            engineers who use it. At Amazon I architect a multi-region workflow
-            orchestration platform. Before that I built the MFA self-service
-            portal that got 60,000 Prudential users through the first months of
-            COVID. I write about how this work actually gets done at Caskey
-            Engineering.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 mt-2">
-            <CrossSiteLink
-              href="https://caskeycoding.com"
-              rel="noopener"
-              className="btn-primary"
-            >
-              Read the work →
-            </CrossSiteLink>
-            <Link href="/about" className="btn-secondary">
-              About →
-            </Link>
-          </div>
-        </header>
-
-        <div className="md:pt-2">
-          <Headshot alt="Eric Caskey, headshot" eager />
+      {/*
+        Masthead (FDS-2): the archetypal name+tagline+headshot+CTAs block,
+        recomposed as an editorial dossier. A hairline locator rule frames
+        the top, the headshot gets a border-led frame (v2.1 §2.1, no lift),
+        and the scale figures are folded UP into the masthead as a
+        hairline-divided stat strip (its own "Numbers" section is gone) so
+        the data reads as part of the identity, not an afterthought. Stays
+        inside the 002/004 contract: Inter only, single green accent on
+        interactive elements only, no gradients, dividers not cards.
+      */}
+      <header className="flex flex-col gap-8">
+        <div
+          className="reveal flex items-center justify-between gap-4 border-b border-border pb-3"
+          style={reveal(0)}
+        >
+          <p className="eyebrow">Platform engineering</p>
+          <p className="eyebrow tabular-nums">Amazon · since 2022</p>
         </div>
-      </div>
 
-      <section
-        aria-label="Scale in numbers"
-        className="flex flex-col gap-4 py-8 border-y border-border"
-      >
-        <p className="eyebrow">Numbers</p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {stats.map((s) => (
-            <div key={s.label} className="flex flex-col gap-1">
+        <div className="grid md:grid-cols-[1fr_240px] gap-10 items-start">
+          <div className="flex flex-col gap-5">
+            {/* Tracking/leading come from the global h1 rule
+                (--ls-tight/--lh-tight, family design spec v2.1 §2.4). Size
+                held to the canonical h1 clamp (002 clash #8) for the
+                cross-domain wordmark handoff. */}
+            <h1
+              className="reveal font-semibold"
+              style={{ ...reveal(60), fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}
+            >
+              Eric Caskey
+            </h1>
+
+            <p
+              className="reveal text-xl md:text-2xl leading-snug text-muted max-w-xl"
+              style={reveal(120)}
+            >
+              I build the systems other engineers depend on.
+            </p>
+
+            <p
+              className="reveal text-base md:text-lg leading-relaxed max-w-xl"
+              style={reveal(180)}
+            >
+              Fifteen years at enterprise scale — most of it spent making fleet-wide
+              infrastructure safer, more predictable, and less demanding of the
+              engineers who use it. At Amazon I architect a multi-region workflow
+              orchestration platform. Before that I built the MFA self-service
+              portal that got 60,000 Prudential users through the first months of
+              COVID. I write about how this work actually gets done at Caskey
+              Engineering.
+            </p>
+
+            <div
+              className="reveal flex flex-col sm:flex-row gap-3 mt-2"
+              style={reveal(240)}
+            >
+              <CrossSiteLink
+                href="https://caskeycoding.com"
+                rel="noopener"
+                className="btn-primary"
+              >
+                Read the work →
+              </CrossSiteLink>
+              <Link href="/about" className="btn-secondary">
+                About →
+              </Link>
+            </div>
+          </div>
+
+          <div className="reveal" style={reveal(120)}>
+            <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border">
+              <Headshot alt="Eric Caskey, headshot" eager />
+            </div>
+          </div>
+        </div>
+
+        {/* Scale figures, folded into the masthead. Hairline-divided cells,
+            tabular figures (v2.1 §2.2); verbatim from /work (B-075). */}
+        <section
+          aria-label="Scale in numbers"
+          className="reveal grid grid-cols-1 sm:grid-cols-3 border-t border-border"
+          style={reveal(300)}
+        >
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className={`flex flex-col gap-1 py-5 sm:px-6 sm:first:pl-0 border-border border-b sm:border-b-0 ${
+                i > 0 ? 'sm:border-l' : ''
+              }`}
+            >
               <span className="text-3xl md:text-4xl font-semibold [letter-spacing:var(--ls-tight)] tabular-nums">
                 {s.figure}
               </span>
               <span className="text-sm text-muted">{s.label}</span>
             </div>
           ))}
-        </div>
-      </section>
+        </section>
+      </header>
 
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
