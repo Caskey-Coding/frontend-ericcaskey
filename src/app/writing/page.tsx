@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { EssayCard } from '../components/EssayCard';
 import { CrossSiteLink } from '../components/CrossSiteLink';
+import { ExternalLinkIcon } from '../components/ExternalLinkIcon';
 import { ogImage } from '../lib/og';
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ const essays = [
     url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
     publishedDate: 'April 10, 2026',
     editorNote:
-      "What I've learned building validation engines for infrastructure where an incorrect \u201Cyes\u201D is a production incident.",
+      "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.",
   },
   {
     title:
@@ -44,6 +44,39 @@ const essays = [
       'How I structure projects so AI agents and humans can both find their way around. This is the methodology behind everything else.',
   },
 ];
+
+type Essay = (typeof essays)[number];
+
+// FDS-5: the writing index, recomposed as a dated editorial index. Each
+// essay is one whole-row outbound link (TimelineItem grammar: border-led
+// hover, external glyph + sr-only destination) with a leading date rail so
+// the shelf scans by date. Stays inside the 002/004 contract: Inter only,
+// single green accent on interaction, dividers not cards, h1-h2 only.
+function EssayRow({ title, url, publishedDate, editorNote }: Essay) {
+  return (
+    <CrossSiteLink
+      href={url}
+      rel="noopener"
+      className="link-plain block transition-colors hover:[&_h2]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
+    >
+      <div className="grid md:grid-cols-[150px_1fr] gap-1.5 md:gap-6 py-5 border-b border-border transition-colors">
+        {/* Leading date rail — comparable data, tabular-nums (v2.1 §2.2). */}
+        <p className="text-sm text-muted tabular-nums md:pt-1">
+          {publishedDate}
+        </p>
+        <div className="flex flex-col gap-2">
+          <h2 className="text-lg font-semibold leading-snug flex items-start gap-1.5 transition-colors">
+            <span>{title}</span>
+            <ExternalLinkIcon className="shrink-0 mt-1 text-muted" />
+          </h2>
+          <p className="leading-relaxed">{editorNote}</p>
+          <p className="text-sm text-muted">Caskey Engineering</p>
+        </div>
+      </div>
+      <span className="sr-only">(opens Caskey Engineering)</span>
+    </CrossSiteLink>
+  );
+}
 
 export default function Writing() {
   return (
@@ -63,9 +96,9 @@ export default function Writing() {
         </p>
       </header>
 
-      <section className="flex flex-col">
+      <section className="flex flex-col border-t border-border">
         {essays.map((e) => (
-          <EssayCard key={e.url} {...e} />
+          <EssayRow key={e.url} {...e} />
         ))}
       </section>
 
