@@ -75,7 +75,10 @@ const tools = [
 export default function Work() {
   return (
     <article className="flex flex-col gap-12">
-      <header className="flex flex-col gap-4">
+      {/* FDS-7: seat the masthead with a hairline rule (family grammar
+          v2.1 §2.3), matching the writing index + article header. The page
+          was already an editorial timeline, not a card grid. */}
+      <header className="flex flex-col gap-4 border-b border-border pb-8">
         {/* Eyebrow microlabel (family design spec v2.1 §2.3) — generic
             one-word label, no claims. */}
         <div className="flex flex-col gap-1">
@@ -94,7 +97,7 @@ export default function Work() {
         </p>
       </header>
 
-      <section className="flex flex-col">
+      <section className="flex flex-col border-t border-border">
         {employers.map((e) => (
           <TimelineItem key={e.company} {...e} />
         ))}
@@ -109,7 +112,7 @@ export default function Work() {
           Two small AI applications built on the same stack I use at work,
           published as field notes on Caskey Engineering.
         </p>
-        <div className="flex flex-col">
+        <div className="flex flex-col border-t border-border">
           {tools.map((t) => (
             <ToolCard key={t.name} {...t} />
           ))}
