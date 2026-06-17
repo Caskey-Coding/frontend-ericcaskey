@@ -55,31 +55,29 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6" noValidate>
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-muted">Your name</span>
+        <span className="text-muted font-medium">Your name</span>
         <input
           name="name"
           type="text"
           required
           placeholder="Full name"
-          className="border border-border px-3 py-2 bg-transparent min-h-11"
-          style={{ borderRadius: 'var(--radius-md)' }}
+          className="field-input"
         />
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-muted">Email</span>
+        <span className="text-muted font-medium">Email</span>
         <input
           name="email"
           type="email"
           required
           placeholder="you@example.com"
-          className="border border-border px-3 py-2 bg-transparent min-h-11"
-          style={{ borderRadius: 'var(--radius-md)' }}
+          className="field-input"
         />
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-muted">
+        <span className="text-muted font-medium">
           What&apos;s this about?
         </span>
         <textarea
@@ -89,8 +87,7 @@ export function ContactForm() {
           maxLength={2000}
           rows={6}
           placeholder="Role, project, or inquiry"
-          className="border border-border px-3 py-2 bg-transparent resize-y"
-          style={{ borderRadius: 'var(--radius-md)' }}
+          className="field-input"
         />
       </label>
 
@@ -116,20 +113,20 @@ export function ContactForm() {
           for both failure kinds. */}
       <div aria-live="polite" className="text-sm">
         {status === 'success' && (
-          <p className="text-accent">
+          <p className="form-note form-note--ok">
             Message sent. I&apos;ll get back to you soon.
           </p>
         )}
 
         {status === 'invalid' && (
-          <p role="alert" style={{ color: 'var(--color-danger)' }}>
+          <p role="alert" className="form-note form-note--err">
             Please add your name, a valid email, and a message between 10 and
             2000 characters.
           </p>
         )}
 
         {status === 'error' && (
-          <p role="alert" style={{ color: 'var(--color-danger)' }}>
+          <p role="alert" className="form-note form-note--err">
             That did not go through. Try again, or email me directly at the
             address below.
           </p>
