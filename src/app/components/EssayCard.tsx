@@ -14,7 +14,7 @@ export function EssayCard({
   editorNote,
 }: EssayCardProps) {
   return (
-    <article className="flex flex-col gap-2 py-5 border-b border-border">
+    <article className="flex flex-col gap-2 py-5 border-b border-border transition-colors has-[a:hover]:border-[color:var(--color-border-strong)]">
       <h3 className="text-lg font-semibold leading-snug">
         <CrossSiteLink href={url} rel="noopener">
           {title}
