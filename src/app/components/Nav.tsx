@@ -112,13 +112,7 @@ export function Nav() {
             type="button"
             onClick={toggle}
             aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="inline-flex items-center justify-center border border-border bg-surface text-muted"
-            style={{
-              minWidth: 44,
-              minHeight: 44,
-              borderRadius: 'var(--radius-md)',
-              transition: 'color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), background-color var(--duration-base) var(--ease-standard)',
-            }}
+            className="theme-toggle"
           >
             {mounted ? (mode === 'dark' ? <SunIcon /> : <MoonIcon />) : <MoonIcon />}
           </button>

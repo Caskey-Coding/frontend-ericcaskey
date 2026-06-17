@@ -231,6 +231,30 @@ main a {
   outline-offset: 2px;
 }
 
+/* Theme toggle — same affordance grammar as caskeycoding's header toggle.
+   The rest state matches the prior inline styling; this adds the missing
+   hover cue (border + icon go accent) and snaps it on --duration-fast +
+   --ease-out (v2.1 §1.4). Toggle behavior lives in Nav.tsx, untouched. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
+}
+.theme-toggle:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
 /* Shared interactive primitives — match caskeycoding grammar */
 .btn-primary {
   display: inline-flex;
