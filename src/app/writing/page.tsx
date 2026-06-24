@@ -44,6 +44,7 @@ export default function Writing() {
   return (
     <article className="flex flex-col gap-10">
       <header className="flex flex-col gap-4">
+        <p className="eyebrow">Essays &amp; field notes</p>
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
           Selected writing
         </h1>

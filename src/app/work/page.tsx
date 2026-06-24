@@ -67,6 +67,7 @@ export default function Work() {
   return (
     <article className="flex flex-col gap-12">
       <header className="flex flex-col gap-4">
+        <p className="eyebrow">Career</p>
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
           Work
         </h1>
@@ -81,8 +82,12 @@ export default function Work() {
       </header>
 
       <section className="flex flex-col">
-        {employers.map((e) => (
-          <TimelineItem key={e.company} {...e} />
+        {employers.map((e, i) => (
+          <TimelineItem
+            key={e.company}
+            {...e}
+            isLast={i === employers.length - 1}
+          />
         ))}
       </section>
 

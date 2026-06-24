@@ -6,6 +6,8 @@ interface TimelineItemProps {
   dates: string;
   oneLineImpact: string;
   href?: string;
+  /** Hides the connecting line below the dot on the final entry. */
+  isLast?: boolean;
 }
 
 export function TimelineItem({
@@ -14,30 +16,49 @@ export function TimelineItem({
   dates,
   oneLineImpact,
   href,
+  isLast = false,
 }: TimelineItemProps) {
-  const content = (
-    <div
-      className="flex flex-col gap-2 py-5 border-b"
-      style={{ borderColor: 'var(--color-border)' }}
-    >
-      <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
-        <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
-          <span className="font-semibold">{company}</span>
-          <span
-            className="text-sm"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            {role}
-          </span>
-        </div>
+  const body = (
+    <div className="grid gap-4" style={{ gridTemplateColumns: '14px 1fr' }}>
+      <div className="flex flex-col items-center" aria-hidden="true">
         <span
-          className="text-sm"
-          style={{ color: 'var(--color-text-secondary)' }}
+          style={{
+            width: 12,
+            height: 12,
+            borderRadius: '50%',
+            background: 'var(--color-accent)',
+            flexShrink: 0,
+            marginTop: 6,
+          }}
+        />
+        {!isLast && (
+          <span
+            style={{ width: 2, flex: 1, background: 'var(--color-border)', marginTop: 4 }}
+          />
+        )}
+      </div>
+      <div style={{ paddingBottom: isLast ? 0 : '1.75rem' }}>
+        <p
+          style={{
+            margin: 0,
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'var(--text-xs)',
+            letterSpacing: '0.04em',
+            color: 'var(--color-text-faint)',
+          }}
         >
           {dates}
-        </span>
+        </p>
+        <h3
+          className="font-semibold"
+          style={{ margin: '0.25rem 0 0.125rem', fontSize: 'var(--text-lg)' }}
+        >
+          {role} · <span style={{ color: 'var(--color-accent)' }}>{company}</span>
+        </h3>
+        <p className="leading-relaxed" style={{ margin: 0, color: 'var(--color-text-secondary)' }}>
+          {oneLineImpact}
+        </p>
       </div>
-      <p className="leading-relaxed text-sm md:text-base">{oneLineImpact}</p>
     </div>
   );
 
@@ -46,12 +67,12 @@ export function TimelineItem({
       <CrossSiteLink
         href={href}
         rel="noopener"
-        className="block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)]"
+        className="block transition-colors hover:[&_h3]:text-[color:var(--color-accent)]"
       >
-        {content}
+        {body}
       </CrossSiteLink>
     );
   }
 
-  return content;
+  return body;
 }

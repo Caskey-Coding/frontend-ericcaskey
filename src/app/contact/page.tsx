@@ -34,6 +34,7 @@ export default function Contact() {
       />
 
       <header className="flex flex-col gap-2">
+        <p className="eyebrow">Get in touch</p>
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
           Contact
         </h1>

@@ -61,8 +61,7 @@ export function ContactForm() {
           type="text"
           required
           placeholder="Full name"
-          className="border px-3 py-2 bg-transparent min-h-11"
-          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
+          className="field"
         />
       </label>
 
@@ -73,8 +72,7 @@ export function ContactForm() {
           type="email"
           required
           placeholder="you@example.com"
-          className="border px-3 py-2 bg-transparent min-h-11"
-          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
+          className="field"
         />
       </label>
 
@@ -89,8 +87,7 @@ export function ContactForm() {
           maxLength={2000}
           rows={6}
           placeholder="Role, project, or inquiry"
-          className="border px-3 py-2 bg-transparent resize-y"
-          style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-md)' }}
+          className="field resize-y"
         />
       </label>
 
