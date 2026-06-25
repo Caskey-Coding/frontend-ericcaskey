@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Newsreader, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Nav } from './components/Nav';
@@ -11,6 +11,21 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+});
+
+// "Systems Readout" type pairing (home masthead): a refined serif for prose
+// (bio, lead) and a monospace for structural labels / the wordmark headline.
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  display: 'swap',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
 });
 
 export const metadata: Metadata = {
@@ -40,7 +55,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-01C9GQ8W3Q';
 
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${newsreader.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <meta id="meta-theme-color" name="theme-color" content="#f9f9f8" />

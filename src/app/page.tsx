@@ -34,15 +34,16 @@ const websiteJsonLd = {
   },
 };
 
-// B-075: figures and labels lifted verbatim out of the hero bio paragraph
-// ("maintaining 3 million active monitors", "powering 500,000 daily
-// automated actions") and /work ("2,750+ application stages",
-// src/app/work/page.tsx Amazon row). No new numbers — every figure traces
-// to the canonical copy spec and Positions.csv.
+// Status-panel figures — broadened to show range across the career, every
+// figure traceable to canonical copy: the Amazon scale numbers (hero bio +
+// /work Amazon row), the Prudential continuity number (/work Prudential row:
+// "60,000 corporate users through the early months of COVID"), and the tenure
+// from the bio ("Fifteen years at enterprise scale"). No new/unsourced numbers.
 const stats = [
-  { figure: '3 million', label: 'active monitors' },
-  { figure: '500,000', label: 'daily automated actions' },
-  { figure: '2,750+', label: 'application stages' },
+  { tag: 'Scale', figure: '3,000,000', label: 'active monitors' },
+  { tag: 'Actions', figure: '500,000', label: 'automated / day' },
+  { tag: 'Continuity', figure: '60,000', label: 'users kept online' },
+  { tag: 'Experience', figure: '15 yrs', label: 'at enterprise scale' },
 ];
 
 // Top two rows of the /work timeline, copy verbatim from
@@ -92,109 +93,74 @@ const selectedWriting = [
 
 export default function Home() {
   return (
-    <article className="flex flex-col gap-12">
+    <article className="sr flex flex-col gap-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
 
       {/*
-        Masthead (FDS-2): the archetypal name+tagline+headshot+CTAs block,
-        recomposed as an editorial dossier. A hairline locator rule frames
-        the top, the headshot gets a border-led frame (v2.1 §2.1, no lift),
-        and the scale figures are folded UP into the masthead as a
-        hairline-divided stat strip (its own "Numbers" section is gone) so
-        the data reads as part of the identity, not an afterthought. Stays
-        inside the 002/004 contract: Inter only, single green accent on
-        interactive elements only, no gradients, dividers not cards.
+        Masthead — "Systems Readout" (ericcaskey home redesign). A full-bleed,
+        always-dark "readout" band: JetBrains Mono structural labels + a left
+        spec-rail of mono coordinates, a Newsreader-serif bio, and the scale
+        figures rendered as a status panel. Self-contained dark palette
+        (.sr-* in globals.css) so it reads identically under either site theme;
+        the sections below stay on the global themed tokens. Reveal-on-load
+        keeps the one-orchestrated-load motion contract.
       */}
-      <header className="flex flex-col gap-8">
-        <div
-          className="reveal flex items-center justify-between gap-4 border-b border-border pb-3"
-          style={reveal(0)}
-        >
-          <p className="eyebrow">Platform engineering</p>
-          <p className="eyebrow tabular-nums">Amazon · since 2022</p>
-        </div>
-
-        <div className="grid md:grid-cols-[1fr_240px] gap-10 items-start">
-          <div className="flex flex-col gap-5">
-            {/* Tracking/leading come from the global h1 rule
-                (--ls-tight/--lh-tight, family design spec v2.1 §2.4). Size
-                held to the canonical h1 clamp (002 clash #8) for the
-                cross-domain wordmark handoff. */}
-            <h1
-              className="reveal font-semibold"
-              style={{ ...reveal(60), fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}
-            >
-              Eric Caskey
-            </h1>
-
-            <p
-              className="reveal text-xl md:text-2xl leading-snug text-muted max-w-xl"
-              style={reveal(120)}
-            >
-              I build the systems other engineers depend on.
-            </p>
-
-            <p
-              className="reveal text-base md:text-lg leading-relaxed max-w-xl"
-              style={reveal(180)}
-            >
-              Fifteen years at enterprise scale — most of it spent making fleet-wide
-              infrastructure safer, more predictable, and less demanding of the
-              engineers who use it. At Amazon I architect a multi-region workflow
-              orchestration platform. Before that I built the MFA self-service
-              portal that got 60,000 Prudential users through the first months of
-              COVID. I write about how this work actually gets done at Caskey
-              Engineering.
-            </p>
-
-            <div
-              className="reveal flex flex-col sm:flex-row gap-3 mt-2"
-              style={reveal(240)}
-            >
-              <CrossSiteLink
-                href="https://caskeycoding.com"
-                rel="noopener"
-                className="btn-primary"
-              >
-                Read the work →
-              </CrossSiteLink>
-              <Link href="/about" className="btn-secondary">
-                About →
-              </Link>
+      <header className="sr-hero reveal" style={reveal(0)}>
+        <p className="sr-tag">Platform Engineer — fleet infrastructure</p>
+        <div className="sr-grid">
+          <aside className="sr-rail" aria-label="Profile at a glance">
+            <div><span className="k">LOC</span> new jersey</div>
+            <div><span className="k">ROLE</span> platform eng</div>
+            <div><span className="k">ORG</span> amazon</div>
+            <div><span className="k">SINCE</span> 2022</div>
+            <div><span className="k">PRIOR</span> prudential</div>
+            <div><span className="k">WRITES</span> caskeycoding.com</div>
+          </aside>
+          <div>
+            <div className="sr-masthead">
+              <div>
+                <h1 className="sr-name">Eric Caskey</h1>
+                <p className="sr-lead">I build the systems other engineers depend on.</p>
+                <p className="sr-bio">
+                  Fifteen years at enterprise scale — most of it spent making
+                  fleet-wide infrastructure safer, more predictable, and less
+                  demanding of the engineers who use it. At Amazon I architect a
+                  multi-region workflow orchestration platform. I write about how
+                  this work actually gets done at Caskey Engineering.
+                </p>
+                <div className="sr-cta">
+                  <CrossSiteLink
+                    href="https://caskeycoding.com"
+                    rel="noopener"
+                    className="sr-btn sr-btn--p"
+                  >
+                    read the work →
+                  </CrossSiteLink>
+                  <Link href="/about" className="sr-btn sr-btn--s">
+                    about →
+                  </Link>
+                </div>
+              </div>
+              <div className="sr-photo">
+                <Headshot alt="Eric Caskey, headshot" eager />
+              </div>
             </div>
-          </div>
-
-          <div className="reveal" style={reveal(120)}>
-            <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border">
-              <Headshot alt="Eric Caskey, headshot" eager />
+            <div className="sr-status" aria-label="Scale in numbers">
+              {stats.map((s) => (
+                <div className="row" key={s.label}>
+                  <span className="lbl">{s.tag}</span>
+                  <span className="bar" aria-hidden="true" />
+                  <span className="val">
+                    {s.figure} <small>{s.label}</small>
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
-        {/* Scale figures, folded into the masthead. Hairline-divided cells,
-            tabular figures (v2.1 §2.2); verbatim from /work (B-075). */}
-        <section
-          aria-label="Scale in numbers"
-          className="reveal grid grid-cols-1 sm:grid-cols-3 border-t border-border"
-          style={reveal(300)}
-        >
-          {stats.map((s, i) => (
-            <div
-              key={s.label}
-              className={`flex flex-col gap-1 py-5 sm:px-6 sm:first:pl-0 border-border border-b sm:border-b-0 ${
-                i > 0 ? 'sm:border-l' : ''
-              }`}
-            >
-              <span className="text-3xl md:text-4xl font-semibold [letter-spacing:var(--ls-tight)] tabular-nums">
-                {s.figure}
-              </span>
-              <span className="text-sm text-muted">{s.label}</span>
-            </div>
-          ))}
-        </section>
       </header>
 
       <section className="flex flex-col gap-4">
