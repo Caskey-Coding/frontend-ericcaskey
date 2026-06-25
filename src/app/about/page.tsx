@@ -39,14 +39,18 @@ const values = [
 
 export default function About() {
   return (
-    <article className="flex flex-col gap-12">
-      {/* FDS-8: seat the masthead with an eyebrow + hairline rule, matching
-          the writing index / work page family grammar (v2.1 §2.3). */}
-      <header className="flex flex-col gap-1 border-b border-border pb-8">
-        <p className="eyebrow">Background</p>
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          About
-        </h1>
+    <article className="sr flex flex-col gap-12">
+      {/* Systems Readout sub-page header: mono coordinate line + serif title,
+          hairline-sealed — same voice as the home masthead. */}
+      <header className="sr-pagehead">
+        <p className="coord">
+          <span>Background</span>
+          <span className="sep">·</span>
+          <span>new jersey</span>
+          <span className="sep">·</span>
+          <span>since 2013</span>
+        </p>
+        <h1 className="text-3xl md:text-4xl">About</h1>
       </header>
 
       <section className="flex flex-col gap-5 leading-relaxed text-pretty">

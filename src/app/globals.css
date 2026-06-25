@@ -477,3 +477,12 @@ textarea.field-input { resize: vertical; }
 .sr-status .val { font-size: 1.45rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--sr-paper); }
 .sr-status .val small { color: var(--sr-muted); font-size: 0.8rem; }
 @media (max-width: 720px) { .sr-status .row { grid-template-columns: 100px 1fr; } .sr-status .bar { display: none; } }
+
+/* Sub-page readout header — a mono coordinate line + serif title, hairline-
+   sealed. Lighter than the home masthead band, but carries the Systems
+   Readout voice onto /work, /about, etc. */
+.sr-pagehead { padding-bottom: 1.75rem; border-bottom: 1px solid var(--color-border); }
+.sr-pagehead .coord { font-family: var(--sr-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 0.9rem; display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; }
+.sr-pagehead .coord .sep { color: var(--color-text-secondary); }
+.sr-pagehead h1 { font-family: var(--sr-serif); font-weight: 500; letter-spacing: -0.015em; margin: 0; }
+.sr-pagehead .sub { margin: 1rem 0 0; color: var(--color-text-secondary); line-height: 1.7; max-width: 56ch; font-size: 1.05rem; }

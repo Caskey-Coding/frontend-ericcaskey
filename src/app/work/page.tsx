@@ -74,20 +74,19 @@ const tools = [
 
 export default function Work() {
   return (
-    <article className="flex flex-col gap-12">
-      {/* FDS-7: seat the masthead with a hairline rule (family grammar
-          v2.1 §2.3), matching the writing index + article header. The page
-          was already an editorial timeline, not a card grid. */}
-      <header className="flex flex-col gap-4 border-b border-border pb-8">
-        {/* Eyebrow microlabel (family design spec v2.1 §2.3) — generic
-            one-word label, no claims. */}
-        <div className="flex flex-col gap-1">
-          <p className="eyebrow">Experience</p>
-          <h1 className="text-3xl md:text-4xl font-semibold">
-            Work
-          </h1>
-        </div>
-        <p className="leading-relaxed">
+    <article className="sr flex flex-col gap-12">
+      {/* Systems Readout sub-page header (FDS-7): a mono coordinate line +
+          serif title, hairline-sealed — same voice as the home masthead. */}
+      <header className="sr-pagehead">
+        <p className="coord">
+          <span>Experience</span>
+          <span className="sep">·</span>
+          <span>4 roles</span>
+          <span className="sep">·</span>
+          <span>2009 → present</span>
+        </p>
+        <h1 className="text-3xl md:text-4xl">Work</h1>
+        <p className="sub">
           Fifteen years in four rows. The deep case studies — with metrics,
           diagrams, and architectural decisions — live on{' '}
           <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
