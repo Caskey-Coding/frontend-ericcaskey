@@ -342,3 +342,120 @@ textarea.field-input { resize: vertical; }
   background: color-mix(in srgb, var(--color-danger) 12%, transparent);
   border-left-color: var(--color-danger);
 }
+
+/* ============================================================
+   Home masthead — "Systems Readout" (ericcaskey home redesign)
+   An always-dark, full-bleed "readout" band: JetBrains Mono structural
+   labels + Newsreader serif prose, a faint dot-grid canvas, a left spec-rail
+   of mono coordinates, and the scale figures as a status panel. Self-contained
+   dark palette (--sr-*) so the masthead reads identically under either site
+   theme; the sections below it stay on the global themed tokens.
+   ============================================================ */
+.sr {
+  --sr-ink: #13130f;
+  --sr-line: #2c2c22;
+  --sr-line2: #3a3a2e;
+  --sr-paper: #ece9df;
+  --sr-muted: #9b9b8c;
+  --sr-faint: #6f6f62;
+  --sr-green: #37c08f;
+  --sr-green-deep: #2baa7e;
+  --sr-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sr-serif: var(--font-serif), Georgia, 'Times New Roman', serif;
+}
+
+/* Mono eyebrows + serif section headings, scoped to the home page only. */
+.sr .eyebrow { font-family: var(--sr-mono); letter-spacing: 0.14em; }
+.sr h2 { font-family: var(--sr-serif); font-weight: 500; letter-spacing: -0.01em; }
+
+/* Full-bleed dark band. Breaks out of the max-w-3xl main, re-insetting its
+   content to the column edges; cancels the main's top padding so it tucks
+   under the sticky nav. */
+.sr-hero {
+  margin-inline: calc(50% - 50vw);
+  padding-inline: calc(50vw - 50%);
+  margin-top: -3rem;
+  padding-top: 3.25rem;
+  padding-bottom: 2.75rem;
+  background: var(--sr-ink);
+  color: var(--sr-paper);
+  background-image: radial-gradient(var(--sr-line) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border-bottom: 1px solid var(--sr-line);
+  font-family: var(--sr-serif);
+}
+@media (min-width: 768px) {
+  .sr-hero { margin-top: -5rem; padding-top: 4rem; padding-bottom: 3.25rem; }
+}
+
+.sr-grid { display: grid; grid-template-columns: 132px 1fr; gap: 0 1.75rem; }
+@media (max-width: 720px) { .sr-grid { grid-template-columns: 1fr; } }
+
+.sr-rail {
+  font-family: var(--sr-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--sr-faint);
+  line-height: 2.1;
+  border-right: 1px solid var(--sr-line);
+  padding-top: 0.5rem;
+}
+.sr-rail .k { color: var(--sr-green-deep); }
+.sr-rail .live { color: var(--sr-green); }
+@media (max-width: 720px) {
+  .sr-rail { display: flex; flex-wrap: wrap; gap: 0 1rem; border-right: none; border-bottom: 1px solid var(--sr-line); padding-bottom: 0.75rem; margin-bottom: 1.25rem; line-height: 1.9; }
+}
+
+.sr-tag {
+  font-family: var(--sr-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sr-green);
+  margin: 0 0 1.4rem;
+}
+.sr-masthead { display: grid; grid-template-columns: 1fr 218px; gap: 2rem; align-items: start; }
+@media (max-width: 720px) { .sr-masthead { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+.sr-name {
+  font-family: var(--sr-mono);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 6vw, 3.3rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0 0 1.1rem;
+  color: var(--sr-paper);
+}
+.sr-lead {
+  font-size: clamp(1.35rem, 3.4vw, 1.65rem);
+  line-height: 1.3;
+  font-weight: 500;
+  margin: 0 0 1.1rem;
+  color: var(--sr-paper);
+}
+.sr-bio {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #cfcdbf;
+  margin: 0 0 1.6rem;
+  max-width: 46ch;
+}
+.sr-cta { display: flex; gap: 0.75rem; font-family: var(--sr-mono); font-size: 13px; letter-spacing: 0.03em; flex-wrap: wrap; }
+.sr-btn { padding: 0.7rem 1.1rem; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out); }
+.sr-btn--p { background: var(--sr-green-deep); color: #0b0b08; }
+.sr-btn--p:hover { background: var(--sr-green); color: #0b0b08; }
+.sr-btn--s { border: 1px solid var(--sr-line2); color: var(--sr-paper); }
+.sr-btn--s:hover { border-color: var(--sr-green-deep); color: var(--sr-paper); }
+
+.sr-photo { border: 1px solid var(--sr-line2); border-radius: 8px; overflow: hidden; }
+.sr-photo :is(img, picture) { display: block; width: 100%; height: 100%; }
+.sr-photo img { aspect-ratio: 3 / 4; object-fit: cover; mix-blend-mode: luminosity; opacity: 0.92; border-radius: 0 !important; }
+@media (max-width: 720px) { .sr-photo { max-width: 220px; } }
+
+.sr-status { margin-top: 2.25rem; border-top: 1px solid var(--sr-line); }
+.sr-status .row { display: grid; grid-template-columns: 116px 1fr auto; gap: 1.1rem; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid var(--sr-line); font-family: var(--sr-mono); }
+.sr-status .lbl { font-size: 11px; letter-spacing: 0.14em; color: var(--sr-green-deep); text-transform: uppercase; }
+.sr-status .bar { height: 3px; background: linear-gradient(90deg, var(--sr-green-deep), transparent); border-radius: 2px; }
+.sr-status .val { font-size: 1.45rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--sr-paper); }
+.sr-status .val small { color: var(--sr-muted); font-size: 0.8rem; }
+@media (max-width: 720px) { .sr-status .row { grid-template-columns: 100px 1fr; } .sr-status .bar { display: none; } }
