@@ -34,15 +34,16 @@ const websiteJsonLd = {
   },
 };
 
-// B-075: figures and labels lifted verbatim out of the hero bio paragraph
-// ("maintaining 3 million active monitors", "powering 500,000 daily
-// automated actions") and /work ("2,750+ application stages",
-// src/app/work/page.tsx Amazon row). No new numbers — every figure traces
-// to the canonical copy spec and Positions.csv.
+// Status-panel figures — broadened to show range across the career, every
+// figure traceable to canonical copy: the Amazon scale numbers (hero bio +
+// /work Amazon row), the Prudential continuity number (/work Prudential row:
+// "60,000 corporate users through the early months of COVID"), and the tenure
+// from the bio ("Fifteen years at enterprise scale"). No new/unsourced numbers.
 const stats = [
   { tag: 'Scale', figure: '3,000,000', label: 'active monitors' },
   { tag: 'Actions', figure: '500,000', label: 'automated / day' },
-  { tag: 'Stages', figure: '2,750+', label: 'application stages' },
+  { tag: 'Continuity', figure: '60,000', label: 'users kept online' },
+  { tag: 'Experience', figure: '15 yrs', label: 'at enterprise scale' },
 ];
 
 // Top two rows of the /work timeline, copy verbatim from
@@ -110,13 +111,13 @@ export default function Home() {
       <header className="sr-hero reveal" style={reveal(0)}>
         <p className="sr-tag">Platform Engineer — fleet infrastructure</p>
         <div className="sr-grid">
-          <aside className="sr-rail" aria-hidden="true">
-            <div><span className="k">ROLE</span> platform</div>
+          <aside className="sr-rail" aria-label="Profile at a glance">
+            <div><span className="k">LOC</span> new jersey</div>
+            <div><span className="k">ROLE</span> platform eng</div>
             <div><span className="k">ORG</span> amazon</div>
             <div><span className="k">SINCE</span> 2022</div>
-            <div><span className="k">STACK</span> infra</div>
-            <div><span className="k">FOCUS</span> safety</div>
-            <div><span className="k">STATUS</span> <span className="live">online</span></div>
+            <div><span className="k">PRIOR</span> prudential</div>
+            <div><span className="k">WRITES</span> caskeycoding.com</div>
           </aside>
           <div>
             <div className="sr-masthead">
