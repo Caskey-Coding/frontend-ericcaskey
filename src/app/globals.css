@@ -352,16 +352,33 @@ textarea.field-input { resize: vertical; }
    theme; the sections below it stay on the global themed tokens.
    ============================================================ */
 .sr {
+  /* Light theme — warm-paper readout (the band is a panel one step off the
+     page bg). Overridden to dark ink under [data-theme="dark"] below, so the
+     masthead follows the site's light/dark toggle. */
+  --sr-ink: #efece1;
+  --sr-line: #ddd8c9;
+  --sr-line2: #cbc5b4;
+  --sr-paper: #1b1a16;
+  --sr-bio: #46423a;
+  --sr-muted: #6c685c;
+  --sr-faint: #8d8779;
+  --sr-green: #0c7c59;
+  --sr-green-deep: #0a6a4c;
+  --sr-on-green: #ffffff;
+  --sr-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sr-serif: var(--font-serif), Georgia, 'Times New Roman', serif;
+}
+[data-theme='dark'] .sr {
   --sr-ink: #13130f;
   --sr-line: #2c2c22;
   --sr-line2: #3a3a2e;
   --sr-paper: #ece9df;
+  --sr-bio: #cfcdbf;
   --sr-muted: #9b9b8c;
   --sr-faint: #6f6f62;
   --sr-green: #37c08f;
   --sr-green-deep: #2baa7e;
-  --sr-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sr-serif: var(--font-serif), Georgia, 'Times New Roman', serif;
+  --sr-on-green: #0b0b08;
 }
 
 /* Mono eyebrows + serif section headings, scoped to the home page only. */
@@ -436,20 +453,21 @@ textarea.field-input { resize: vertical; }
 .sr-bio {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #cfcdbf;
+  color: var(--sr-bio);
   margin: 0 0 1.6rem;
   max-width: 46ch;
 }
 .sr-cta { display: flex; gap: 0.75rem; font-family: var(--sr-mono); font-size: 13px; letter-spacing: 0.03em; flex-wrap: wrap; }
 .sr-btn { padding: 0.7rem 1.1rem; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out); }
-.sr-btn--p { background: var(--sr-green-deep); color: #0b0b08; }
-.sr-btn--p:hover { background: var(--sr-green); color: #0b0b08; }
+.sr-btn--p { background: var(--sr-green-deep); color: var(--sr-on-green); }
+.sr-btn--p:hover { background: var(--sr-green); color: var(--sr-on-green); }
 .sr-btn--s { border: 1px solid var(--sr-line2); color: var(--sr-paper); }
 .sr-btn--s:hover { border-color: var(--sr-green-deep); color: var(--sr-paper); }
 
 .sr-photo { border: 1px solid var(--sr-line2); border-radius: 8px; overflow: hidden; }
 .sr-photo :is(img, picture) { display: block; width: 100%; height: 100%; }
-.sr-photo img { aspect-ratio: 3 / 4; object-fit: cover; mix-blend-mode: luminosity; opacity: 0.92; border-radius: 0 !important; }
+.sr-photo img { aspect-ratio: 3 / 4; object-fit: cover; border-radius: 0 !important; filter: grayscale(0.12) contrast(1.02); }
+[data-theme='dark'] .sr-photo img { mix-blend-mode: luminosity; opacity: 0.92; filter: grayscale(0.25) contrast(1.03); }
 @media (max-width: 720px) { .sr-photo { max-width: 220px; } }
 
 .sr-status { margin-top: 2.25rem; border-top: 1px solid var(--sr-line); }
