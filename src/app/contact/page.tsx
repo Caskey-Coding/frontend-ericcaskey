@@ -29,46 +29,53 @@ const contactPageJsonLd = {
 
 export default function Contact() {
   return (
-    <article className="flex flex-col gap-8">
+    <article className="sr flex flex-col gap-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
       />
 
-      <header className="flex flex-col gap-2">
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          Contact
-        </h1>
+      <header className="sr-pagehead">
+        <p className="coord">
+          <span>Contact</span>
+          <span className="sep">·</span>
+          <span>replies &lt; 1 week</span>
+        </p>
+        <h1 className="text-3xl md:text-4xl">Contact</h1>
+        <p className="sub">
+          I read everything. I reply to serious inquiries within a week. The
+          form below is the fastest route.
+        </p>
       </header>
-
-      <p className="leading-relaxed">
-        I read everything. I reply to serious inquiries within a week. The
-        form below is the fastest route.
-      </p>
 
       <ContactForm />
 
-      <section className="flex flex-col gap-3 mt-4 pt-6 border-t border-border text-sm text-muted">
-        <h2 className="text-base font-semibold text-text">Direct</h2>
-        <p>
-          <strong>Email:</strong> e at ericcaskey dot com
-        </p>
-        <p>
-          <strong>LinkedIn:</strong>{' '}
+      <section className="flex flex-col gap-4 mt-2 pt-8 border-t border-border">
+        <h2 className="text-xl font-semibold">Direct</h2>
+        <div className="sr-tiles sr-tiles--3">
+          <div className="sr-tile">
+            <span className="k">Email</span>
+            <span className="t">e at ericcaskey dot com</span>
+          </div>
           <a
+            className="sr-tile link-plain"
             href="https://www.linkedin.com/in/ericrcaskey"
             rel="me noopener"
             target="_blank"
           >
-            linkedin.com/in/ericrcaskey
+            <span className="k">LinkedIn</span>
+            <span className="t">/in/ericrcaskey →</span>
           </a>
-        </p>
-        <p>
-          <strong>GitHub:</strong>{' '}
-          <a href="https://github.com/CaskeyCoding" rel="me noopener" target="_blank">
-            github.com/CaskeyCoding
+          <a
+            className="sr-tile link-plain"
+            href="https://github.com/CaskeyCoding"
+            rel="me noopener"
+            target="_blank"
+          >
+            <span className="k">GitHub</span>
+            <span className="t">/CaskeyCoding →</span>
           </a>
-        </p>
+        </div>
       </section>
     </article>
   );

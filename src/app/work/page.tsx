@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { TimelineItem } from '../components/TimelineItem';
-import { ToolCard } from '../components/ToolCard';
 import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ogImage } from '../lib/og';
 
@@ -111,9 +110,18 @@ export default function Work() {
           Two small AI applications built on the same stack I use at work,
           published as field notes on Caskey Engineering.
         </p>
-        <div className="flex flex-col border-t border-border">
+        <div className="sr-tiles">
           {tools.map((t) => (
-            <ToolCard key={t.name} {...t} />
+            <CrossSiteLink
+              key={t.name}
+              href={t.url}
+              rel="noopener"
+              className="sr-tile link-plain"
+            >
+              <span className="k">Tool</span>
+              <span className="t">{t.name} →</span>
+              <span className="d">{t.tagline}</span>
+            </CrossSiteLink>
           ))}
         </div>
       </section>

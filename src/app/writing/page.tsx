@@ -80,17 +80,17 @@ function EssayRow({ title, url, publishedDate, editorNote }: Essay) {
 
 export default function Writing() {
   return (
-    <article className="flex flex-col gap-10">
-      <header className="flex flex-col gap-4">
-        {/* Eyebrow microlabel (family design spec v2.1 §2.3) — generic
-            one-word label, no claims. */}
-        <div className="flex flex-col gap-1">
-          <p className="eyebrow">Essays</p>
-          <h1 className="text-3xl md:text-4xl font-semibold">
-            Selected writing
-          </h1>
-        </div>
-        <p className="leading-relaxed text-muted">
+    <article className="sr flex flex-col gap-10">
+      <header className="sr-pagehead">
+        <p className="coord">
+          <span>Essays</span>
+          <span className="sep">·</span>
+          <span>3 selected</span>
+          <span className="sep">·</span>
+          <span>caskeycoding.com</span>
+        </p>
+        <h1 className="text-3xl md:text-4xl">Selected writing</h1>
+        <p className="sub">
           Three essays from Caskey Engineering that cover how I think about
           this work. Each opens on caskeycoding.com.
         </p>

@@ -486,3 +486,16 @@ textarea.field-input { resize: vertical; }
 .sr-pagehead .coord .sep { color: var(--color-text-secondary); }
 .sr-pagehead h1 { font-family: var(--sr-serif); font-weight: 500; letter-spacing: -0.015em; margin: 0; }
 .sr-pagehead .sub { margin: 1rem 0 0; color: var(--color-text-secondary); line-height: 1.7; max-width: 56ch; font-size: 1.05rem; }
+
+/* Labeled tiles — the design-system-site's two-up "card pair" grammar, kept
+   border-led (no lift, no shadow) per the ericcaskey family spec. For grouped
+   items: /work tools, /contact methods. */
+.sr-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+@media (max-width: 640px) { .sr-tiles { grid-template-columns: 1fr; } }
+.sr-tile { display: block; padding: 1.05rem 1.2rem; border: 1px solid var(--color-border); border-radius: var(--radius-lg); text-decoration: none; color: inherit; transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out); }
+.sr-tile:hover { border-color: var(--color-accent); background: var(--color-accent-tint); }
+.sr-tile .k { font-family: var(--sr-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 0.4rem; }
+.sr-tile .t { font-family: var(--sr-serif); font-weight: 500; font-size: 1.12rem; color: var(--color-text-primary); display: flex; align-items: center; gap: 0.4rem; }
+.sr-tile .d { margin: 0.35rem 0 0; color: var(--color-text-secondary); font-size: 0.92rem; line-height: 1.55; }
+.sr-tiles--3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 640px) { .sr-tiles--3 { grid-template-columns: 1fr; } }
