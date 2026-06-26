@@ -25,11 +25,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://ericcaskey.com'),
   title: {
-    default: 'Eric Caskey — Fleet Infrastructure & Platform Engineering',
+    default: 'Eric Caskey — Platform Engineering at Amazon Scale',
     template: '%s | Eric Caskey',
   },
   description:
-    'Eric Caskey builds the fleet infrastructure other engineers depend on — multi-region workflow orchestration and safety-critical platforms at Amazon scale.',
+    'Eric Caskey — I build the systems other engineers depend on. Platform engineering, multi-region workflow orchestration, and safety-critical infrastructure at Amazon scale.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
