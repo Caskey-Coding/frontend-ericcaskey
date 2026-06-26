@@ -109,7 +109,7 @@ export default function Home() {
         keeps the one-orchestrated-load motion contract.
       */}
       <header className="sr-hero reveal" style={reveal(0)}>
-        <p className="sr-tag">Platform engineering · infrastructure at scale</p>
+        <p className="sr-tag">Platform engineering</p>
         <div className="sr-grid">
           <aside className="sr-rail" aria-label="Profile at a glance">
             <div><span className="k">LOC</span> new jersey</div>
