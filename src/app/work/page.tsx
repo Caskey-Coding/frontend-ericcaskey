@@ -18,15 +18,14 @@ export const metadata: Metadata = {
 };
 
 // B-076: `metrics` chips are verbatim substrings of each row's
-// oneLineImpact — additive display metadata, no new claims, prose
-// unchanged (canonical copy spec ericcaskey-com/content/001 still holds).
+// oneLineImpact (additive display metadata, no new claims).
 const employers = [
   {
     company: 'Amazon',
     role: 'Platform engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
-      "Architected a workflow orchestration platform maintaining 3 million active monitors and powering 500,000 daily automated actions across Amazon's global fleet. Previously standardized monitoring across 2,750+ application stages.",
+      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It maintains 3 million active monitors and 500,000 daily automated actions across Amazon's fleet, on monitoring patterns I standardized across 2,750+ application stages.",
     metrics: ['3 million active monitors', '500,000 daily automated actions'],
     href: 'https://caskeycoding.com/case-studies/multi-region-workflow-orchestration',
   },
@@ -38,6 +37,13 @@ const employers = [
       'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
     metrics: ['200,000+ administrative actions', '60,000 corporate users'],
     href: 'https://caskeycoding.com/case-studies/qr-code-mfa-portal',
+  },
+  {
+    company: 'Workforce Opportunity Services',
+    role: 'Consultant',
+    dates: '2011 – 2013',
+    oneLineImpact:
+      "Launched my technology career as a WOS consultant, rapidly learning enterprise IT environments and contributing to Prudential's remote access platform operations.",
   },
   {
     company: 'Caskey Coding, LLC',
@@ -75,19 +81,19 @@ export default function Work() {
   return (
     <article className="sr flex flex-col gap-12">
       {/* Systems Readout sub-page header (FDS-7): a mono coordinate line +
-          serif title, hairline-sealed — same voice as the home masthead. */}
+          serif title, hairline-sealed, same voice as the home masthead. */}
       <header className="sr-pagehead">
         <p className="coord">
           <span>Experience</span>
           <span className="sep">·</span>
-          <span>4 roles</span>
+          <span>5 roles</span>
           <span className="sep">·</span>
           <span>2009 → present</span>
         </p>
         <h1 className="text-3xl md:text-4xl">Work</h1>
         <p className="sub">
-          Fifteen years in four rows. The deep case studies — with metrics,
-          diagrams, and architectural decisions — live on{' '}
+          Fifteen years across five roles. The deep case studies, with metrics,
+          diagrams, and architectural decisions, live on{' '}
           <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
             Caskey Engineering
           </CrossSiteLink>
@@ -127,7 +133,7 @@ export default function Work() {
       </section>
 
       <p className="leading-relaxed text-muted">
-        Everything above — and several things that are not — lives in full on{' '}
+        Everything above, and several things that are not, lives in full on{' '}
         <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
           Caskey Engineering
         </CrossSiteLink>
