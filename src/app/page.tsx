@@ -109,7 +109,7 @@ export default function Home() {
         keeps the one-orchestrated-load motion contract.
       */}
       <header className="sr-hero reveal" style={reveal(0)}>
-        <p className="sr-tag">Platform engineering</p>
+        <p className="sr-tag">Platform engineering · AI reliability</p>
         <div className="sr-grid">
           <aside className="sr-rail" aria-label="Profile at a glance">
             <div><span className="k">LOC</span> new jersey</div>
@@ -123,13 +123,15 @@ export default function Home() {
             <div className="sr-masthead">
               <div>
                 <h1 className="sr-name">Eric Caskey</h1>
-                <p className="sr-lead">I build the systems other engineers depend on.</p>
+                <p className="sr-lead">I make AI systems safe enough to depend on.</p>
                 <p className="sr-bio">
-                  Fifteen years at enterprise scale — most of it spent making
-                  infrastructure safer, more predictable, and less demanding of
-                  the engineers who use it. At Amazon I architect a multi-region
-                  workflow orchestration platform. I write about how this work
-                  actually gets done at Caskey Engineering.
+                  Fifteen years making production infrastructure safe to depend
+                  on. At Amazon I architect a multi-region workflow orchestration
+                  platform with validation guardrails that run before anything
+                  executes. Now I bring that same rigor to AI — spec-driven
+                  systems, curated context, and validation that catches a wrong
+                  “yes” before it ships. I write about how this work actually gets
+                  done at Caskey Engineering.
                 </p>
                 <div className="sr-cta">
                   <CrossSiteLink

@@ -426,11 +426,13 @@ textarea.field-input { resize: vertical; }
 .sr-tag {
   font-family: var(--sr-mono);
   font-size: 12px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sr-green);
   margin: 0 0 1.4rem;
+  white-space: nowrap;
 }
+@media (max-width: 560px) { .sr-tag { white-space: normal; } }
 .sr-masthead { display: grid; grid-template-columns: 1fr 218px; gap: 2rem; align-items: start; }
 @media (max-width: 720px) { .sr-masthead { grid-template-columns: 1fr; gap: 1.5rem; } }
 
