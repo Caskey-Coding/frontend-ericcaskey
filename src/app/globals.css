@@ -352,10 +352,10 @@ textarea.field-input { resize: vertical; }
    theme; the sections below it stay on the global themed tokens.
    ============================================================ */
 .sr {
-  /* Light theme — warm-paper readout (the band is a panel one step off the
-     page bg). Overridden to dark ink under [data-theme="dark"] below, so the
-     masthead follows the site's light/dark toggle. */
-  --sr-ink: #efece1;
+  /* Light theme — white readout panel (sits a touch above the warm page bg).
+     Overridden to dark ink under [data-theme="dark"] below, so the masthead
+     follows the site's light/dark toggle. */
+  --sr-ink: #ffffff;
   --sr-line: #ddd8c9;
   --sr-line2: #cbc5b4;
   --sr-paper: #1b1a16;
