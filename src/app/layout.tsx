@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Newsreader, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Nav } from './components/Nav';
@@ -7,19 +7,13 @@ import { Footer } from './components/Footer';
 import { PersonJsonLd } from './components/PersonJsonLd';
 import { ogImage } from './lib/og';
 
+// Font palette aligned with caskeycoding.com: Inter for display + prose,
+// JetBrains Mono for the Systems Readout structural labels (spec rail, status
+// panel, eyebrows). No third typeface — same two faces as the engineering site.
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-});
-
-// "Systems Readout" type pairing (home masthead): a refined serif for prose
-// (bio, lead) and a monospace for structural labels / the wordmark headline.
-const newsreader = Newsreader({
-  subsets: ['latin'],
-  display: 'swap',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -31,11 +25,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://ericcaskey.com'),
   title: {
-    default: 'Eric Caskey — Platform Engineering at Amazon Scale',
+    default: 'Eric Caskey — Fleet Infrastructure & Platform Engineering',
     template: '%s | Eric Caskey',
   },
   description:
-    'Eric Caskey — I build the systems other engineers depend on. Platform engineering, workflow orchestration, safety-critical infrastructure at Amazon.',
+    'Eric Caskey builds the fleet infrastructure other engineers depend on — multi-region workflow orchestration and safety-critical platforms at Amazon scale.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
@@ -57,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${newsreader.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>

@@ -366,7 +366,7 @@ textarea.field-input { resize: vertical; }
   --sr-green-deep: #0a6a4c;
   --sr-on-green: #ffffff;
   --sr-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sr-serif: var(--font-serif), Georgia, 'Times New Roman', serif;
+  --sr-serif: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 [data-theme='dark'] .sr {
   --sr-ink: #13130f;
@@ -383,7 +383,7 @@ textarea.field-input { resize: vertical; }
 
 /* Mono eyebrows + serif section headings, scoped to the home page only. */
 .sr .eyebrow { font-family: var(--sr-mono); letter-spacing: 0.14em; }
-.sr h2 { font-family: var(--sr-serif); font-weight: 500; letter-spacing: -0.01em; }
+.sr h2 { font-family: var(--sr-serif); font-weight: 600; letter-spacing: -0.01em; }
 
 /* Full-bleed dark band. Breaks out of the max-w-3xl main, re-insetting its
    content to the column edges; cancels the main's top padding so it tucks
@@ -484,7 +484,7 @@ textarea.field-input { resize: vertical; }
 .sr-pagehead { padding-bottom: 1.75rem; border-bottom: 1px solid var(--color-border); }
 .sr-pagehead .coord { font-family: var(--sr-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 0.9rem; display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; }
 .sr-pagehead .coord .sep { color: var(--color-text-secondary); }
-.sr-pagehead h1 { font-family: var(--sr-serif); font-weight: 500; letter-spacing: -0.015em; margin: 0; }
+.sr-pagehead h1 { font-family: var(--sr-serif); font-weight: 600; letter-spacing: -0.015em; margin: 0; }
 .sr-pagehead .sub { margin: 1rem 0 0; color: var(--color-text-secondary); line-height: 1.7; max-width: 56ch; font-size: 1.05rem; }
 
 /* Labeled tiles — the design-system-site's two-up "card pair" grammar, kept
@@ -495,7 +495,7 @@ textarea.field-input { resize: vertical; }
 .sr-tile { display: block; padding: 1.05rem 1.2rem; border: 1px solid var(--color-border); border-radius: var(--radius-lg); text-decoration: none; color: inherit; transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out); }
 .sr-tile:hover { border-color: var(--color-accent); background: var(--color-accent-tint); }
 .sr-tile .k { font-family: var(--sr-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 0.4rem; }
-.sr-tile .t { font-family: var(--sr-serif); font-weight: 500; font-size: 1.12rem; color: var(--color-text-primary); display: flex; align-items: center; gap: 0.4rem; }
+.sr-tile .t { font-family: var(--sr-serif); font-weight: 600; font-size: 1.1rem; color: var(--color-text-primary); display: flex; align-items: center; gap: 0.4rem; }
 .sr-tile .d { margin: 0.35rem 0 0; color: var(--color-text-secondary); font-size: 0.92rem; line-height: 1.55; }
 .sr-tiles--3 { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 640px) { .sr-tiles--3 { grid-template-columns: 1fr; } }

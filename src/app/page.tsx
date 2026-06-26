@@ -109,11 +109,12 @@ export default function Home() {
         keeps the one-orchestrated-load motion contract.
       */}
       <header className="sr-hero reveal" style={reveal(0)}>
-        <p className="sr-tag">Platform Engineer — fleet infrastructure</p>
+        <p className="sr-tag">Fleet infrastructure · platform engineering</p>
         <div className="sr-grid">
           <aside className="sr-rail" aria-label="Profile at a glance">
             <div><span className="k">LOC</span> new jersey</div>
             <div><span className="k">ROLE</span> platform eng</div>
+            <div><span className="k">FOCUS</span> fleet infra</div>
             <div><span className="k">ORG</span> amazon</div>
             <div><span className="k">SINCE</span> 2022</div>
             <div><span className="k">PRIOR</span> prudential</div>
@@ -123,13 +124,14 @@ export default function Home() {
             <div className="sr-masthead">
               <div>
                 <h1 className="sr-name">Eric Caskey</h1>
-                <p className="sr-lead">I build the systems other engineers depend on.</p>
+                <p className="sr-lead">I build the fleet infrastructure other engineers depend on.</p>
                 <p className="sr-bio">
-                  Fifteen years at enterprise scale — most of it spent making
-                  fleet-wide infrastructure safer, more predictable, and less
-                  demanding of the engineers who use it. At Amazon I architect a
-                  multi-region workflow orchestration platform. I write about how
-                  this work actually gets done at Caskey Engineering.
+                  Fifteen years building fleet infrastructure at enterprise
+                  scale — making it safer, more predictable, and less demanding
+                  of the engineers who run on it. At Amazon I architect a
+                  multi-region workflow orchestration platform across the global
+                  fleet. I write about how this work actually gets done at Caskey
+                  Engineering.
                 </p>
                 <div className="sr-cta">
                   <CrossSiteLink
