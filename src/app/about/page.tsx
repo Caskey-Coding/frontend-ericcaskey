@@ -25,7 +25,7 @@ const values = [
   },
   {
     title: 'Structure before code.',
-    body: 'Design before you dive in. The hard part is rarely the implementation — it is the thinking that has to precede it. Specs, folder structure, decision logs. The structure does not follow the AI; the AI follows the structure.',
+    body: 'Design before you dive in. The hard part is rarely the implementation; it is the thinking that has to precede it. Specs, folder structure, decision logs. The structure does not follow the AI; the AI follows the structure.',
   },
   {
     title: 'Scope, not labels.',
@@ -41,7 +41,7 @@ export default function About() {
   return (
     <article className="sr flex flex-col gap-12">
       {/* Systems Readout sub-page header: mono coordinate line + serif title,
-          hairline-sealed — same voice as the home masthead. */}
+          hairline-sealed , same voice as the home masthead. */}
       <header className="sr-pagehead">
         <p className="coord">
           <span>Background</span>
@@ -55,15 +55,16 @@ export default function About() {
 
       <section className="flex flex-col gap-5 leading-relaxed text-pretty">
         <p>
-          I started writing code in 2013 as the Remote Access Analyst at{' '}
+          I came into tech through Workforce Opportunity Services, then started
+          writing code in 2013 as the Remote Access Analyst at{' '}
           <a
             href="https://medium.com/@wforceorg/success-story-eric-caskey-prudential-financial-d2d2e7258f49"
             target="_blank"
             rel="noopener noreferrer"
           >
             Prudential Financial
-          </a>{' '}
-          — Tier 3 help desk work with a side project generating QR codes for
+          </a>
+          : Tier 3 help desk work with a side project generating QR codes for
           MFA enrollment. That side project ran for eight years and produced
           over 300,000 activation codes. It also convinced me the job I wanted
           was the engineering one, not the support one.
@@ -74,7 +75,7 @@ export default function About() {
           used more than 18,000 times in six languages, automated over 200,000
           administrative actions, and kept the VPN running for 60,000
           corporate users through the early months of COVID. Most of that work
-          was figuring out how to make safety-critical infrastructure quiet —
+          was figuring out how to make safety-critical infrastructure quiet:
           how to remove failure modes rather than paper over them.
         </p>
         <p>
@@ -82,15 +83,15 @@ export default function About() {
           platform that onboarded more than 2,750 application stages and over
           200,000 monitors, and hired and mentored eight new-to-industry
           engineers in New York. In August 2024 I moved into the platform
-          engineering role I have now — architecting a twelve-service
+          engineering role I have now, architecting a twelve-service
           workflow orchestration platform that maintains 3 million active
           monitors and powers 500,000 daily automated actions across
-          Amazon&apos;s global fleet.
+          Amazon&apos;s fleet.
         </p>
         <p>
           Along the way I ran a New Jersey WordPress shop called Caskey Coding
-          from 2015 to 2018 — ten sites for small businesses and community
-          organizations — and served as a Military Police Officer in the 50th
+          from 2015 to 2018 (ten sites for small businesses and community
+          organizations), and served as a Military Police Officer in the 50th
           Brigade of the NJ Army National Guard from 2009 to 2015, including a
           2012 Superstorm Sandy activation where I safeguarded the
           distribution of 241,000 gallons of FEMA fuel for nearly a month.
@@ -119,7 +120,7 @@ export default function About() {
               Caskey Engineering
             </CrossSiteLink>
           </strong>
-          {' '}(caskeycoding.com). It is the engineering side of this website —
+          {' '}(caskeycoding.com). It is the engineering side of this website,
           a working notebook where the arguments get worked out in full.
         </p>
       </section>

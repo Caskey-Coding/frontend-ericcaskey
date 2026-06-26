@@ -34,7 +34,7 @@ const websiteJsonLd = {
   },
 };
 
-// Status-panel figures — broadened to show range across the career, every
+// Status-panel figures , broadened to show range across the career, every
 // figure traceable to canonical copy: the Amazon scale numbers (hero bio +
 // /work Amazon row), the Prudential continuity number (/work Prudential row:
 // "60,000 corporate users through the early months of COVID"), and the tenure
@@ -47,7 +47,7 @@ const stats = [
 ];
 
 // Top two rows of the /work timeline, copy verbatim from
-// src/app/work/page.tsx — same claims, same hrefs, same chip metrics
+// src/app/work/page.tsx , same claims, same hrefs, same chip metrics
 // (B-076 mirror rule: metrics are verbatim substrings of oneLineImpact,
 // additive metadata only; any change here must match /work byte-for-byte).
 const featuredWork = [
@@ -56,7 +56,7 @@ const featuredWork = [
     role: 'Platform engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
-      "Architected a workflow orchestration platform maintaining 3 million active monitors and powering 500,000 daily automated actions across Amazon's global fleet. Previously standardized monitoring across 2,750+ application stages.",
+      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It maintains 3 million active monitors and 500,000 daily automated actions across Amazon's fleet, on monitoring patterns I standardized across 2,750+ application stages.",
     metrics: ['3 million active monitors', '500,000 daily automated actions'],
     href: 'https://caskeycoding.com/case-studies/multi-region-workflow-orchestration',
   },
@@ -100,7 +100,7 @@ export default function Home() {
       />
 
       {/*
-        Masthead — "Systems Readout" (ericcaskey home redesign). A full-bleed,
+        Masthead , "Systems Readout" (ericcaskey home redesign). A full-bleed,
         always-dark "readout" band: JetBrains Mono structural labels + a left
         spec-rail of mono coordinates, a Newsreader-serif bio, and the scale
         figures rendered as a status panel. Self-contained dark palette
@@ -128,7 +128,7 @@ export default function Home() {
                   Fifteen years making production infrastructure safe to depend
                   on. At Amazon I architect a multi-region workflow orchestration
                   platform with validation guardrails that run before anything
-                  executes. Now I bring that same rigor to AI — spec-driven
+                  executes. Now I bring that same rigor to AI: spec-driven
                   systems, curated context, and validation that catches a wrong
                   “yes” before it ships. I write about how this work actually gets
                   done at Caskey Engineering.

@@ -69,7 +69,7 @@ export function Nav() {
           href="/"
           className="inline-flex items-center min-h-11 font-semibold tracking-tight text-text"
           style={{ fontSize: '1.0625rem' }}
-          aria-label="Eric Caskey — home"
+          aria-label="Eric Caskey, home"
         >
           {/* Below md the full wordmark + links + toggle overflow a 360px
               viewport, so collapse to a monogram. aria-label keeps the
