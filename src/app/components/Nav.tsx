@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import {
   applyTheme,
   resolveEffectiveTheme,
@@ -48,10 +48,46 @@ export function Nav() {
     if (mounted) applyTheme(mode);
   }, [mode, mounted]);
 
-  const toggle = () => {
+  const toggle = (e?: ReactMouseEvent<HTMLButtonElement>) => {
     const next: SiteThemeMode = mode === 'dark' ? 'light' : 'dark';
-    setMode(next);
-    setTheme(next);
+    // setTheme() applies data-theme synchronously, so the view-transition
+    // callback captures the new theme without flushSync.
+    const commit = () => {
+      setMode(next);
+      setTheme(next);
+    };
+
+    // Circular theme reveal (family design spec v2.1 §motion): bloom the new
+    // theme out of a circle centered on the toggle. Bail to an instant swap
+    // where the View Transitions API is unavailable or reduced motion is set
+    // (the global `*` 0.01ms guard cannot reach ::view-transition-* pseudos).
+    const startViewTransition = (
+      document as Document & {
+        startViewTransition?: (cb: () => void) => unknown;
+      }
+    ).startViewTransition;
+    const reduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (typeof startViewTransition !== 'function' || reduced) {
+      commit();
+      return;
+    }
+
+    const rect = e?.currentTarget.getBoundingClientRect();
+    const x = rect ? rect.left + rect.width / 2 : window.innerWidth;
+    const y = rect ? rect.top + rect.height / 2 : 0;
+    const r = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+    const root = document.documentElement;
+    root.style.setProperty('--vt-x', `${x}px`);
+    root.style.setProperty('--vt-y', `${y}px`);
+    root.style.setProperty('--vt-r', `${r}px`);
+
+    startViewTransition.call(document, commit);
   };
 
   return (
