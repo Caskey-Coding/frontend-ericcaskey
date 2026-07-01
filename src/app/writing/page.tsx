@@ -91,8 +91,12 @@ export default function Writing() {
         </p>
         <h1 className="text-3xl md:text-4xl">Selected writing</h1>
         <p className="sub">
-          Three essays from Caskey Engineering that cover how I think about
-          this work. Each opens on caskeycoding.com.
+          Selected essays on spec-driven systems, safety guardrails, and AI
+          reliability. The full archive lives at{' '}
+          <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
+            Caskey Engineering
+          </CrossSiteLink>
+          .
         </p>
       </header>
 
@@ -102,13 +106,6 @@ export default function Writing() {
         ))}
       </section>
 
-      <p className="leading-relaxed text-muted">
-        The full archive lives at{' '}
-        <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
-          caskeycoding.com/blog
-        </CrossSiteLink>
-        .
-      </p>
     </article>
   );
 }

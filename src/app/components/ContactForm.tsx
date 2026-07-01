@@ -8,6 +8,7 @@ const API_URL = process.env.NEXT_PUBLIC_CONTACT_API_URL ?? '';
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
+  const [messageLength, setMessageLength] = useState(0);
 
   function getString(data: FormData, key: string): string {
     const v = data.get(key);
@@ -46,6 +47,7 @@ export function ContactForm() {
         if (!res.ok) throw new Error(String(res.status));
         setStatus('success');
         form.reset();
+        setMessageLength(0);
       })
       .catch(() => {
         setStatus('error');
@@ -55,7 +57,7 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6" noValidate>
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-muted font-medium">Your name</span>
+        <span className="text-text font-medium">Your name</span>
         <input
           name="name"
           type="text"
@@ -66,7 +68,7 @@ export function ContactForm() {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-muted font-medium">Email</span>
+        <span className="text-text font-medium">Email</span>
         <input
           name="email"
           type="email"
@@ -77,7 +79,7 @@ export function ContactForm() {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-muted font-medium">
+        <span className="text-text font-medium">
           What&apos;s this about?
         </span>
         <textarea
@@ -88,7 +90,13 @@ export function ContactForm() {
           rows={6}
           placeholder="Role, project, or inquiry"
           className="field-input"
+          onChange={(e) => setMessageLength(e.target.value.length)}
         />
+        {/* Live character count; helper text stays muted per the labels-vs-
+            helpers contrast split. */}
+        <span aria-live="polite" className="text-muted text-xs tabular-nums self-end">
+          {messageLength} / 2000
+        </span>
       </label>
 
       {/* Honeypot — visually hidden, real users won't fill it */}
@@ -107,10 +115,11 @@ export function ContactForm() {
         {status === 'sending' ? 'Sending\u2026' : 'Send message'}
       </button>
 
-      {/* Status region: announced to assistive tech (aria-live), with errors
-          raised as alerts. Success and the two failure kinds are distinct,
-          and color reinforces the distinction: accent for success, danger
-          for both failure kinds. */}
+      {/* Status region: announced once to assistive tech via the polite
+          live-region wrapper. No role="alert" on the children; alert plus
+          aria-live double-announces in some screen readers. Success and the
+          two failure kinds are distinct, and color reinforces the
+          distinction: accent for success, danger for both failure kinds. */}
       <div aria-live="polite" className="text-sm">
         {status === 'success' && (
           <p className="form-note form-note--ok">
@@ -119,14 +128,14 @@ export function ContactForm() {
         )}
 
         {status === 'invalid' && (
-          <p role="alert" className="form-note form-note--err">
+          <p className="form-note form-note--err">
             Please add your name, a valid email, and a message between 10 and
             2000 characters.
           </p>
         )}
 
         {status === 'error' && (
-          <p role="alert" className="form-note form-note--err">
+          <p className="form-note form-note--err">
             That did not go through. Try again, or email me directly at the
             address below.
           </p>
