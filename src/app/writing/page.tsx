@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ExternalLinkIcon } from '../components/ExternalLinkIcon';
 import { ogImage } from '../lib/og';
+import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
   title: 'Writing',
@@ -81,6 +82,7 @@ function EssayRow({ title, url, publishedDate, editorNote }: Essay) {
 export default function Writing() {
   return (
     <article className="sr flex flex-col gap-10">
+      <BreadcrumbJsonLd name="Writing" path="/writing" />
       <header className="sr-pagehead">
         <p className="coord">
           <span>Essays</span>

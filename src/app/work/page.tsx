@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { TimelineItem } from '../components/TimelineItem';
 import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ogImage } from '../lib/og';
+import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -80,6 +81,7 @@ const tools = [
 export default function Work() {
   return (
     <article className="sr flex flex-col gap-12">
+      <BreadcrumbJsonLd name="Work" path="/work" />
       {/* Systems Readout sub-page header (FDS-7): a mono coordinate line +
           serif title, hairline-sealed, same voice as the home masthead. */}
       <header className="sr-pagehead">
