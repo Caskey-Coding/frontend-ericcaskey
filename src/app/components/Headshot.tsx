@@ -7,6 +7,13 @@ interface HeadshotProps {
 export function Headshot({ alt, eager = false, className }: HeadshotProps) {
   return (
     <picture className={className}>
+      {/* UX-EC-4: AVIF first (smallest), then WebP, then the JPEG <img>
+          fallback. Browsers pick the first <source> type they support. */}
+      <source
+        type="image/avif"
+        srcSet="/eric-caskey-600.avif 600w, /eric-caskey-1200.avif 1200w"
+        sizes="(max-width: 640px) 80vw, 360px"
+      />
       <source
         type="image/webp"
         srcSet="/eric-caskey-600.webp 600w, /eric-caskey-1200.webp 1200w"
