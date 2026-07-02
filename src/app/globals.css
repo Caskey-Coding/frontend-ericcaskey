@@ -180,9 +180,10 @@ html {
     opacity: 0;
     z-index: 1;
     background: radial-gradient(
-      220px circle at var(--mx, 50%) var(--my, 50%),
+      300px circle at var(--mx, 50%) var(--my, 50%),
       var(--spotlight-tint, var(--color-accent-tint)),
-      transparent 72%
+      color-mix(in srgb, var(--spotlight-tint, var(--color-accent-tint)) 40%, transparent) 46%,
+      transparent 78%
     );
     transition: opacity 200ms var(--ease-out, ease);
   }
@@ -192,7 +193,7 @@ html {
   }
 
   .sr-hero.spotlight {
-    --spotlight-tint: color-mix(in srgb, var(--sr-green) 30%, transparent);
+    --spotlight-tint: color-mix(in srgb, var(--sr-green) 42%, transparent);
   }
 }
 
