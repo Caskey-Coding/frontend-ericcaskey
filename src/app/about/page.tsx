@@ -86,9 +86,11 @@ export default function About() {
           200,000 monitors, and hired and mentored eight new-to-industry
           engineers in New York. In August 2024 I moved into the platform
           engineering role I have now, architecting a twelve-service
-          workflow orchestration platform that maintains 3 million active
-          monitors and powers 500,000 daily automated actions across
-          Amazon&apos;s fleet.
+          workflow orchestration platform that keeps 3 million monitors
+          healthy across Amazon&apos;s fleet. It runs roughly 500,000 daily
+          scans and health checks so coverage never silently goes stale,
+          behind a safety framework that validates every monitor change
+          before it lands.
         </p>
         <p>
           Along the way I ran a New Jersey WordPress shop called Caskey Coding
