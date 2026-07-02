@@ -11,12 +11,11 @@ permissions:
 
 jobs:
   lighthouse:
-    name: Lighthouse (advisory)
+    name: Lighthouse CWV gate
     # Kill switch: set org var CI_PAUSED=true to skip. See AGENTS.md.
     if: vars.CI_PAUSED != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
@@ -27,7 +26,7 @@ jobs:
       - run: npm run build
       - uses: treosh/lighthouse-ci-action@v12
         with:
-          runs: 1
+          runs: 3
           uploadArtifacts: true
           temporaryPublicStorage: true
           configPath: ./lighthouserc.json
