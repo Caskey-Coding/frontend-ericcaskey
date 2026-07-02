@@ -4,6 +4,8 @@ import { Headshot } from './components/Headshot';
 import { CrossSiteLink } from './components/CrossSiteLink';
 import { TimelineItem } from './components/TimelineItem';
 import { EssayCard } from './components/EssayCard';
+import StatusReadout from './components/StatusReadout';
+import Spotlight from './components/Spotlight';
 
 // Staggered page-load reveal delay (one orchestrated load, family design
 // spec v2.1 §motion). Custom property consumed by `.reveal` in globals.css.
@@ -99,6 +101,8 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
 
+      <Spotlight />
+
       {/*
         Masthead , "Systems Readout" (ericcaskey home redesign). A full-bleed,
         always-dark "readout" band: JetBrains Mono structural labels + a left
@@ -108,7 +112,7 @@ export default function Home() {
         the sections below stay on the global themed tokens. Reveal-on-load
         keeps the one-orchestrated-load motion contract.
       */}
-      <header className="sr-hero reveal" style={reveal(0)}>
+      <header className="sr-hero spotlight reveal" style={reveal(0)}>
         <p className="sr-tag">Platform engineering · AI reliability</p>
         <div className="sr-grid">
           <aside className="sr-rail" aria-label="Profile at a glance">
@@ -150,17 +154,7 @@ export default function Home() {
                 <Headshot alt="Eric Caskey, headshot" eager />
               </div>
             </div>
-            <div className="sr-status" aria-label="Scale in numbers">
-              {stats.map((s) => (
-                <div className="row" key={s.label}>
-                  <span className="lbl">{s.tag}</span>
-                  <span className="bar" aria-hidden="true" />
-                  <span className="val">
-                    {s.figure} <small>{s.label}</small>
-                  </span>
-                </div>
-              ))}
-            </div>
+            <StatusReadout stats={stats} />
           </div>
         </div>
       </header>
