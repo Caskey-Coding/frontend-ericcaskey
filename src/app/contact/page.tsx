@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ContactForm } from '../components/ContactForm';
 import { ogImage } from '../lib/og';
+import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -30,6 +31,7 @@ const contactPageJsonLd = {
 export default function Contact() {
   return (
     <article className="sr flex flex-col gap-8">
+      <BreadcrumbJsonLd name="Contact" path="/contact" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}

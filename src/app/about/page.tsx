@@ -3,6 +3,7 @@ import { ValuesList } from '../components/ValuesList';
 import { Headshot } from '../components/Headshot';
 import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ogImage } from '../lib/og';
+import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -40,6 +41,7 @@ const values = [
 export default function About() {
   return (
     <article className="sr flex flex-col gap-12">
+      <BreadcrumbJsonLd name="About" path="/about" />
       {/* Systems Readout sub-page header: mono coordinate line + serif title,
           hairline-sealed , same voice as the home masthead. */}
       <header className="sr-pagehead">
