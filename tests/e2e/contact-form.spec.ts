@@ -64,7 +64,7 @@ test('contact form failure path renders the error message with fallback', async 
   await fillAndSubmit(page);
 
   // p[role=alert] avoids Next's route announcer, which is also role=alert.
-  const alert = page.locator('p[role="alert"]');
+  const alert = page.locator('p.form-note--err');
   await expect(alert).toContainText(/did not go through/i);
   await expect(alert).toContainText(/email me directly/i);
 });
@@ -82,7 +82,7 @@ test('contact form network failure (no API at all) renders the error message', a
 
   await fillAndSubmit(page);
 
-  await expect(page.locator('p[role="alert"]')).toContainText(/did not go through/i);
+  await expect(page.locator('p.form-note--err')).toContainText(/did not go through/i);
 });
 
 test('contact form client validation message for a too-short message', async ({ page }) => {
@@ -92,5 +92,5 @@ test('contact form client validation message for a too-short message', async ({ 
   await page.getByPlaceholder('Role, project, or inquiry').fill('short');
   await page.getByRole('button', { name: /send message/i }).click();
 
-  await expect(page.locator('p[role="alert"]')).toContainText(/between 10 and\s+2000 characters/i);
+  await expect(page.locator('p.form-note--err')).toContainText(/between 10 and\s+2000 characters/i);
 });
