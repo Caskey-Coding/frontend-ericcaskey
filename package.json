@@ -11,7 +11,7 @@
     "test:e2e:install": "playwright install --with-deps chromium"
   },
   "dependencies": {
-    "next": "^16.2.9",
+    "next": "^16.2.10",
     "react": "^19.2.6",
     "react-dom": "^19.2.7"
   },
@@ -23,7 +23,7 @@
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^16.2.9",
+    "eslint-config-next": "^16.2.10",
     "postcss": "^8.5.15",
     "serve": "^14.2.4",
     "tailwindcss": "^4.3.1",
