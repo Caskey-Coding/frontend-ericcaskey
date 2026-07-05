@@ -60,7 +60,7 @@ const featuredWork = [
     oneLineImpact:
       "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It maintains 3 million active monitors and runs 500,000 daily scans and health checks across Amazon's fleet, on monitoring patterns I standardized across 2,750+ application stages.",
     metrics: ['3 million active monitors', '500,000 daily scans and health checks'],
-    href: 'https://caskeycoding.com/case-studies/multi-region-workflow-orchestration',
+    href: 'https://caskeycoding.com/case-studies/workflow-orchestration',
   },
   {
     company: 'Prudential Financial',
@@ -69,7 +69,7 @@ const featuredWork = [
     oneLineImpact:
       'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
     metrics: ['200,000+ administrative actions', '60,000 corporate users'],
-    href: 'https://caskeycoding.com/case-studies/qr-code-mfa-portal',
+    href: 'https://caskeycoding.com/case-studies/mfa-at-scale',
   },
 ];
 
