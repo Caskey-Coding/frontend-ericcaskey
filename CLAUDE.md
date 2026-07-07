@@ -13,7 +13,8 @@ Static Next.js export. S3 + CloudFront. No runtime, no API routes.
 
 1. No server components that fetch data — static export only
 2. No `tailwind.config.*` — all tokens in `globals.css`
-3. No title or level claims in rendered copy
+3. No "Principal Engineer" claims in rendered copy ("Senior Software
+   Engineer" is allowed as of the 2026-07-07 amendment to decisions doc §D1/§D4)
 4. No NDA-sensitive content — all copy is public
 5. Voice and NDA scans run on every PR and block merge on failure
 
