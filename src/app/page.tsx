@@ -127,7 +127,17 @@ export default function Home() {
             <div className="sr-masthead">
               <div>
                 <h1 className="sr-name">Eric Caskey</h1>
-                <p className="sr-lead">I make AI systems safe enough to depend on.</p>
+                {/*
+                  Positioning one-liner (WREC-6, D-13 scope-not-title): reach is
+                  expressed as org-wide SCOPE, never a title. Both figures are
+                  already published and CSV-backed: "3 million active monitors"
+                  (hero bio + /work Amazon row) and "2,750+ application stages"
+                  (/work Amazon row). No new or unsourced numbers here.
+                */}
+                <p className="sr-lead">
+                  I make AI systems safe enough to depend on, at org scale: 3
+                  million monitors, 2,750+ application stages.
+                </p>
                 <p className="sr-bio">
                   Fifteen years making production infrastructure safe to depend
                   on. At Amazon I architect a multi-region workflow orchestration
