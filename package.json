@@ -28,5 +28,8 @@
     "serve": "^14.2.4",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "postcss": "$postcss"
   }
 }
