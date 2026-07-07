@@ -55,10 +55,10 @@ jobs:
               clamp, focus-ring two-layer shadow, button radii, color
               tokens are contractual. Changes here need a paired
               change on caskeycoding.com.
-            - Voice rules: no "Senior Software Engineer" / "Principal
-              Engineer" in rendered copy (allowed only in PersonJsonLd.tsx
-              JSON-LD). No marketing adjectives (cutting-edge, world-
-              class, passionate, thought leader).
+            - Voice rules: no "Principal Engineer" in rendered copy.
+              "Senior Software Engineer" is allowed (decisions doc §D1/§D4
+              amended 2026-07-07). No marketing adjectives (cutting-edge,
+              world-class, passionate, thought leader).
             - NDA: no internal Amazon tool/org/system names.
             - Theme handoff: CrossSiteLink appends ?theme= to caskeycoding.com
               outbound links. Pre-hydration script in layout.tsx reads the

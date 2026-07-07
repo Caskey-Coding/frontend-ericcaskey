@@ -75,7 +75,6 @@ jobs:
               REPORT="$REPORT\n### Voice violation: $REASON\n\`\`\`\n$MATCHES\n\`\`\`\n"
             fi
           }
-          scan "Senior Software Engineer" "Banned title in rendered copy"
           scan "Principal Engineer" "Banned title: 'Principal Engineer'"
           scan "cutting-edge" "Marketing adjective: 'cutting-edge'"
           scan "world-class" "Marketing adjective: 'world-class'"

@@ -29,8 +29,8 @@ const values = [
     body: 'Design before you dive in. The hard part is rarely the implementation; it is the thinking that has to precede it. Specs, folder structure, decision logs. The structure does not follow the AI; the AI follows the structure.',
   },
   {
-    title: 'Scope, not labels.',
-    body: 'A title is a claim; scale is evidence. I would rather describe the systems I am responsible for than the level I am paid at.',
+    title: 'Scale is the evidence.',
+    body: 'A title tells you where someone sits, not what they own. I state mine for context, then let the systems, and the numbers behind them, carry the argument.',
   },
   {
     title: 'Earned lessons only.',
@@ -84,8 +84,8 @@ export default function About() {
           In June 2022 I joined Amazon, where I built a monitoring lifecycle
           platform that onboarded more than 2,750 application stages and over
           200,000 monitors, and hired and mentored eight new-to-industry
-          engineers in New York. In August 2024 I moved into the platform
-          engineering role I have now, architecting a twelve-service
+          engineers in New York. In August 2024 I moved into my current role
+          as a Senior Software Engineer on a platform team, architecting a twelve-service
           workflow orchestration platform that keeps 3 million monitors
           healthy across Amazon&apos;s fleet. It runs roughly 500,000 daily
           scans and health checks so coverage never silently goes stale,

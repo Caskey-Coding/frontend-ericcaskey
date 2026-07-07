@@ -1,6 +1,6 @@
 # Eric Caskey
 
-Platform engineer. I build the systems other engineers depend on.
+Senior Software Engineer at Amazon. I build the systems other engineers depend on.
 
 Fifteen years at enterprise scale. I work on safety-critical workflow orchestration at Amazon, where I architect a platform maintaining 3 million active monitors and running 500,000 daily scans and health checks across a global fleet. Before Amazon I spent nine years at Prudential Financial on Remote Access SRE work, building the MFA self-service portal used over 18,000 times in six languages, and keeping the VPN running for 60,000 corporate users through the early months of COVID.
 

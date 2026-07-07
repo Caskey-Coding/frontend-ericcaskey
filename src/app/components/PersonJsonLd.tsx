@@ -14,7 +14,7 @@ const person = {
     'https://www.linkedin.com/in/ericrcaskey',
     'https://github.com/CaskeyCoding',
   ],
-  jobTitle: 'Platform Engineer',
+  jobTitle: 'Senior Software Engineer',
   worksFor: { '@type': 'Organization', name: 'Amazon' },
   knowsAbout: [
     'Platform Engineering',

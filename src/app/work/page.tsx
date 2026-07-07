@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const employers = [
   {
     company: 'Amazon',
-    role: 'Platform engineer',
+    role: 'Senior Software Engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
       "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It maintains 3 million active monitors and runs 500,000 daily scans and health checks across Amazon's fleet, on monitoring patterns I standardized across 2,750+ application stages.",

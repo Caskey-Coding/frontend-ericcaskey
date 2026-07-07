@@ -24,7 +24,7 @@ const websiteJsonLd = {
     '@id': 'https://ericcaskey.com/#person',
     name: 'Eric Caskey',
     url: 'https://ericcaskey.com',
-    jobTitle: 'Platform Engineer',
+    jobTitle: 'Senior Software Engineer',
     // Declare the cross-domain + social profiles so search engines resolve
     // ericcaskey.com and caskeycoding.com to one entity (caskeycoding's Person
     // already links back here) rather than treating them as competitors.
@@ -55,7 +55,7 @@ const stats = [
 const featuredWork = [
   {
     company: 'Amazon',
-    role: 'Platform engineer',
+    role: 'Senior Software Engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
       "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It maintains 3 million active monitors and runs 500,000 daily scans and health checks across Amazon's fleet, on monitoring patterns I standardized across 2,750+ application stages.",
@@ -117,7 +117,7 @@ export default function Home() {
         <div className="sr-grid">
           <aside className="sr-rail" aria-label="Profile at a glance">
             <div><span className="k">LOC</span> new jersey</div>
-            <div><span className="k">ROLE</span> platform eng</div>
+            <div><span className="k">ROLE</span> senior swe</div>
             <div><span className="k">ORG</span> amazon</div>
             <div><span className="k">SINCE</span> 2022</div>
             <div><span className="k">PRIOR</span> prudential</div>
