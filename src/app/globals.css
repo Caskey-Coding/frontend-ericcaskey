@@ -239,9 +239,14 @@ html {
  * render h1 at the same clamp scale so the wordmark + page-title
  * hierarchy matches across the domain handoff. Tailwind utilities on
  * specific h1 elements still override locally.
+ *
+ * UX-WEB-1: unified on caskeycoding's --text-hero clamp
+ * (2rem + 2vw preferred term). The additive slope is calmer than the
+ * old bare 5.5vw, so mid-viewport sizes track the family scale instead
+ * of overshooting; both endpoints (2.5rem / 4rem) are unchanged.
  */
 h1 {
-  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-size: clamp(2.5rem, 2rem + 2vw, 4rem);
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
 }
