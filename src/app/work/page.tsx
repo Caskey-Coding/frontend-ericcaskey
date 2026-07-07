@@ -68,13 +68,16 @@ const tools = [
   {
     name: 'Marathon Coach',
     tagline: 'Grounded AI marathon training plans with Garmin integration.',
-    url: 'https://caskeycoding.com/coach',
+    // EC-WORK-1: the public preview, not the signed-in door (/coach) which
+    // lands anonymous visitors on a sign-in wall.
+    url: 'https://caskeycoding.com/tools/marathon-coach',
   },
   {
     name: 'Finance Reviewer',
     tagline:
       'Committee-based AI investment analysis with a five-persona scoring model.',
-    url: 'https://caskeycoding.com/finance',
+    // EC-WORK-1: the public preview (/tools/investment-committee), not /finance.
+    url: 'https://caskeycoding.com/tools/investment-committee',
   },
 ];
 
