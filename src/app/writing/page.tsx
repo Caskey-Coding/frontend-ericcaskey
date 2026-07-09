@@ -28,7 +28,7 @@ const essays = [
   {
     title: 'Fifteen Million Was the Easy Part',
     url: 'https://caskeycoding.com/blog/pricing-215-million-options-a-second',
-    publishedDate: 'July 15, 2026',
+    publishedDate: 'July 9, 2026',
     editorNote:
       'A clean C++ options pricer, tuned from 15 to 215 million prices a second. Most of my speedup assumptions died one measurement at a time.',
   },
