@@ -73,23 +73,25 @@ const featuredWork = [
   },
 ];
 
-// Two of the three /writing cards, copy verbatim from
-// src/app/writing/page.tsx (newest-first, B-077).
+// Two selected /writing cards, copy verbatim from src/app/writing/page.tsx
+// (MIRROR RULE, content/001 rule 6). EC-BRAND-1 (2026-07-08): curated to the
+// AI-safety pair: Ballast (an AI system that refuses when it should) and the
+// workflow-guardrails essay, so the home stays safety-led while surfacing a
+// flagship independent build. Any copy edit here must match /writing exactly.
 const selectedWriting = [
+  {
+    title: "Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know'",
+    url: 'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
+    publishedDate: 'June 27, 2026',
+    editorNote:
+      'A RAG system whose most important feature is refusing to answer. How trust got built into the architecture instead of the prompt.',
+  },
   {
     title: 'Designing Safety Guardrails for Distributed Workflow Orchestration',
     url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
     publishedDate: 'April 10, 2026',
     editorNote:
       "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.",
-  },
-  {
-    title:
-      'Spec-Driven Development and the Folder Architecture That Makes It Work',
-    url: 'https://caskeycoding.com/blog/spec-driven-development-and-the-folder-architecture-that-makes-it-work',
-    publishedDate: 'June 20, 2025',
-    editorNote:
-      'How I structure projects so AI agents and humans can both find their way around. This is the methodology behind everything else.',
   },
 ];
 

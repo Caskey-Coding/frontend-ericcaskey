@@ -64,8 +64,16 @@ const employers = [
   },
 ];
 
+// EC-BRAND-1 (specs → ericcaskey-com/content/004 amendment 2026-07-08):
+// "Selected builds" range band. Each entry is a portfolio-proof OUTBOUND link
+// (spec 009 policy: work-shaped surfaces resolve to caskeycoding, never
+// duplicated here) to the live tool, the public writeup, or the playground.
+// `kind` is the mono tile label. Finance entries are framed as engineering,
+// never as investment edge (the composite fails net-of-cost; an edge claim to
+// a finance-literate reader is a credibility risk, not a selling point).
 const tools = [
   {
+    kind: 'Tool',
     name: 'Marathon Coach',
     tagline: 'Grounded AI marathon training plans with Garmin integration.',
     // EC-WORK-1: the public preview, not the signed-in door (/coach) which
@@ -73,11 +81,40 @@ const tools = [
     url: 'https://caskeycoding.com/tools/marathon-coach',
   },
   {
+    kind: 'Tool',
     name: 'Finance Reviewer',
     tagline:
       'Committee-based AI investment analysis with a five-persona scoring model.',
     // EC-WORK-1: the public preview (/tools/investment-committee), not /finance.
     url: 'https://caskeycoding.com/tools/investment-committee',
+  },
+  {
+    kind: 'Open source',
+    name: 'Ballast',
+    tagline:
+      'An open-source RAG system with a guardrails gateway, engineered to refuse when it should.',
+    url: 'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
+  },
+  {
+    kind: 'Engine',
+    name: 'C++ pricing engine',
+    tagline:
+      'A Black-Scholes options engine tuned from 15 to 215 million prices a second on AVX2 SIMD.',
+    url: 'https://caskeycoding.com/blog/pricing-215-million-options-a-second',
+  },
+  {
+    kind: 'Playground',
+    name: 'Market visualizations',
+    tagline:
+      'Real-data 3D views of market structure, volatility surfaces, and factor behavior.',
+    url: 'https://caskeycoding.com/play',
+  },
+  {
+    kind: 'Platform',
+    name: 'Finance research platform',
+    tagline:
+      'The decision engine, backtester, and methodology behind the Reviewer, documented in the open.',
+    url: 'https://caskeycoding.com/finance/methodology',
   },
 ];
 
@@ -115,11 +152,13 @@ export default function Work() {
       <section className="flex flex-col gap-5">
         <div className="flex flex-col gap-1">
           <p className="eyebrow">Projects</p>
-          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Tools I&apos;ve built</h2>
+          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Selected builds</h2>
         </div>
         <p className="leading-relaxed">
-          Two small AI applications built on the same stack I use at work,
-          published as field notes on Caskey Engineering.
+          A selection of what I build on my own time, on the same stack I use at
+          work. Each links to the live tool, the writeup, or the playground on
+          Caskey Engineering. The finance work is engineering, not investment
+          advice.
         </p>
         <div className="sr-tiles">
           {tools.map((t) => (
@@ -129,7 +168,7 @@ export default function Work() {
               rel="noopener"
               className="sr-tile link-plain"
             >
-              <span className="k">Tool</span>
+              <span className="k">{t.kind}</span>
               <span className="t">{t.name} →</span>
               <span className="d">{t.tagline}</span>
             </CrossSiteLink>

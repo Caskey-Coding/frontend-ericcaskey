@@ -7,11 +7,11 @@ import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 export const metadata: Metadata = {
   title: 'Writing',
   description:
-    'Three selected essays by Eric Caskey on spec-driven development, safety-critical distributed systems, and AI application engineering.',
+    'Five selected essays by Eric Caskey on low-latency C++, spec-driven development, safety-critical distributed systems, and AI application engineering.',
   openGraph: {
     title: 'Writing',
     description:
-      'Three selected essays by Eric Caskey on spec-driven development, safety-critical distributed systems, and AI application engineering.',
+      'Five selected essays by Eric Caskey on low-latency C++, spec-driven development, safety-critical distributed systems, and AI application engineering.',
     url: 'https://ericcaskey.com/writing',
     images: [ogImage],
   },
@@ -21,7 +21,24 @@ export const metadata: Metadata = {
 // B-077: publishedDate matches each essay's canonical publish date on
 // caskeycoding.com/blog (post frontmatter `date`), one "Month D, YYYY"
 // format, list sorted newest-first.
+// EC-BRAND-1 (2026-07-08): shelf widened 3 → 5 to surface the two flagship
+// builder essays (C++ pricing engine, Ballast). Order stays strictly
+// newest-first; home cards 1-2 mirror the top two (MIRROR RULE, content/001).
 const essays = [
+  {
+    title: 'Fifteen Million Was the Easy Part',
+    url: 'https://caskeycoding.com/blog/pricing-215-million-options-a-second',
+    publishedDate: 'July 15, 2026',
+    editorNote:
+      'A clean C++ options pricer, tuned from 15 to 215 million prices a second. Most of my speedup assumptions died one measurement at a time.',
+  },
+  {
+    title: "Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know'",
+    url: 'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
+    publishedDate: 'June 27, 2026',
+    editorNote:
+      'A RAG system whose most important feature is refusing to answer. How trust got built into the architecture instead of the prompt.',
+  },
   {
     title: 'Building an AI Finance App',
     url: 'https://caskeycoding.com/blog/building-an-ai-finance-app',
@@ -87,14 +104,15 @@ export default function Writing() {
         <p className="coord">
           <span>Essays</span>
           <span className="sep">·</span>
-          <span>3 selected</span>
+          <span>5 selected</span>
           <span className="sep">·</span>
           <span>caskeycoding.com</span>
         </p>
         <h1 className="text-3xl md:text-4xl">Selected writing</h1>
         <p className="sub">
           Selected essays on spec-driven systems, safety guardrails, and AI
-          reliability. The full archive lives at{' '}
+          reliability, plus the low-latency C++ and open-source AI work behind
+          them. The full archive lives at{' '}
           <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
             Caskey Engineering
           </CrossSiteLink>
