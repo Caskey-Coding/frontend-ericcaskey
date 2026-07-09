@@ -5,7 +5,6 @@ import { CrossSiteLink } from './components/CrossSiteLink';
 import { TimelineItem } from './components/TimelineItem';
 import { EssayCard } from './components/EssayCard';
 import StatusReadout from './components/StatusReadout';
-import Spotlight from './components/Spotlight';
 
 // Staggered page-load reveal delay (one orchestrated load, family design
 // spec v2.1 §motion). Custom property consumed by `.reveal` in globals.css.
@@ -103,8 +102,6 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
 
-      <Spotlight />
-
       {/*
         Masthead , "Systems Readout" (ericcaskey home redesign). A full-bleed,
         always-dark "readout" band: JetBrains Mono structural labels + a left
@@ -114,7 +111,7 @@ export default function Home() {
         the sections below stay on the global themed tokens. Reveal-on-load
         keeps the one-orchestrated-load motion contract.
       */}
-      <header className="sr-hero spotlight reveal" style={reveal(0)}>
+      <header className="sr-hero reveal" style={reveal(0)}>
         <p className="sr-tag">Platform engineering · AI reliability</p>
         <div className="sr-grid">
           <aside className="sr-rail" aria-label="Profile at a glance">
