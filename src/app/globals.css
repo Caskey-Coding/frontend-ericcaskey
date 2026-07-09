@@ -161,42 +161,6 @@ html {
   }
 }
 
-/* Cursor spotlight: a soft accent glow that tracks the cursor across .spotlight
-   surfaces (Spotlight.tsx writes the local --mx/--my; opacity eases via :hover so
-   JS only moves the light). Hover-capable, fine-pointer devices only — no cursor
-   on touch. On this page only the dark Systems Readout hero opts in; its glow uses
-   the readout's own green so it registers on the --sr-ink band. */
-@media (hover: hover) and (pointer: fine) {
-  .spotlight {
-    position: relative;
-  }
-
-  .spotlight::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    z-index: 1;
-    background: radial-gradient(
-      300px circle at var(--mx, 50%) var(--my, 50%),
-      var(--spotlight-tint, var(--color-accent-tint)),
-      color-mix(in srgb, var(--spotlight-tint, var(--color-accent-tint)) 40%, transparent) 46%,
-      transparent 78%
-    );
-    transition: opacity 200ms var(--ease-out, ease);
-  }
-
-  .spotlight:hover::after {
-    opacity: 1;
-  }
-
-  .sr-hero.spotlight {
-    --spotlight-tint: color-mix(in srgb, var(--sr-green) 42%, transparent);
-  }
-}
-
 /* Screen-reader-only: visually hidden but available to assistive tech. */
 .sr-only {
   position: absolute;
