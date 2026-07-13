@@ -50,26 +50,28 @@ export default function About() {
           <span className="sep">·</span>
           <span>new jersey</span>
           <span className="sep">·</span>
-          <span>since 2013</span>
+          <span>since 2011</span>
         </p>
         <h1 className="text-3xl md:text-4xl">About</h1>
       </header>
 
       <section className="flex flex-col gap-5 leading-relaxed text-pretty">
         <p>
-          I came into tech through Workforce Opportunity Services, then started
-          writing code in 2013 as the Remote Access Analyst at{' '}
+          I came into tech in 2011 through{' '}
           <a
             href="https://medium.com/@wforceorg/success-story-eric-caskey-prudential-financial-d2d2e7258f49"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Prudential Financial
+            Workforce Opportunity Services
           </a>
-          : Tier 3 help desk work with a side project generating QR codes for
-          MFA enrollment. That side project ran for eight years and produced
-          over 300,000 activation codes. It also convinced me the job I wanted
-          was the engineering one, not the support one.
+          , placed at Prudential Financial while I was still serving in the NJ
+          Army National Guard, and taught myself to code on the job. By 2013 I
+          was the Remote Access Analyst: Tier 3 help desk work with a side
+          project generating QR codes for MFA enrollment. That side project
+          ran for eight years and produced over 300,000 activation codes. It
+          also settled which job I wanted: the engineering one, not the
+          support one.
         </p>
         <p>
           From there I moved up through Remote Access SRE and Senior Remote
@@ -90,15 +92,26 @@ export default function About() {
           healthy across Amazon&apos;s fleet. It runs roughly 500,000 daily
           scans and health checks so coverage never silently goes stale,
           behind a safety framework that validates every monitor change
-          before it lands.
+          before it lands. The lesson carried over from Prudential intact:
+          the platforms worth building are the ones that stay quiet while
+          everything they watch does not.
+        </p>
+        <p>
+          Nights and weekends I test the same convictions where nobody is
+          grading me: an open-source RAG system engineered to refuse when it
+          should, a C++ options engine tuned to 215 million prices a second,
+          and AI finance tools where the model narrates numbers it is never
+          allowed to derive. The selected builds are on the{' '}
+          <a href="/work">work page</a>; the full writeups live on Caskey
+          Engineering.
         </p>
         <p>
           Along the way I ran a New Jersey WordPress shop called Caskey Coding
           from 2015 to 2018 (ten sites for small businesses and community
-          organizations), and served as a Military Police Officer in the 50th
-          Brigade of the NJ Army National Guard from 2009 to 2015, including a
-          2012 Superstorm Sandy activation where I safeguarded the
-          distribution of 241,000 gallons of FEMA fuel for nearly a month.
+          organizations), and served six years as a Military Police Officer in
+          the 50th Brigade of the NJ Army National Guard, including a 2012
+          Superstorm Sandy activation where I safeguarded the distribution of
+          241,000 gallons of FEMA fuel for nearly a month.
         </p>
       </section>
 
