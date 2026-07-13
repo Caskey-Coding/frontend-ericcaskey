@@ -41,8 +41,8 @@ const websiteJsonLd = {
 // "60,000 corporate users through the early months of COVID"), and the tenure
 // from the bio ("Fifteen years at enterprise scale"). No new/unsourced numbers.
 const stats = [
-  { tag: 'Scale', figure: '3,000,000', label: 'active monitors' },
-  { tag: 'Throughput', figure: '500,000', label: 'scans + checks / day' },
+  { tag: 'Scale', figure: '3,000,000', label: 'monitors standardized' },
+  { tag: 'Throughput', figure: '500,000', label: 'automated actions / day' },
   { tag: 'Continuity', figure: '60,000', label: 'users kept online' },
   { tag: 'Experience', figure: '15 yrs', label: 'at enterprise scale' },
 ];
@@ -57,8 +57,8 @@ const featuredWork = [
     role: 'Senior Software Engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
-      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It maintains 3 million active monitors and runs 500,000 daily scans and health checks across Amazon's fleet, on monitoring patterns I standardized across 2,750+ application stages.",
-    metrics: ['3 million active monitors', '500,000 daily scans and health checks'],
+      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It runs 500,000 automated actions a day across Amazon's fleet. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
+    metrics: ['500,000 automated actions a day', '3 million monitors'],
     href: 'https://caskeycoding.com/case-studies/workflow-orchestration',
   },
   {
@@ -129,9 +129,11 @@ export default function Home() {
                 {/*
                   Positioning one-liner (WREC-6, D-13 scope-not-title): reach is
                   expressed as org-wide SCOPE, never a title. Both figures are
-                  already published and CSV-backed: "3 million active monitors"
-                  (hero bio + /work Amazon row) and "2,750+ application stages"
-                  (/work Amazon row). No new or unsourced numbers here.
+                  already published: "3 million monitors" and "2,750+ application
+                  stages" (/work Amazon row). Both belong to the MONITORING
+                  platform, not the orchestration platform (owner correction
+                  2026-07-13; Positions.csv still mis-attributes them). No new or
+                  unsourced numbers here.
                 */}
                 <p className="sr-lead">
                   I make AI systems safe enough to depend on, at org scale: 3
