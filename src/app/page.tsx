@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { Headshot } from './components/Headshot';
 import { CrossSiteLink } from './components/CrossSiteLink';
+import { ExternalLinkIcon } from './components/ExternalLinkIcon';
 import { TimelineItem } from './components/TimelineItem';
 import { EssayCard } from './components/EssayCard';
 import StatusReadout from './components/StatusReadout';
@@ -179,6 +180,39 @@ export default function Home() {
           {featuredWork.map((e) => (
             <TimelineItem key={e.company} {...e} />
           ))}
+          {/*
+            BLOG-SS-HOME-2 (content-strategy spec 014 homepage cross-links):
+            SpecSelf featured as a project. Same row idiom as TimelineItem,
+            built inline because its CTA resolves to specself.ai rather than a
+            Caskey Engineering case study (TimelineItem hardcodes that label).
+            Mirrors the /work Selected-builds SpecSelf tile; copy edits must
+            stay consistent there. Never name or link the private app.
+          */}
+          <CrossSiteLink
+            href="https://specself.ai"
+            rel="noopener"
+            className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
+          >
+            <div className="flex flex-col gap-2 py-5 border-b border-border transition-colors">
+              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
+                <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
+                  <span className="font-semibold">SpecSelf</span>
+                  <span className="text-sm text-muted">Personal project</span>
+                </div>
+                <span className="text-sm text-muted tabular-nums">2026 – Present</span>
+              </div>
+              <p className="leading-relaxed text-sm md:text-base">
+                An operating system for a life, run like a spec-driven codebase:
+                principles, goals, and decisions as versioned spec files, with
+                AI agents that read but never write.
+              </p>
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                SpecSelf Starter at specself.ai →
+                <ExternalLinkIcon className="shrink-0" />
+              </span>
+            </div>
+            <span className="sr-only">(opens specself.ai)</span>
+          </CrossSiteLink>
         </div>
         <p className="leading-relaxed">
           <Link href="/work">More on the work page →</Link>
