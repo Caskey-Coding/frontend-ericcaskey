@@ -96,6 +96,17 @@ const tools = [
     url: 'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
   },
   {
+    // BLOG-SS-HOME-2 (content-strategy spec 014 homepage cross-links): the
+    // one entry whose outbound link is specself.ai, not caskeycoding. Mirrors
+    // the SpecSelf row on the home Featured-work section; copy edits must
+    // stay consistent there. Never name or link the private app.
+    kind: 'Project',
+    name: 'SpecSelf',
+    tagline:
+      'An operating system for a life, run like a spec-driven codebase, with AI agents that read but never write.',
+    url: 'https://specself.ai',
+  },
+  {
     kind: 'Engine',
     name: 'C++ pricing engine',
     tagline:
@@ -156,7 +167,7 @@ export default function Work() {
         </div>
         <p className="leading-relaxed">
           A selection of what I build on my own time, on the same stack I use at
-          work. Each links to the live tool, the writeup, or the playground on
+          work. Most link to the live tool, the writeup, or the playground on
           Caskey Engineering. The finance work is engineering, not investment
           advice.
         </p>
