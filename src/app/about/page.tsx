@@ -21,12 +21,12 @@ export const metadata: Metadata = {
 
 const values = [
   {
-    title: 'Safety is not a tax on velocity.',
-    body: 'It is what makes velocity trustworthy at scale. Every guardrail I build has to explain not just what failed, but why, what would make it pass, and who owns remediation.',
+    title: 'Guardrails, not booleans.',
+    body: 'Safety systems that explain themselves are what keep velocity sustainable past the first incident. Every guardrail I build has to say not just what failed, but why, what would make it pass, and who owns remediation.',
   },
   {
     title: 'Structure before code.',
-    body: 'Design before you dive in. The hard part is rarely the implementation; it is the thinking that has to precede it. Specs, folder structure, decision logs. The structure does not follow the AI; the AI follows the structure.',
+    body: 'Design before you dive in. Implementation is the fast half; the specs, folder structure, and decision logs that precede it decide whether the system holds up. The structure does not follow the AI; the AI follows the structure.',
   },
   {
     title: 'Scale is the evidence.',
@@ -34,7 +34,7 @@ const values = [
   },
   {
     title: 'Earned lessons only.',
-    body: 'I write what I have learned by getting it wrong first, in production. The things I would have done differently are the things worth writing about.',
+    body: 'I write what I have learned by getting it wrong first, in production. The decisions I would make differently are the ones worth writing about.',
   },
 ];
 
