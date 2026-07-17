@@ -43,7 +43,7 @@ const websiteJsonLd = {
 // from the bio ("Fifteen years at enterprise scale"). No new/unsourced numbers.
 const stats = [
   { tag: 'Scale', figure: '3,000,000', label: 'monitors standardized' },
-  { tag: 'Throughput', figure: '500,000', label: 'automated actions / day' },
+  { tag: 'Safety', figure: '500,000', label: 'safety checks run' },
   { tag: 'Continuity', figure: '60,000', label: 'users kept online' },
   { tag: 'Experience', figure: '15 yrs', label: 'at enterprise scale' },
 ];
@@ -58,8 +58,8 @@ const featuredWork = [
     role: 'Senior Software Engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
-      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. It runs 500,000 automated actions a day across Amazon's fleet. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
-    metrics: ['500,000 automated actions a day', '3 million monitors'],
+      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks across Amazon's fleet. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
+    metrics: ['500,000 safety checks', '3 million monitors'],
     href: 'https://caskeycoding.com/case-studies/workflow-orchestration',
   },
   {
