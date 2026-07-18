@@ -1,0 +1,30 @@
+{
+  "_comment": "EC-WRITING-1 committed fallback for scripts/fetch-writing-feed.mjs. Regenerate with: node scripts/fetch-writing-feed.mjs --write-snapshot",
+  "posts": [
+    {
+      "slug": "pricing-215-million-options-a-second",
+      "title": "Fifteen Million Was the Easy Part",
+      "date": "2026-07-09"
+    },
+    {
+      "slug": "ballast-an-llm-that-says-i-dont-know",
+      "title": "Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know'",
+      "date": "2026-06-27"
+    },
+    {
+      "slug": "building-an-ai-finance-app",
+      "title": "Building a Personal Finance Reviewer: What Survived the Rewrite",
+      "date": "2026-05-19"
+    },
+    {
+      "slug": "designing-safety-guardrails-for-distributed-workflow-orchestration",
+      "title": "Designing Safety Guardrails for Distributed Workflow Orchestration",
+      "date": "2026-04-10"
+    },
+    {
+      "slug": "spec-driven-development-and-the-folder-architecture-that-makes-it-work",
+      "title": "Spec-Driven Development and the Folder Architecture That Makes It Work",
+      "date": "2026-04-09"
+    }
+  ]
+}

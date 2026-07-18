@@ -3,6 +3,7 @@ import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ExternalLinkIcon } from '../components/ExternalLinkIcon';
 import { ogImage } from '../lib/og';
 import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
+import writingShelf from '../../data/writing-shelf.json';
 
 export const metadata: Metadata = {
   title: 'Writing',
@@ -18,52 +19,23 @@ export const metadata: Metadata = {
   alternates: { canonical: '/writing' },
 };
 
-// B-077: publishedDate matches each essay's canonical publish date on
-// caskeycoding.com/blog (post frontmatter `date`), one "Month D, YYYY"
-// format, list sorted newest-first.
+// EC-WRITING-1 (2026-07-18): the shelf is no longer hardcoded here. Membership
+// and each editorNote are curated in content/writing-shelf.yaml; title, date,
+// and url are joined from caskeycoding.com/blog-index.json at build time by
+// scripts/fetch-writing-feed.mjs (prebuild) and emitted to
+// src/data/writing-shelf.json, so the shelf never drifts stale against the
+// canonical blog. publishedDate is "Month D, YYYY", newest-first.
 // EC-BRAND-1 (2026-07-08): shelf widened 3 → 5 to surface the two flagship
 // builder essays (C++ pricing engine, Ballast). Order stays strictly
 // newest-first; home cards 1-2 mirror the top two (MIRROR RULE, content/001).
-const essays = [
-  {
-    title: 'Fifteen Million Was the Easy Part',
-    url: 'https://caskeycoding.com/blog/pricing-215-million-options-a-second',
-    publishedDate: 'July 9, 2026',
-    editorNote:
-      'A clean C++ options pricer, tuned from 15 to 215 million prices a second. Most of my speedup assumptions died one measurement at a time.',
-  },
-  {
-    title: "Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know'",
-    url: 'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
-    publishedDate: 'June 27, 2026',
-    editorNote:
-      'A RAG system whose most important feature is refusing to answer. How trust got built into the architecture instead of the prompt.',
-  },
-  {
-    title: 'Building an AI Finance App',
-    url: 'https://caskeycoding.com/blog/building-an-ai-finance-app',
-    publishedDate: 'May 19, 2026',
-    editorNote:
-      'An honest account of what worked, what did not, and why the hard part is rarely the AI.',
-  },
-  {
-    title: 'Designing Safety Guardrails for Distributed Workflow Orchestration',
-    url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
-    publishedDate: 'April 10, 2026',
-    editorNote:
-      "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.",
-  },
-  {
-    title:
-      'Spec-Driven Development and the Folder Architecture That Makes It Work',
-    url: 'https://caskeycoding.com/blog/spec-driven-development-and-the-folder-architecture-that-makes-it-work',
-    publishedDate: 'June 20, 2025',
-    editorNote:
-      'How I structure projects so AI agents and humans can both find their way around. This is the methodology behind everything else.',
-  },
-];
+type Essay = {
+  title: string;
+  url: string;
+  publishedDate: string;
+  editorNote: string;
+};
 
-type Essay = (typeof essays)[number];
+const essays: Essay[] = writingShelf.essays;
 
 // FDS-5: the writing index, recomposed as a dated editorial index. Each
 // essay is one whole-row outbound link (TimelineItem grammar: border-led
