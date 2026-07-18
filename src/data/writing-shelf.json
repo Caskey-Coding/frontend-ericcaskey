@@ -1,0 +1,34 @@
+{
+  "essays": [
+    {
+      "title": "Fifteen Million Was the Easy Part",
+      "url": "https://caskeycoding.com/blog/pricing-215-million-options-a-second",
+      "publishedDate": "July 9, 2026",
+      "editorNote": "A clean C++ options pricer, tuned from 15 to 215 million prices a second. Most of my speedup assumptions died one measurement at a time."
+    },
+    {
+      "title": "Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know'",
+      "url": "https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know",
+      "publishedDate": "June 27, 2026",
+      "editorNote": "A RAG system whose most important feature is refusing to answer. How trust got built into the architecture instead of the prompt."
+    },
+    {
+      "title": "Building a Personal Finance Reviewer: What Survived the Rewrite",
+      "url": "https://caskeycoding.com/blog/building-an-ai-finance-app",
+      "publishedDate": "May 19, 2026",
+      "editorNote": "An honest account of what worked, what did not, and why the hard part is rarely the AI."
+    },
+    {
+      "title": "Designing Safety Guardrails for Distributed Workflow Orchestration",
+      "url": "https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration",
+      "publishedDate": "April 10, 2026",
+      "editorNote": "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident."
+    },
+    {
+      "title": "Spec-Driven Development and the Folder Architecture That Makes It Work",
+      "url": "https://caskeycoding.com/blog/spec-driven-development-and-the-folder-architecture-that-makes-it-work",
+      "publishedDate": "April 9, 2026",
+      "editorNote": "How I structure projects so AI agents and humans can both find their way around. This is the methodology behind everything else."
+    }
+  ]
+}
