@@ -8,3 +8,11 @@ next-env.d.ts
 playwright-report
 test-results
 playwright/.cache
+
+# Local design-sync scratch. Untracked, but eslint.config.mjs only ignores
+# .next/out/node_modules, so while these sit in a working tree `npm run lint`
+# lints the bundled React inside them and reports 17 errors that do not exist in
+# the repo. CI never sees them (clean checkout), which makes the local gate
+# stricter than the real one for no reason. Ignoring keeps local lint honest.
+ds-bundle/
+.ds-sync/
