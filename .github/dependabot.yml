@@ -10,6 +10,19 @@ updates:
         patterns:
           - "next"
           - "eslint-config-next"
+    ignore:
+      # TypeScript 7 dropped the JavaScript compiler API that `next build` uses
+      # for type checking, so a TS 7 bump kills Deploy Production outright:
+      # "TypeScript 7.0.2 does not provide the compiler API required by Next.js".
+      # That is exactly what happened on 2026-07-23 (EC-DEPLOY-1) and it went
+      # unnoticed for five consecutive failed runs while merged security fixes
+      # sat unshipped. Next's escape hatch, experimental.useTypeScriptCli, is
+      # explicitly experimental, so it is not something to adopt unattended on a
+      # live site via an auto-merged dependency PR.
+      # Lift this only DELIBERATELY, once Next.js supports TS 7 through the
+      # default checker (i.e. the experimental flag is no longer required).
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
