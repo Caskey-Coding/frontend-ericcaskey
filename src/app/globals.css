@@ -509,12 +509,11 @@ textarea.field-input { resize: vertical; }
 @media (max-width: 720px) { .sr-photo { max-width: 220px; } }
 
 .sr-status { margin-top: 2.25rem; border-top: 1px solid var(--sr-line); }
-.sr-status .row { display: grid; grid-template-columns: 116px 1fr auto; gap: 1.1rem; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid var(--sr-line); font-family: var(--sr-mono); }
+.sr-status .row { display: grid; grid-template-columns: 116px 1fr; gap: 1.1rem; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid var(--sr-line); font-family: var(--sr-mono); }
 .sr-status .lbl { font-size: 11px; letter-spacing: 0.14em; color: var(--sr-green-deep); text-transform: uppercase; }
-.sr-status .bar { height: 3px; background: linear-gradient(90deg, var(--sr-green-deep), transparent); border-radius: 2px; }
-.sr-status .val { font-size: 1.45rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--sr-paper); }
+.sr-status .val { justify-self: end; font-size: 1.45rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--sr-paper); }
 .sr-status .val small { color: var(--sr-muted); font-size: 0.8rem; }
-@media (max-width: 720px) { .sr-status .row { grid-template-columns: 100px 1fr; } .sr-status .bar { display: none; } }
+@media (max-width: 720px) { .sr-status .row { grid-template-columns: 100px 1fr; } .sr-status .val { justify-self: start; } }
 
 /* Sub-page readout header — a mono coordinate line + serif title, hairline-
    sealed. Lighter than the home masthead band, but carries the Systems

@@ -40,7 +40,7 @@ export default function Contact() {
       <header className="sr-pagehead">
         <p className="coord">
           <span>Contact</span>
-          <span className="sep">·</span>
+          <span className="sep" aria-hidden="true">·</span>
           <span>replies &lt; 1 week</span>
         </p>
         <h1 className="text-3xl md:text-4xl">Contact</h1>
