@@ -75,9 +75,9 @@ export default function Writing() {
       <header className="sr-pagehead">
         <p className="coord">
           <span>Essays</span>
-          <span className="sep">·</span>
+          <span className="sep" aria-hidden="true">·</span>
           <span>5 selected</span>
-          <span className="sep">·</span>
+          <span className="sep" aria-hidden="true">·</span>
           <span>caskeycoding.com</span>
         </p>
         <h1 className="text-3xl md:text-4xl">Selected writing</h1>

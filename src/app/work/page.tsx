@@ -138,9 +138,9 @@ export default function Work() {
       <header className="sr-pagehead">
         <p className="coord">
           <span>Experience</span>
-          <span className="sep">·</span>
+          <span className="sep" aria-hidden="true">·</span>
           <span>5 roles</span>
-          <span className="sep">·</span>
+          <span className="sep" aria-hidden="true">·</span>
           <span>2009 → present</span>
         </p>
         <h1 className="text-3xl md:text-4xl">Work</h1>

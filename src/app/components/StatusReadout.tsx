@@ -81,7 +81,6 @@ export default function StatusReadout({ stats }: { stats: Stat[] }) {
       {stats.map((s, i) => (
         <div className="row" key={s.label}>
           <span className="lbl">{s.tag}</span>
-          <span className="bar" aria-hidden="true" />
           <span className="val" aria-label={`${s.figure} ${s.label}`}>
             <span aria-hidden="true">
               {current[i].toLocaleString('en-US')}

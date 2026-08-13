@@ -47,9 +47,9 @@ export default function About() {
       <header className="sr-pagehead">
         <p className="coord">
           <span>Background</span>
-          <span className="sep">·</span>
+          <span className="sep" aria-hidden="true">·</span>
           <span>new jersey</span>
-          <span className="sep">·</span>
+          <span className="sep" aria-hidden="true">·</span>
           <span>since 2011</span>
         </p>
         <h1 className="text-3xl md:text-4xl">About</h1>
