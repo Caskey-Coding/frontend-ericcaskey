@@ -29,19 +29,49 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      # Keep rollback controls on the dispatched workflow revision. The target
+      # being rebuilt must not be able to downgrade its own production gates.
+      - name: Checkout rollback controls
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          path: rollback-control
+      - name: Checkout rollback target
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref }}
-      - uses: actions/setup-node@v7
+          path: rollback-target
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: 'rollback-target/.nvmrc'
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-artifact@v7
+          cache-dependency-path: 'rollback-target/package-lock.json'
+      - name: Install rollback target dependencies
+        run: npm ci
+        working-directory: rollback-target
+      - name: Assert contact API URL is configured
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+        run: |
+          if [ -z "$NEXT_PUBLIC_CONTACT_API_URL" ]; then
+            echo "::error::Repository variable NEXT_PUBLIC_CONTACT_API_URL is not set; refusing rollback rebuild."
+            exit 1
+          fi
+      - name: Build rollback target
+        run: npm run build
+        working-directory: rollback-target
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+      - name: Verify contact API URL baked into export
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+        run: bash rollback-control/.github/scripts/verify-contact-export.sh rollback-target/out
+      - name: Upload verified rollback artifact
+        uses: actions/upload-artifact@v7
         with:
           name: rollback-static-export-${{ github.run_id }}
-          path: out/
+          path: rollback-target/out/
           retention-days: 7
 
   deploy:
@@ -51,22 +81,40 @@ jobs:
     needs: build
     environment: production
     steps:
-      - uses: actions/download-artifact@v8
+      - name: Checkout rollback controls
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          path: rollback-control
+      - name: Download verified rollback artifact
+        uses: actions/download-artifact@v8
         with:
           name: rollback-static-export-${{ github.run_id }}
           path: out/
-      - uses: aws-actions/configure-aws-credentials@v6
+      # Reverify the exact downloaded directory before AWS credentials exist.
+      # The directory checked here is the directory synchronized below.
+      - name: Reverify downloaded rollback artifact
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+        run: bash rollback-control/.github/scripts/verify-contact-export.sh out
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: Sync to S3
+      - name: Sync verified export to S3
         run: aws s3 sync out/ s3://${{ env.S3_BUCKET }} --delete
-      - name: Invalidate CloudFront
+      - name: Invalidate CloudFront and wait
         run: |
-          aws cloudfront create-invalidation \
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
             --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --paths "/*"
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text)
+          aws cloudfront wait invalidation-completed \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --id "$INVALIDATION_ID"
 
   healthcheck:
     name: Multi-route healthcheck
@@ -74,11 +122,15 @@ jobs:
     timeout-minutes: 5
     needs: deploy
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout rollback controls
+        uses: actions/checkout@v7
         with:
-          ref: ${{ inputs.ref }}
-      - name: Run healthcheck
-        run: bash .github/scripts/healthcheck.sh https://ericcaskey.com
+          ref: ${{ github.sha }}
+          path: rollback-control
+      - name: Run rollback healthcheck
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+        run: bash rollback-control/.github/scripts/rollback-healthcheck.sh https://ericcaskey.com
 
   notify:
     name: Notify Discord (ROLLBACK)

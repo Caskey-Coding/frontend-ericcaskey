@@ -98,6 +98,8 @@ jobs:
       - uses: actions/checkout@v7
       - name: Public asset guard (size + GPS EXIF)
         run: python3 scripts/check-public-assets.py
+      - name: Rollback safety tests
+        run: python3 tests/test_rollback_safety.py
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
