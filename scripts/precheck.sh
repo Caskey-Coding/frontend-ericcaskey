@@ -8,6 +8,9 @@ cd "$(dirname "$0")/.."
 echo "==> public asset guard (size + GPS EXIF)"
 python3 scripts/check-public-assets.py
 
+echo "==> rollback safety tests"
+python3 tests/test_rollback_safety.py
+
 echo "==> lint"
 npm run lint
 
