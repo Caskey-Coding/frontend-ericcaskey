@@ -19,11 +19,26 @@ import unittest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXPORT_CHECKER = ".github/scripts/verify-contact-export.sh"
 ROLLBACK_HEALTHCHECK = ".github/scripts/rollback-healthcheck.sh"
+ROUTE_HEALTHCHECK = ".github/scripts/healthcheck.sh"
 WORKFLOW = REPO_ROOT / ".github/workflows/rollback.yml"
+PRODUCTION_WORKFLOW = REPO_ROOT / ".github/workflows/deploy-production.yml"
 PR_WORKFLOW = REPO_ROOT / ".github/workflows/pr-validation.yml"
 PRECHECK = REPO_ROOT / "scripts/precheck.sh"
 EXPECTED_API_URL = "https://contact.example.test"
+ARTIFACT_NAME = "rollback-static-export-${{ github.run_id }}"
+PUBLIC_INPUT_PATTERN = re.compile(r"NEXT_PUBLIC_[A-Z0-9_]+")
+SUPPLIED_INPUT_PATTERN = re.compile(r"(NEXT_PUBLIC_[A-Z0-9_]+): \$\{\{ vars\.")
 BASH = shutil.which("bash") or "bash"
+
+# Models the rollback target as it looked before the contact-parity gates
+# existed: it accepts any export directory and never asserts the API URL.
+# A rollback to such a ref must not be able to supply its own checker.
+STALE_TARGET_EXPORT_CHECKER = """#!/usr/bin/env bash
+set -euo pipefail
+EXPORT_DIR="${1:-out}"
+[ -d "$EXPORT_DIR" ] || exit 1
+echo "stale target checker: export directory present"
+"""
 
 
 def run_bash(
@@ -145,6 +160,40 @@ def workflow_step(job: str, step_name: str) -> tuple[int, str]:
         if re.search(rf"(?m)^      - name: {re.escape(step_name)}\s*$", block):
             return index, block
     raise AssertionError(f"workflow step not found: {step_name}")
+
+
+def production_supplied_build_inputs() -> set[str]:
+    """Public build inputs production's build job feeds from repository vars.
+
+    Production is the authority on what a rollback rebuild must also supply.
+    Deriving the set rather than hard-coding it means a new NEXT_PUBLIC_*
+    input production grows fails this contract until rollback supplies it.
+    """
+    production_job = workflow_job(
+        PRODUCTION_WORKFLOW.read_text(encoding="utf-8"), "build"
+    )
+    return set(SUPPLIED_INPUT_PATTERN.findall(production_job))
+
+
+def source_public_inputs_without_defaults() -> set[str]:
+    """NEXT_PUBLIC_* the bundle reads with no usable in-source default.
+
+    An input with a non-empty literal fallback bakes the same value whoever
+    builds it, so it needs no workflow wiring. One without a fallback (or
+    with an empty-string one, like the contact URL) is only correct when the
+    build supplies it, which makes it a required input for rollback too.
+    """
+    names: set[str] = set()
+    for source_file in (REPO_ROOT / "src").rglob("*.ts*"):
+        text = source_file.read_text(encoding="utf-8")
+        for name in PUBLIC_INPUT_PATTERN.findall(text):
+            defaulted = re.search(
+                rf"process\.env\.{re.escape(name)}\s*(?:\?\?|\|\|)\s*['\"][^'\"]+['\"]",
+                text,
+            )
+            if not defaulted:
+                names.add(name)
+    return names
 
 
 class ExportGateTests(unittest.TestCase):
@@ -284,6 +333,25 @@ class WorkflowControlPlaneTests(unittest.TestCase):
         self.assertIn("rollback-control/.github/scripts/rollback-healthcheck.sh", health)
         self.assertIn("NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}", health)
 
+    def test_deploy_downloads_only_this_runs_verified_artifact(self) -> None:
+        """Provenance: the deployed bytes are the ones this run built and verified."""
+        build_job = workflow_job(self.source, "build")
+        deploy_job = workflow_job(self.source, "deploy")
+        _, upload = workflow_step(build_job, "Upload verified rollback artifact")
+        _, download = workflow_step(deploy_job, "Download verified rollback artifact")
+
+        self.assertIn(f"name: {ARTIFACT_NAME}", upload)
+        self.assertIn(f"name: {ARTIFACT_NAME}", download)
+        # Cross-run artifact download requires run-id (plus a token/repository).
+        # Any of them would let the deploy job pull bytes no gate in this run
+        # ever verified, so none may appear.
+        for escape_hatch in ("run-id:", "github-token:", "repository:"):
+            self.assertNotIn(
+                escape_hatch,
+                download,
+                f"download step must stay bound to this run (found {escape_hatch})",
+            )
+
     def test_focused_rollback_tests_run_in_ci_and_local_precheck(self) -> None:
         ci_source = PR_WORKFLOW.read_text(encoding="utf-8")
         precheck_source = PRECHECK.read_text(encoding="utf-8")
@@ -291,6 +359,142 @@ class WorkflowControlPlaneTests(unittest.TestCase):
         self.assertIn("name: Rollback safety tests", ci_source)
         self.assertIn("run: python3 tests/test_rollback_safety.py", ci_source)
         self.assertIn("python3 tests/test_rollback_safety.py", precheck_source)
+
+
+class BuildInputParityTests(unittest.TestCase):
+    """A rollback rebuild must get every public build input production gets."""
+
+    def test_every_public_input_the_bundle_needs_is_supplied_by_production(self) -> None:
+        """No required input may depend on the ambient build environment."""
+        required = production_supplied_build_inputs()
+        unwired = source_public_inputs_without_defaults() - required
+        self.assertEqual(
+            unwired,
+            set(),
+            f"{sorted(unwired)} are read with no usable default and no build wiring; "
+            "production and rollback would bake different values",
+        )
+
+    def test_rollback_rebuild_supplies_every_production_public_build_input(self) -> None:
+        required = production_supplied_build_inputs()
+        self.assertIn(
+            "NEXT_PUBLIC_CONTACT_API_URL",
+            required,
+            "contact API URL must remain a derived production build input",
+        )
+
+        source = WORKFLOW.read_text(encoding="utf-8")
+        build_job = workflow_job(source, "build")
+        deploy_job = workflow_job(source, "deploy")
+        health_job = workflow_job(source, "healthcheck")
+        _, assert_step = workflow_step(build_job, "Assert contact API URL is configured")
+        _, build_step = workflow_step(build_job, "Build rollback target")
+        _, verify_step = workflow_step(
+            build_job, "Verify contact API URL baked into export"
+        )
+        _, reverify_step = workflow_step(
+            deploy_job, "Reverify downloaded rollback artifact"
+        )
+        _, health_step = workflow_step(health_job, "Run rollback healthcheck")
+
+        gates = (
+            ("assert", assert_step),
+            ("build", build_step),
+            ("build verify", verify_step),
+            ("deploy reverify", reverify_step),
+            ("healthcheck", health_step),
+        )
+        for name in sorted(required):
+            supplied = f"{name}: ${{{{ vars.{name} }}}}"
+            for label, block in gates:
+                self.assertIn(
+                    supplied,
+                    block,
+                    f"rollback {label} step must supply {name} the way production does",
+                )
+            self.assertIn(
+                f'-z "${name}"',
+                assert_step,
+                f"rollback must refuse an empty {name} before rebuilding",
+            )
+
+
+class OldCheckerTests(unittest.TestCase):
+    """The rollback target must never supply the gate that judges it."""
+
+    def test_stale_target_export_checker_accepts_what_control_checker_refuses(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            temp_path = Path(temp)
+            export_dir = write_export(temp_path, 'const api = "https://wrong.example.test";')
+            bin_dir, aws_log = install_aws_stub(temp_path)
+            stale_checker = temp_path / "stale-verify-contact-export.sh"
+            stale_checker.write_text(STALE_TARGET_EXPORT_CHECKER, encoding="utf-8")
+            env = {
+                "NEXT_PUBLIC_CONTACT_API_URL": EXPECTED_API_URL,
+                "AWS_CALL_LOG": str(aws_log),
+            }
+
+            stale = run_bash(
+                stale_checker.as_posix(),
+                export_dir.as_posix(),
+                env=env,
+                extra_path=bin_dir,
+            )
+            control = run_bash(
+                EXPORT_CHECKER, export_dir.as_posix(), env=env, extra_path=bin_dir
+            )
+
+            self.assertEqual(
+                stale.returncode,
+                0,
+                "fixture is only meaningful if the stale target checker passes",
+            )
+            self.assertNotEqual(
+                control.returncode,
+                0,
+                "the dispatched revision's checker must refuse the mis-baked export",
+            )
+            self.assertIn("does not contain", control.stdout + control.stderr)
+            self.assertFalse(aws_log.exists(), "neither checker may invoke AWS")
+
+    def test_stale_target_health_checker_accepts_what_control_health_refuses(
+        self,
+    ) -> None:
+        # The pre-hardening rollback gate was healthcheck.sh alone: five routes,
+        # no contact-config assertion. It is the real old checker, not a mock.
+        with serve_site('const api = "https://wrong.example.test";') as base_url:
+            stale = run_bash(ROUTE_HEALTHCHECK, base_url)
+            control = run_bash(
+                ROLLBACK_HEALTHCHECK,
+                base_url,
+                env={"NEXT_PUBLIC_CONTACT_API_URL": EXPECTED_API_URL},
+            )
+
+        self.assertEqual(
+            stale.returncode,
+            0,
+            "the old routes-only gate is what silently passed a mis-configured rollback",
+        )
+        self.assertIn("Healthcheck passed: 5/5", stale.stdout)
+        self.assertNotEqual(
+            control.returncode,
+            0,
+            "the dispatched revision's health gate must catch the live config mismatch",
+        )
+
+    def test_workflow_runs_every_checker_from_the_control_plane(self) -> None:
+        source = WORKFLOW.read_text(encoding="utf-8")
+        self.assertNotIn("rollback-target/.github", source)
+        for job_name in ("build", "deploy", "healthcheck"):
+            job = workflow_job(source, job_name)
+            invocations = re.findall(r"bash (\S+)", job)
+            for script in invocations:
+                self.assertTrue(
+                    script.startswith("rollback-control/.github/scripts/"),
+                    f"{job_name} runs {script} outside the dispatched revision",
+                )
 
 
 if __name__ == "__main__":
