@@ -15,9 +15,13 @@ FAIL=0
 TOTAL=0
 
 # (path, case-insensitive grep-E regex)
+# The /about marker must be body-unique: nav chrome (About link, career
+# copy) renders on every page, so nav words would let a CloudFront
+# index-fallback serving the home shell false-pass. "activation codes"
+# appears only in the about page body (src/app/about/page.tsx).
 ROUTES=(
   "/|eric caskey"
-  "/about|(about|prudential|career|years)"
+  "/about|activation codes"
   "/work|(work|prudential|amazon|timeline)"
   "/writing|(writing|essay|reading)"
   "/contact|(contact|message|email)"
