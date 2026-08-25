@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Behavior and workflow-contract tests for EC-ROLLBACK-1."""
+"""Behavior and workflow-contract tests for EC-ROLLBACK-1 and EC-HEALTH-1."""
 
 from __future__ import annotations
 
@@ -67,6 +67,11 @@ def run_bash(
         env=command_env,
         capture_output=True,
         text=True,
+        # The scripts emit UTF-8 (✅/❌); decoding with the Windows locale
+        # (cp1252) kills the reader thread on a failing route's ❌ and
+        # yields stdout=None.
+        encoding="utf-8",
+        errors="replace",
         check=False,
     )
 
@@ -98,7 +103,10 @@ class SiteHandler(http.server.BaseHTTPRequestHandler):
 
     route_bodies = {
         "/": "<h1>Eric Caskey</h1>",
-        "/about": "<h1>About</h1>",
+        # The about fixture carries the body-unique marker healthcheck.sh
+        # asserts (EC-HEALTH-1); the real page string lives in
+        # src/app/about/page.tsx.
+        "/about": "<h1>About</h1><p>produced over 300,000 activation codes</p>",
         "/work": "<h1>Work</h1>",
         "/writing": "<h1>Writing</h1>",
         "/contact": (
@@ -129,8 +137,11 @@ class SiteHandler(http.server.BaseHTTPRequestHandler):
 
 
 @contextlib.contextmanager
-def serve_site(asset_body: str):
-    handler = type("ConfiguredSiteHandler", (SiteHandler,), {"asset_body": asset_body})
+def serve_site(asset_body: str, routes: dict[str, str] | None = None):
+    handler_attrs: dict[str, object] = {"asset_body": asset_body}
+    if routes is not None:
+        handler_attrs["route_bodies"] = routes
+    handler = type("ConfiguredSiteHandler", (SiteHandler,), handler_attrs)
     with socketserver.TCPServer(("127.0.0.1", 0), handler) as server:
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
@@ -266,6 +277,57 @@ class LiveRollbackHealthTests(unittest.TestCase):
             )
 
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+
+class AboutRouteMarkerTests(unittest.TestCase):
+    """EC-HEALTH-1: the /about marker must come from the about body.
+
+    The pre-fix marker matched nav chrome ("About" link, career copy) that
+    renders on every page, so a CloudFront index-fallback serving the home
+    shell at /about false-passed. The marker is now a string unique to the
+    about page body.
+    """
+
+    # What CloudFront's index-fallback serves at /about: the home shell,
+    # nav/header/footer chrome included, with HTTP 200.
+    HOME_SHELL = (
+        '<html><body><header><nav>'
+        '<a href="/">Eric Caskey</a>'
+        '<a href="/about">About</a>'
+        '<a href="/work">Work</a>'
+        '<a href="/writing">Writing</a>'
+        '<a href="/contact">Contact</a>'
+        "</nav></header>"
+        "<h1>Eric Caskey</h1>"
+        "<p>Platform engineer; 15 years of infrastructure career.</p>"
+        '<footer><a href="/about">About</a></footer>'
+        "</body></html>"
+    )
+
+    def test_home_shell_served_at_about_fails_the_about_check(self) -> None:
+        # Fixture sanity: the shell must carry the nav words the old weak
+        # marker matched, otherwise this test proves nothing.
+        self.assertRegex(self.HOME_SHELL, r"(?i)(about|career)")
+        self.assertNotRegex(self.HOME_SHELL, r"(?i)activation codes")
+
+        routes = dict(SiteHandler.route_bodies)
+        routes["/about"] = self.HOME_SHELL
+        with serve_site('const api = "https://wrong.example.test";', routes=routes) as base_url:
+            result = run_bash(ROUTE_HEALTHCHECK, base_url)
+
+        self.assertNotEqual(
+            result.returncode,
+            0,
+            "nav chrome alone must not satisfy the /about marker",
+        )
+        self.assertIn("/about : HTTP 200 but body did not match", result.stdout)
+
+    def test_real_about_body_passes_the_about_check(self) -> None:
+        with serve_site('const api = "https://wrong.example.test";') as base_url:
+            result = run_bash(ROUTE_HEALTHCHECK, base_url)
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("Healthcheck passed: 5/5", result.stdout)
 
 
 class WorkflowControlPlaneTests(unittest.TestCase):
