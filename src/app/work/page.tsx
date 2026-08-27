@@ -143,7 +143,7 @@ export default function Work() {
           <span className="sep" aria-hidden="true">·</span>
           <span>2009 → present</span>
         </p>
-        <h1 className="text-3xl md:text-4xl">Work</h1>
+        <h1 className="page-title">Work</h1>
         <p className="sub">
           Fifteen years across five roles. The deep case studies, with metrics,
           diagrams, and architectural decisions, live on{' '}

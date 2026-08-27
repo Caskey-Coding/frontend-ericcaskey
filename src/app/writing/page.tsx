@@ -80,7 +80,7 @@ export default function Writing() {
           <span className="sep" aria-hidden="true">·</span>
           <span>caskeycoding.com</span>
         </p>
-        <h1 className="text-3xl md:text-4xl">Selected writing</h1>
+        <h1 className="page-title">Selected writing</h1>
         <p className="sub">
           Selected essays on spec-driven systems, safety guardrails, and AI
           reliability, plus the low-latency C++ and open-source AI work behind
