@@ -35,8 +35,8 @@ export default function NotFound() {
       <div className="flex flex-col gap-4">
         {/* Tracking/leading come from the global h1 rule (v2.1 §2.4). */}
         <h1
-          className="reveal font-semibold"
-          style={{ ...reveal(60), fontSize: 'clamp(2rem, 5vw, 3rem)' }}
+          className="reveal page-title font-semibold"
+          style={{ ...reveal(60) }}
         >
           This page doesn’t exist
         </h1>

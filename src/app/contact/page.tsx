@@ -43,7 +43,7 @@ export default function Contact() {
           <span className="sep" aria-hidden="true">·</span>
           <span>replies &lt; 1 week</span>
         </p>
-        <h1 className="text-3xl md:text-4xl">Contact</h1>
+        <h1 className="page-title">Contact</h1>
         <p className="sub">
           I read everything. I reply to serious inquiries within a week. The
           form below is the fastest route.

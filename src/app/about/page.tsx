@@ -52,7 +52,7 @@ export default function About() {
           <span className="sep" aria-hidden="true">·</span>
           <span>since 2011</span>
         </p>
-        <h1 className="text-3xl md:text-4xl">About</h1>
+        <h1 className="page-title">About</h1>
       </header>
 
       <section className="flex flex-col gap-5 leading-relaxed text-pretty">
