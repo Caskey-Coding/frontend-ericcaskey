@@ -123,7 +123,7 @@ export function ContactForm() {
       <div aria-live="polite" className="text-sm">
         {status === 'success' && (
           <p className="form-note form-note--ok">
-            Message sent. I&apos;ll get back to you soon.
+            Message sent. Thanks for reaching out. I&apos;ll get back to you within a week.
           </p>
         )}
 

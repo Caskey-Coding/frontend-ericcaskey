@@ -45,8 +45,9 @@ export default function Contact() {
         </p>
         <h1 className="page-title">Contact</h1>
         <p className="sub">
-          I read everything. I reply to serious inquiries within a week. The
-          form below is the fastest route.
+          Get in touch about an engineering project, a question about the
+          writing, or a professional conversation. I read everything and reply
+          within a week. The form below is the fastest route.
         </p>
       </header>
 

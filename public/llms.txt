@@ -6,6 +6,8 @@ Fifteen years at enterprise scale. I work on safety-critical workflow orchestrat
 
 This site is the personal front door: career, how to reach me, a short reading shelf. For long-form engineering writing, case studies, and the tools I have built, see Caskey Engineering at https://caskeycoding.com.
 
+Independent builds include Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system; and the Finance Reviewer, which presents deterministic factor scores narrated through six investor perspectives.
+
 - Home: https://ericcaskey.com
 - About: https://ericcaskey.com/about
 - Work: https://ericcaskey.com/work
