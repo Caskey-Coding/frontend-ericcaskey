@@ -84,7 +84,7 @@ const tools = [
     kind: 'Tool',
     name: 'Finance Reviewer',
     tagline:
-      'Committee-based AI investment analysis with a five-persona scoring model.',
+      'Deterministic factor scores narrated through six investor perspectives.',
     // EC-WORK-1: the public preview (/tools/investment-committee), not /finance.
     url: 'https://caskeycoding.com/tools/investment-committee',
   },

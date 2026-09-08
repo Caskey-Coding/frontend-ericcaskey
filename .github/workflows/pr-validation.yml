@@ -55,6 +55,8 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci
+      - name: Deployment safety tests
+        run: node --test tests/deploy.test.mjs
       - run: npm run lint
       - run: npm run typecheck
 

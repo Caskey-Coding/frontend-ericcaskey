@@ -11,6 +11,9 @@ python3 scripts/check-public-assets.py
 echo "==> rollback safety tests"
 python3 tests/test_rollback_safety.py
 
+echo "==> deployment safety tests"
+node --test tests/deploy.test.mjs
+
 echo "==> lint"
 npm run lint
 

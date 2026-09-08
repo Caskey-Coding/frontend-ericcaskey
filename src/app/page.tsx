@@ -127,38 +127,34 @@ export default function Home() {
             <div className="sr-masthead">
               <div>
                 <h1 className="sr-name">Eric Caskey</h1>
-                {/*
-                  Positioning one-liner (WREC-6, D-13 scope-not-title): reach is
-                  expressed as org-wide SCOPE, never a title. Both figures are
-                  already published: "3 million monitors" and "2,750+ application
-                  stages" (/work Amazon row). Both belong to the MONITORING
-                  platform, not the orchestration platform (owner correction
-                  2026-07-13; Positions.csv still mis-attributes them). No new or
-                  unsourced numbers here.
-                */}
+                {/* Monitoring figures below belong to the monitoring platform. */}
                 <p className="sr-lead">
-                  I make AI systems safe enough to depend on, at org scale: 3
-                  million monitors, 2,750+ application stages.
+                  I build production platforms engineers can depend on.
                 </p>
                 <p className="sr-bio">
                   Fifteen years making production infrastructure safe to depend
                   on. At Amazon I architect a multi-region workflow orchestration
                   platform with validation guardrails that run before anything
-                  executes. Now I bring that same rigor to AI: spec-driven
+                  executes. I also own the monitoring platform that keeps 3
+                  million monitors standardized across 2,750+ application stages.
+                  I bring that same rigor to AI: spec-driven
                   systems, curated context, and validation that catches a wrong
                   “yes” before it ships. I write about how this work actually gets
                   done at Caskey Engineering.
                 </p>
                 <div className="sr-cta">
                   <CrossSiteLink
-                    href="https://caskeycoding.com"
+                    href="https://caskeycoding.com/case-studies/workflow-orchestration"
                     rel="noopener"
                     className="sr-btn sr-btn--p"
                   >
-                    read the work →
+                    read the case study →
                   </CrossSiteLink>
                   <Link href="/about" className="sr-btn sr-btn--s">
                     about →
+                  </Link>
+                  <Link href="/contact" className="sr-btn sr-btn--s">
+                    contact →
                   </Link>
                 </div>
               </div>
@@ -180,6 +176,26 @@ export default function Home() {
           {featuredWork.map((e) => (
             <TimelineItem key={e.company} {...e} />
           ))}
+          {/* Description mirrors the Ballast tile on /work. */}
+          <CrossSiteLink
+            href="https://caskeycoding.com/case-studies/ballast"
+            rel="noopener"
+            className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
+          >
+            <div className="flex flex-col gap-2 py-5 border-b border-border transition-colors">
+              <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
+                <span className="font-semibold">Ballast</span>
+                <span className="text-sm text-muted">Independent AI project · Open source</span>
+              </div>
+              <p className="leading-relaxed text-sm md:text-base">
+                An open-source RAG system with a guardrails gateway, engineered to refuse when it should.
+              </p>
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                Read how Ballast handles trust →
+                <ExternalLinkIcon className="shrink-0" />
+              </span>
+            </div>
+          </CrossSiteLink>
           {/*
             BLOG-SS-HOME-2 (content-strategy spec 014 homepage cross-links):
             SpecSelf featured as a project. Same row idiom as TimelineItem,
@@ -237,7 +253,9 @@ export default function Home() {
       <section className="flex flex-col items-start gap-4">
         <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Get in touch</h2>
         <p className="leading-relaxed">
-          I read everything. The contact form is the fastest route.
+          Get in touch about an engineering project, a question about the
+          writing, or a professional conversation. I read everything and reply
+          within a week. The contact form is the fastest route.
         </p>
         <Link href="/contact" className="btn-primary">
           Contact →
