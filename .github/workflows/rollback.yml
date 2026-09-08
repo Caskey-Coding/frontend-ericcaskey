@@ -91,30 +91,31 @@ jobs:
         with:
           name: rollback-static-export-${{ github.run_id }}
           path: out/
+      - name: Set up uploader Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: 'rollback-control/.nvmrc'
       # Reverify the exact downloaded directory before AWS credentials exist.
       # The directory checked here is the directory synchronized below.
       - name: Reverify downloaded rollback artifact
         env:
           NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
         run: bash rollback-control/.github/scripts/verify-contact-export.sh out
+      - name: Validate downloaded rollback references
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+        run: node rollback-control/scripts/deploy.mjs --no-build --validate-only --out-dir out
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: Sync verified export to S3
-        run: aws s3 sync out/ s3://${{ env.S3_BUCKET }} --delete
-      - name: Invalidate CloudFront and wait
-        run: |
-          INVALIDATION_ID=$(aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --paths "/*" \
-            --query 'Invalidation.Id' \
-            --output text)
-          aws cloudfront wait invalidation-completed \
-            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --id "$INVALIDATION_ID"
+      - name: Safely deploy verified export
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: node rollback-control/scripts/deploy.mjs --no-build --out-dir out
 
   healthcheck:
     name: Multi-route healthcheck

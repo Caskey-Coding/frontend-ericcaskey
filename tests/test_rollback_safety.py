@@ -366,23 +366,34 @@ class WorkflowControlPlaneTests(unittest.TestCase):
         _, verify = workflow_step(job, "Reverify downloaded rollback artifact")
         verify_index, _ = workflow_step(job, "Reverify downloaded rollback artifact")
         credentials_index, _ = workflow_step(job, "Configure AWS credentials")
-        sync_index, _ = workflow_step(job, "Sync verified export to S3")
+        sync_index, _ = workflow_step(job, "Safely deploy verified export")
+        references_index, references = workflow_step(job, "Validate downloaded rollback references")
 
         self.assertIn("rollback-control/.github/scripts/verify-contact-export.sh", verify)
         self.assertIn("NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}", verify)
         self.assertLess(verify_index, credentials_index)
+        self.assertLess(references_index, credentials_index)
+        self.assertIn('node rollback-control/scripts/deploy.mjs --no-build --validate-only --out-dir out', references)
         self.assertLess(credentials_index, sync_index)
 
     def test_health_waits_for_cloudfront_invalidation_to_finish(self) -> None:
         deploy_job = workflow_job(self.source, "deploy")
-        sync_index, _ = workflow_step(deploy_job, "Sync verified export to S3")
-        invalidation_index, invalidation = workflow_step(
-            deploy_job, "Invalidate CloudFront and wait"
-        )
+        _, uploader = workflow_step(deploy_job, "Safely deploy verified export")
+        self.assertIn('node rollback-control/scripts/deploy.mjs --no-build --out-dir out', uploader)
+        self.assertIn('CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}', uploader)
+        self.assertIn('NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}', uploader)
+        self.assertNotIn('aws s3 sync', deploy_job)
+        self.assertNotIn('--delete', deploy_job)
 
-        self.assertLess(sync_index, invalidation_index)
-        self.assertIn("aws cloudfront wait invalidation-completed", invalidation)
-        self.assertIn('--id "$INVALIDATION_ID"', invalidation)
+    def test_all_release_paths_share_the_safe_uploader(self) -> None:
+        production = PRODUCTION_WORKFLOW.read_text(encoding="utf-8")
+        local = (REPO_ROOT / 'scripts' / 'deploy.sh').read_text(encoding="utf-8")
+        self.assertIn('node scripts/deploy.mjs --no-build', production)
+        self.assertIn('node scripts/deploy.mjs --no-build', local)
+        for source in (production, self.source, local):
+            self.assertNotIn('--delete', source)
+        self.assertIn('node --test tests/deploy.test.mjs', PR_WORKFLOW.read_text(encoding='utf-8'))
+        self.assertIn('node --test tests/deploy.test.mjs', PRECHECK.read_text(encoding='utf-8'))
 
     def test_healthcheck_cannot_be_downgraded_by_old_target(self) -> None:
         job = workflow_job(self.source, "healthcheck")
