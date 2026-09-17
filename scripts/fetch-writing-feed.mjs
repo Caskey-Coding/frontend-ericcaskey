@@ -170,7 +170,16 @@ async function main() {
   });
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.writeFileSync(OUT_FILE, JSON.stringify({ essays }, null, 2) + '\n', 'utf8');
+  const next = JSON.stringify({ essays }, null, 2) + '\n';
+  // Skip the write when only line endings differ: on Windows checkouts git
+  // hands us CRLF and we would emit LF, which leaves the tree dirty for the
+  // attestation gate although nothing changed (ECGEO-1).
+  const prev = fs.existsSync(OUT_FILE) ? fs.readFileSync(OUT_FILE, 'utf8') : null;
+  if (prev !== null && prev.replace(/\r\n/g, '\n') === next) {
+    console.log(`writing-shelf: ${path.relative(ROOT, OUT_FILE)} unchanged (source: ${sourceLabel})`);
+    return;
+  }
+  fs.writeFileSync(OUT_FILE, next, 'utf8');
   console.log(
     `writing-shelf: wrote ${essays.length} essays to ${path.relative(ROOT, OUT_FILE)} (source: ${sourceLabel})`,
   );

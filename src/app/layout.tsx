@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: '%s | Eric Caskey',
   },
   description:
-    'Eric Caskey brings platform-engineering rigor to AI: validation, guardrails, and spec-driven systems that make AI safe to ship, after 15 years of infrastructure at Amazon scale.',
+    'Eric Caskey brings platform-engineering rigor to AI: validation, guardrails, and spec-driven systems that make AI safe to ship, after 15 years at Amazon scale.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',

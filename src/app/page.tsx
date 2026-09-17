@@ -6,6 +6,7 @@ import { ExternalLinkIcon } from './components/ExternalLinkIcon';
 import { TimelineItem } from './components/TimelineItem';
 import { EssayCard } from './components/EssayCard';
 import StatusReadout from './components/StatusReadout';
+import { PERSON_ID } from './components/PersonJsonLd';
 
 // Staggered page-load reveal delay (one orchestrated load, family design
 // spec v2.1 §motion). Custom property consumed by `.reveal` in globals.css.
@@ -15,25 +16,40 @@ const reveal = (ms: number): CSSProperties =>
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': 'https://ericcaskey.com/#website',
   name: 'Eric Caskey',
   url: 'https://ericcaskey.com',
-  author: {
-    '@type': 'Person',
-    // Same @id as the canonical Person node (see PersonJsonLd.tsx) so this
-    // author reference resolves to the one entity rather than spawning a new one.
-    '@id': 'https://ericcaskey.com/#person',
-    name: 'Eric Caskey',
-    url: 'https://ericcaskey.com',
-    jobTitle: 'Senior Software Engineer',
-    // Declare the cross-domain + social profiles so search engines resolve
-    // ericcaskey.com and caskeycoding.com to one entity (caskeycoding's Person
-    // already links back here) rather than treating them as competitors.
-    sameAs: [
-      'https://caskeycoding.com',
-      'https://www.linkedin.com/in/ericrcaskey',
-      'https://github.com/CaskeyCoding',
-    ],
+  author: { '@id': PERSON_ID, '@type': 'Person', name: 'Eric Caskey' },
+};
+
+const HOME_FAQ = [
+  {
+    q: 'Who is Eric Caskey?',
+    a: 'Eric Caskey is a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. He has spent fifteen years across five roles making production infrastructure safe enough to automate: at Amazon since June 2022, and at Prudential Financial for nine years before that. He writes about safety-critical platforms and AI reliability at Caskey Engineering.',
   },
+  {
+    q: 'What does Eric Caskey work on at Amazon?',
+    a: "He owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages, and architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change and have run 500,000 safety checks across Amazon's fleet. He also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.",
+  },
+  {
+    q: 'What has Eric Caskey built outside work?',
+    a: 'Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should. SpecSelf, a spec-driven personal operating system whose AI agents read but never write. A C++ Black-Scholes options engine tuned from 15 to 215 million prices a second. A Finance Reviewer that presents deterministic factor scores narrated through six investor perspectives.',
+  },
+  {
+    q: 'How do I contact Eric Caskey?',
+    a: 'The contact form at ericcaskey.com/contact is the fastest route; he reads everything and replies within a week. He is also on LinkedIn at linkedin.com/in/ericrcaskey and on GitHub at github.com/CaskeyCoding.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': 'https://ericcaskey.com/#faq',
+  mainEntity: HOME_FAQ.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
 };
 
 // Status-panel figures , broadened to show range across the career, every
@@ -101,6 +117,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       {/*
@@ -260,6 +280,27 @@ export default function Home() {
         <Link href="/contact" className="btn-primary">
           Contact →
         </Link>
+      </section>
+      <section className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Who</p>
+          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">About Eric Caskey</h2>
+        </div>
+        <p className="leading-relaxed text-pretty">
+          Eric Caskey is a Senior Software Engineer at Amazon, based in New Jersey. He joined Amazon in June 2022 and has held the Senior Software Engineer title since August 2024, on a platform team where he architects a multi-region workflow orchestration platform whose validation guardrails run before anything executes, and owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages. Those guardrails have run 500,000 safety checks across Amazon&apos;s fleet. Before Amazon he spent nine years at Prudential Financial in Remote Access SRE, building the MFA self-service portal used more than 18,000 times in six languages and keeping the VPN running for 60,000 corporate users through the early months of COVID. He brings the same rigor to AI: spec-driven systems, curated context, and validation that catches a wrong &quot;yes&quot; before it ships. He writes about how this work gets done at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
+        </p>
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Questions</p>
+          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Common questions</h2>
+        </div>
+        <dl className="flex flex-col gap-4">
+          {HOME_FAQ.map(({ q, a }) => (
+            <div key={q}>
+              <dt className="font-semibold">{q}</dt>
+              <dd className="leading-relaxed text-pretty mt-1">{a}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
     </article>
   );
