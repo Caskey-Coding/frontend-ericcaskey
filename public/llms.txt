@@ -6,6 +6,23 @@ Fifteen years at enterprise scale. I work on safety-critical workflow orchestrat
 
 This site is the personal front door: career, how to reach me, a short reading shelf. For long-form engineering writing, case studies, and the tools I have built, see Caskey Engineering at https://caskeycoding.com.
 
+## Key Facts
+
+- Name: Eric Caskey
+- Title: Senior Software Engineer
+- Employer: Amazon (June 2022 to present)
+- Previously: Prudential Financial, Remote Access SRE then Senior Remote Access SRE (April 2013 to June 2022)
+- Location: New Jersey, United States
+- Career start: 2011, as a Workforce Opportunity Services consultant
+- Scale: 3,000,000 monitors standardized across 2,750+ application stages
+- Safety: 500,000 safety checks run by the orchestration platform's guardrails
+- Continuity: 60,000 corporate users kept online through the early months of COVID
+- Automation: 200,000+ administrative actions automated; MFA self-service portal used 18,000+ times in six languages
+- Engineering brand: Caskey Engineering, https://caskeycoding.com
+- Independent builds: Ballast (open-source RAG with a guardrails gateway), SpecSelf (https://specself.ai), the Finance Reviewer
+- Contact: https://ericcaskey.com/contact
+- Canonical entity id: https://ericcaskey.com/#person
+
 Independent builds include Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system; and the Finance Reviewer, which presents deterministic factor scores narrated through six investor perspectives.
 
 - Home: https://ericcaskey.com
@@ -13,4 +30,6 @@ Independent builds include Ballast, an open-source RAG system with a guardrails 
 - Work: https://ericcaskey.com/work
 - Writing: https://ericcaskey.com/writing
 - Contact: https://ericcaskey.com/contact
+- Contact form: https://ericcaskey.com/contact (replies within a week)
 - Engineering brand: https://caskeycoding.com
+- Full text: https://ericcaskey.com/llms-full.txt
