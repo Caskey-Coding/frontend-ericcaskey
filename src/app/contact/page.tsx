@@ -1,3 +1,4 @@
+import { LAST_MODIFIED, formatUpdated } from '../lib/lastModified';
 import type { Metadata } from 'next';
 import { ContactForm } from '../components/ContactForm';
 import { ogImage } from '../lib/og';
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 const contactPageJsonLd = {
+  dateModified: LAST_MODIFIED.contact,
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
   name: 'Contact Eric Caskey',
@@ -51,6 +53,8 @@ export default function Contact() {
           <span>Contact</span>
           <span className="sep" aria-hidden="true">·</span>
           <span>replies &lt; 1 week</span>
+          <span className="sep" aria-hidden="true">·</span>
+          <span>updated <time dateTime={LAST_MODIFIED.contact}>{formatUpdated(LAST_MODIFIED.contact)}</time></span>
         </p>
         <h1 className="page-title">Contact</h1>
         <p className="sub">

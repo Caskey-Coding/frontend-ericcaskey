@@ -1,3 +1,4 @@
+import { LAST_MODIFIED, formatUpdated } from '../lib/lastModified';
 import type { Metadata } from 'next';
 import { TimelineItem } from '../components/TimelineItem';
 import { CrossSiteLink } from '../components/CrossSiteLink';
@@ -132,10 +133,24 @@ const tools = [
   },
 ];
 
+const webPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://ericcaskey.com/work#webpage',
+  url: 'https://ericcaskey.com/work',
+  name: 'Work',
+  dateModified: LAST_MODIFIED.work,
+  about: { '@id': 'https://ericcaskey.com/#person' },
+};
+
 export default function Work() {
   return (
     <article className="sr flex flex-col gap-12">
       <BreadcrumbJsonLd name="Work" path="/work" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
       {/* Systems Readout sub-page header (FDS-7): a mono coordinate line +
           serif title, hairline-sealed, same voice as the home masthead. */}
       <header className="sr-pagehead">
@@ -145,6 +160,8 @@ export default function Work() {
           <span>5 roles</span>
           <span className="sep" aria-hidden="true">·</span>
           <span>2009 → present</span>
+          <span className="sep" aria-hidden="true">·</span>
+          <span>updated <time dateTime={LAST_MODIFIED.work}>{formatUpdated(LAST_MODIFIED.work)}</time></span>
         </p>
         <h1 className="page-title">Work</h1>
         <p className="sub">

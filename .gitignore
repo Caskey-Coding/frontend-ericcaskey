@@ -16,3 +16,5 @@ playwright/.cache
 # stricter than the real one for no reason. Ignoring keeps local lint honest.
 ds-bundle/
 .ds-sync/
+
+src/generated/

@@ -25,6 +25,8 @@ jobs:
       sha_short: ${{ steps.meta.outputs.sha_short }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - id: meta
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v7

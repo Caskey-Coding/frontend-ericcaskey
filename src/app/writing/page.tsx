@@ -1,3 +1,4 @@
+import { LAST_MODIFIED, formatUpdated } from '../lib/lastModified';
 import type { Metadata } from 'next';
 import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ExternalLinkIcon } from '../components/ExternalLinkIcon';
@@ -85,10 +86,24 @@ function EssayRow({ title, url, publishedDate, editorNote }: Essay) {
   );
 }
 
+const webPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://ericcaskey.com/writing#webpage',
+  url: 'https://ericcaskey.com/writing',
+  name: 'Selected writing',
+  dateModified: LAST_MODIFIED.writing,
+  about: { '@id': 'https://ericcaskey.com/#person' },
+};
+
 export default function Writing() {
   return (
     <article className="sr flex flex-col gap-10">
       <BreadcrumbJsonLd name="Writing" path="/writing" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
@@ -100,6 +115,8 @@ export default function Writing() {
           <span>5 selected</span>
           <span className="sep" aria-hidden="true">·</span>
           <span>caskeycoding.com</span>
+          <span className="sep" aria-hidden="true">·</span>
+          <span>updated <time dateTime={LAST_MODIFIED.writing}>{formatUpdated(LAST_MODIFIED.writing)}</time></span>
         </p>
         <h1 className="page-title">Selected writing</h1>
         <p className="sub">

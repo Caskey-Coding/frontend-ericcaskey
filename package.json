@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/derive-last-modified.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/fetch-writing-feed.mjs",
+    "prebuild": "node scripts/derive-last-modified.mjs && node scripts/fetch-writing-feed.mjs",
     "build": "next build",
     "lint": "eslint .",
+    "pretypecheck": "node scripts/derive-last-modified.mjs",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install --with-deps chromium"
