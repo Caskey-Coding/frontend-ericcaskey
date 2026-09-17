@@ -1,3 +1,4 @@
+import { LAST_MODIFIED, formatUpdated } from '../lib/lastModified';
 import type { Metadata } from 'next';
 import { ValuesList } from '../components/ValuesList';
 import { Headshot } from '../components/Headshot';
@@ -42,6 +43,7 @@ const values = [
 ];
 
 const profilePageJsonLd = {
+  dateModified: LAST_MODIFIED.about,
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   '@id': 'https://ericcaskey.com/about#profilepage',
@@ -67,6 +69,8 @@ export default function About() {
           <span>new jersey</span>
           <span className="sep" aria-hidden="true">·</span>
           <span>since 2011</span>
+          <span className="sep" aria-hidden="true">·</span>
+          <span>updated <time dateTime={LAST_MODIFIED.about}>{formatUpdated(LAST_MODIFIED.about)}</time></span>
         </p>
         <h1 className="page-title">About</h1>
         <p className="sub">

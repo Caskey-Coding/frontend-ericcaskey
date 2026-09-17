@@ -1,3 +1,4 @@
+import { LAST_MODIFIED, formatUpdated } from './lib/lastModified';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { Headshot } from './components/Headshot';
@@ -14,6 +15,7 @@ const reveal = (ms: number): CSSProperties =>
   ({ '--reveal-delay': `${ms}ms` }) as CSSProperties;
 
 const websiteJsonLd = {
+  dateModified: LAST_MODIFIED.home,
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   '@id': 'https://ericcaskey.com/#website',
@@ -142,6 +144,7 @@ export default function Home() {
             <div><span className="k">SINCE</span> 2022</div>
             <div><span className="k">PRIOR</span> prudential</div>
             <div><span className="k">WRITES</span> caskeycoding.com</div>
+            <div><span className="k">UPDATED</span> <time dateTime={LAST_MODIFIED.home} title={formatUpdated(LAST_MODIFIED.home)}>{LAST_MODIFIED.home}</time></div>
           </aside>
           <div>
             <div className="sr-masthead">
