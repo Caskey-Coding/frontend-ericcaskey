@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { CrossSiteLink } from './CrossSiteLink';
 
 export function Footer() {
@@ -32,6 +33,9 @@ export function Footer() {
               >
                 GitHub
               </a>
+            </li>
+            <li>
+              <Link href="/privacy">Privacy</Link>
             </li>
           </ul>
         </div>
