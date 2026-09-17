@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description:
     'Get in touch with Eric Caskey: hiring, engineering, and press inquiries.',
   openGraph: {
+    siteName: 'Eric Caskey',
+    locale: 'en_US',
+    type: 'website',
     title: 'Contact',
     description: 'Get in touch with Eric Caskey: hiring, engineering, and press inquiries.',
     url: 'https://ericcaskey.com/contact',
@@ -22,9 +25,15 @@ const contactPageJsonLd = {
   name: 'Contact Eric Caskey',
   url: 'https://ericcaskey.com/contact',
   mainEntity: {
+    '@id': 'https://ericcaskey.com/#person',
     '@type': 'Person',
     name: 'Eric Caskey',
-    url: 'https://ericcaskey.com',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'professional inquiries',
+    url: 'https://ericcaskey.com/contact',
+    availableLanguage: 'English',
   },
 };
 

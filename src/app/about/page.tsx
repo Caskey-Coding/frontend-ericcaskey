@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description:
     "Career narrative, values, and the mission behind Eric Caskey's platform engineering work.",
   openGraph: {
+    siteName: 'Eric Caskey',
+    locale: 'en_US',
+    type: 'website',
     title: 'About',
     description:
       "Career narrative, values, and the mission behind Eric Caskey's platform engineering work.",
@@ -38,10 +41,23 @@ const values = [
   },
 ];
 
+const profilePageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': 'https://ericcaskey.com/about#profilepage',
+  url: 'https://ericcaskey.com/about',
+  name: 'About Eric Caskey',
+  mainEntity: { '@id': 'https://ericcaskey.com/#person' },
+};
+
 export default function About() {
   return (
     <article className="sr flex flex-col gap-12">
       <BreadcrumbJsonLd name="About" path="/about" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
+      />
       {/* Systems Readout sub-page header: mono coordinate line + serif title,
           hairline-sealed , same voice as the home masthead. */}
       <header className="sr-pagehead">
@@ -53,6 +69,13 @@ export default function About() {
           <span>since 2011</span>
         </p>
         <h1 className="page-title">About</h1>
+        <p className="sub">
+          Eric Caskey is a Senior Software Engineer at Amazon with fifteen years
+          in safety-critical infrastructure, from the NJ Army National Guard and
+          Prudential Financial to the workflow orchestration and monitoring
+          platforms he owns today. This page is the long version, in his own
+          words.
+        </p>
       </header>
 
       <section className="flex flex-col gap-5 leading-relaxed text-pretty">
