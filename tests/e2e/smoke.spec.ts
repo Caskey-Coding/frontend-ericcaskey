@@ -45,6 +45,8 @@ test('Person JSON-LD sameAs has correct LinkedIn + GitHub URLs', async ({ page }
   expect(jsonLd!).toMatch(/linkedin\.com\/in\/ericrcaskey/);
   expect(jsonLd!).toMatch(/github\.com\/CaskeyCoding/);
   expect(jsonLd!).toMatch(/caskeycoding\.com/);
+  expect(jsonLd!).toMatch(/specself\.ai/);
+  expect(jsonLd!).toMatch(/wikidata\.org\/wiki\/Q3884/);
 });
 
 test('cross-site links to caskeycoding.com use the theme handoff', async ({ page }) => {
