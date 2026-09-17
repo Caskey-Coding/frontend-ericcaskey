@@ -9,6 +9,7 @@ const pages = {
   work: 'src/app/work/page.tsx',
   writing: 'src/app/writing/page.tsx',
   contact: 'src/app/contact/page.tsx',
+  privacy: 'src/app/privacy/page.tsx',
 };
 
 try {

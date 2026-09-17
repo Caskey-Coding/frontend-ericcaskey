@@ -1,6 +1,6 @@
 import generated from '@/generated/last-modified.json'
 
-export type RouteKey = 'home' | 'about' | 'work' | 'writing' | 'contact'
+export type RouteKey = 'home' | 'about' | 'work' | 'writing' | 'contact' | 'privacy'
 
 export const LAST_MODIFIED: Record<RouteKey, string> = {
   home: generated.home,
@@ -8,6 +8,7 @@ export const LAST_MODIFIED: Record<RouteKey, string> = {
   work: generated.work,
   writing: generated.writing,
   contact: generated.contact,
+  privacy: generated.privacy,
 }
 
 for (const [key, value] of Object.entries(LAST_MODIFIED)) {
