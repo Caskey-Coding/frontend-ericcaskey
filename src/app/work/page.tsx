@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description:
     'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
   openGraph: {
+    siteName: 'Eric Caskey',
+    locale: 'en_US',
+    type: 'website',
     title: 'Work',
     description:
       'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
@@ -145,7 +148,10 @@ export default function Work() {
         </p>
         <h1 className="page-title">Work</h1>
         <p className="sub">
-          Fifteen years across five roles. The deep case studies, with metrics,
+          Eric Caskey has held five roles across fifteen years, from the NJ Army
+          National Guard in 2009 to Senior Software Engineer at Amazon today. He
+          joined Amazon in June 2022 and has held the Senior Software Engineer
+          title since August 2024. The deep case studies, with metrics,
           diagrams, and architectural decisions, live on{' '}
           <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
             Caskey Engineering

@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description:
     'Five selected essays by Eric Caskey on low-latency C++, spec-driven development, safety-critical distributed systems, and AI application engineering.',
   openGraph: {
+    siteName: 'Eric Caskey',
+    locale: 'en_US',
+    type: 'website',
     title: 'Writing',
     description:
       'Five selected essays by Eric Caskey on low-latency C++, spec-driven development, safety-critical distributed systems, and AI application engineering.',
@@ -36,6 +39,20 @@ type Essay = {
 };
 
 const essays: Essay[] = writingShelf.essays;
+
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  '@id': 'https://ericcaskey.com/writing#list',
+  name: 'Selected writing by Eric Caskey',
+  numberOfItems: essays.length,
+  itemListElement: essays.map((e, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: e.url,
+    name: e.title,
+  })),
+};
 
 // FDS-5: the writing index, recomposed as a dated editorial index. Each
 // essay is one whole-row outbound link (TimelineItem grammar: border-led
@@ -72,6 +89,10 @@ export default function Writing() {
   return (
     <article className="sr flex flex-col gap-10">
       <BreadcrumbJsonLd name="Writing" path="/writing" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <header className="sr-pagehead">
         <p className="coord">
           <span>Essays</span>
@@ -82,9 +103,18 @@ export default function Writing() {
         </p>
         <h1 className="page-title">Selected writing</h1>
         <p className="sub">
-          Selected essays on spec-driven systems, safety guardrails, and AI
-          reliability, plus the low-latency C++ and open-source AI work behind
-          them. The full archive lives at{' '}
+          Eric Caskey writes long-form engineering essays at Caskey Engineering
+          on spec-driven development, safety guardrails for distributed systems,
+          and AI reliability. The five selected here best show the method rather
+          than the result: a C++ options pricer tuned from 15 to 215 million
+          prices a second, where most of the speedup assumptions died one
+          measurement at a time; Ballast, a RAG system whose most important
+          feature is refusing to answer; an honest account of building a
+          personal finance reviewer, where the hard part was rarely the AI; the
+          validation engines behind workflow orchestration, where an incorrect
+          &quot;yes&quot; is a production incident; and the folder architecture
+          that lets AI agents and humans both find their way around a codebase.
+          The full archive lives at{' '}
           <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
             Caskey Engineering
           </CrossSiteLink>
