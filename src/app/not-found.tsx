@@ -5,6 +5,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Page not found',
   robots: { index: false, follow: true },
+  // A 404 must not inherit the layout's homepage canonical: canonicalizing an
+  // error page to `/` reads as a soft-404 hint to parsers.
+  alternates: { canonical: null },
 };
 
 // Staggered page-load reveal, same idiom as the home masthead (family design
