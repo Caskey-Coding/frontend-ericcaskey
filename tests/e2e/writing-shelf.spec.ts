@@ -10,7 +10,7 @@ import { test, expect } from '@playwright/test';
 // title "Building a Personal Finance Reviewer..." replaces the previously
 // hardcoded "Building an AI Finance App").
 const EXPECTED_TITLES = [
-  'Fifteen Million Was the Easy Part',
+  'Pricing 215 million options a second with SIMD C++',
   "Best Feature Is Saying 'I Don't Know'", // Ballast (apostrophes)
   'Building a Personal Finance Reviewer: What Survived the Rewrite',
   'Designing Safety Guardrails for Distributed Workflow Orchestration',

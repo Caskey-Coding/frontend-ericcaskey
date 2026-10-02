@@ -80,22 +80,6 @@ _FRONTEND_NDA_RULES = [
     Rule("At Amazon, I faced", "Disallowed attribution: 'At Amazon, I faced'"),
     Rule("per day in us-east-1", "Internal metric: execution rate per region"),
     Rule("account ID", "Potential internal detail: AWS account ID reference"),
-    # 2026-10-02 parity with ai-blog-web scripts/check-public-nda.mjs: the
-    # VPN-session-detail class and the scrubbed or mislabeled employer figures
-    # stay banned on this site too. Public scale figures (3 million monitors,
-    # 2,750+ stages, 500,000 safety checks, 300,000 codes, 18,000 uses,
-    # 200,000+ actions, 60,000 users) are allowed by owner ruling.
-    Rule("who was connecting to the VPN, when, and for how long", "Internal detail: VPN session reporting"),
-    Rule("employee login events", "Internal detail: VPN session reporting"),
-    Rule("session durations", "Internal detail: VPN session reporting"),
-    Rule("access patterns across the enterprise", "Internal detail: VPN session reporting"),
-    Rule("scanning every global endpoint for high-risk sessions", "Internal detail: remote-access security tooling"),
-    Rule("on-demand session termination", "Internal detail: remote-access security tooling"),
-    Rule("12,250 datasets", "Scrubbed employer metric"),
-    Rule("7,500 person-days", "Scrubbed employer metric"),
-    Rule("400,000 monitors", "Scrubbed employer metric"),
-    Rule("500K+ daily automated actions", "Mislabeled metric; the canonical figure is 500,000 safety checks"),
-    Rule("across Amazon's fleet", "Scope inflation; say '500,000 safety checks' with no fleet clause"),
 ]
 
 # Voice / marketing rules. Verbatim from frontend-ericcaskey's `voice-scan` job

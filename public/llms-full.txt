@@ -30,7 +30,7 @@ Work
 
 Featured work
 
-Amazon, Senior Software Engineer, Jun 2022 – Present: Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks across Amazon's fleet. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages. (https://caskeycoding.com/case-studies/workflow-orchestration)
+Amazon, Software Engineer → Senior Software Engineer, Jun 2022 – Present: Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages. (https://caskeycoding.com/case-studies/workflow-orchestration)
 
 Prudential Financial, Remote Access SRE → Senior Remote Access SRE, Apr 2013 – Jun 2022: Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID. (https://caskeycoding.com/case-studies/mfa-at-scale)
 
@@ -72,7 +72,7 @@ I came into tech in 2011 through Workforce Opportunity Services (https://medium.
 
 From there I moved up through Remote Access SRE and Senior Remote Access SRE at Prudential, where I built the MFA self-service portal used more than 18,000 times in six languages, automated over 200,000 administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID. Most of that work was figuring out how to make safety-critical infrastructure quiet: how to remove failure modes rather than paper over them.
 
-In June 2022 I joined Amazon, where I built a monitoring lifecycle platform that onboarded more than 2,750 application stages and brought 3 million monitors under standardized management, and hired and mentored eight new-to-industry engineers in New York. In August 2024 I moved into my current role as a Senior Software Engineer on a platform team, architecting a twelve-service workflow orchestration platform whose safety framework has run roughly 500,000 checks across Amazon's fleet, validating every change before it lands. The lesson carried over from Prudential intact: the platforms worth building are the ones that stay quiet while everything they watch does not.
+In June 2022 I joined Amazon, where I built a monitoring lifecycle platform that onboarded more than 2,750 application stages and brought 3 million monitors under standardized management, and hired and mentored eight new-to-industry engineers in New York. In August 2024 I moved into my current role as a Senior Software Engineer on a platform team, architecting a twelve-service workflow orchestration platform whose safety framework has run roughly 500,000 checks, validating every change before it lands. The lesson carried over from Prudential intact: the platforms worth building are the ones that stay quiet while everything they watch does not.
 
 Nights and weekends I test the same convictions where nobody is grading me: an open-source RAG system engineered to refuse when it should, a C++ options engine tuned to 215 million prices a second, and AI finance tools where the model narrates numbers it is never allowed to derive. The selected builds are on the work page (https://ericcaskey.com/work); the full writeups live on Caskey Engineering.
 
@@ -106,7 +106,7 @@ Work
 
 Fifteen years across five roles. The deep case studies, with metrics, diagrams, and architectural decisions, live on Caskey Engineering (https://caskeycoding.com).
 
-Amazon, Senior Software Engineer, Jun 2022 – Present: Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks across Amazon's fleet. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages. (https://caskeycoding.com/case-studies/workflow-orchestration)
+Amazon, Software Engineer → Senior Software Engineer, Jun 2022 – Present: Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages. (https://caskeycoding.com/case-studies/workflow-orchestration)
 
 Prudential Financial, Remote Access SRE → Senior Remote Access SRE, Apr 2013 – Jun 2022: Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID. (https://caskeycoding.com/case-studies/mfa-at-scale)
 
