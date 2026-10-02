@@ -27,10 +27,10 @@ export const metadata: Metadata = {
 const employers = [
   {
     company: 'Amazon',
-    role: 'Senior Software Engineer',
+    role: 'Software Engineer → Senior Software Engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
-      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks across Amazon's fleet. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
+      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
     metrics: ['500,000 safety checks', '3 million monitors'],
     href: 'https://caskeycoding.com/case-studies/workflow-orchestration',
   },
@@ -80,24 +80,24 @@ const tools = [
     kind: 'Tool',
     name: 'Marathon Coach',
     tagline: 'Grounded AI marathon training plans with Garmin integration.',
-    // EC-WORK-1: the public preview, not the signed-in door (/coach) which
+    // EC-WORK-1: the public preview (/lab/marathon-coach), not the signed-in door (/coach) which
     // lands anonymous visitors on a sign-in wall.
-    url: 'https://caskeycoding.com/tools/marathon-coach',
+    url: 'https://caskeycoding.com/lab/marathon-coach',
   },
   {
     kind: 'Tool',
     name: 'Finance Reviewer',
     tagline:
       'Deterministic factor scores narrated through six investor perspectives.',
-    // EC-WORK-1: the public preview (/tools/investment-committee), not /finance.
-    url: 'https://caskeycoding.com/tools/investment-committee',
+    // EC-WORK-1: the public preview (/lab/investment-committee), not /finance.
+    url: 'https://caskeycoding.com/lab/investment-committee',
   },
   {
     kind: 'Open source',
     name: 'Ballast',
     tagline:
       'An open-source RAG system with a guardrails gateway, engineered to refuse when it should.',
-    url: 'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
+    url: 'https://caskeycoding.com/case-studies/ballast',
   },
   {
     // BLOG-SS-HOME-2 (content-strategy spec 014 homepage cross-links): the
@@ -122,7 +122,7 @@ const tools = [
     name: 'Market visualizations',
     tagline:
       'Real-data 3D views of market structure, volatility surfaces, and factor behavior.',
-    url: 'https://caskeycoding.com/play',
+    url: 'https://caskeycoding.com/lab',
   },
   {
     kind: 'Platform',
@@ -165,11 +165,11 @@ export default function Work() {
         </p>
         <h1 className="page-title">Work</h1>
         <p className="sub">
-          Eric Caskey has held five roles across fifteen years, from the NJ Army
-          National Guard in 2009 to Senior Software Engineer at Amazon today. He
-          joined Amazon in June 2022 and has held the Senior Software Engineer
-          title since August 2024. The deep case studies, with metrics,
-          diagrams, and architectural decisions, live on{' '}
+          Eric Caskey has held five roles since 2009, fifteen of those years in
+          technology, from the NJ Army National Guard to Senior Software
+          Engineer at Amazon today. He joined Amazon in June 2022 and has held
+          the Senior Software Engineer title since August 2024. The deep case
+          studies, with the metrics and the architectural decisions, live on{' '}
           <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
             Caskey Engineering
           </CrossSiteLink>
