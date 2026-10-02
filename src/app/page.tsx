@@ -31,7 +31,7 @@ const HOME_FAQ = [
   },
   {
     q: 'What does Eric Caskey work on at Amazon?',
-    a: "He owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages, and architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change and have run 500,000 safety checks across Amazon's fleet. He also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.",
+    a: "He owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages, and architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change and have run 500,000 safety checks. He also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.",
   },
   {
     q: 'What has Eric Caskey built outside work?',
@@ -73,10 +73,10 @@ const stats = [
 const featuredWork = [
   {
     company: 'Amazon',
-    role: 'Senior Software Engineer',
+    role: 'Software Engineer → Senior Software Engineer',
     dates: 'Jun 2022 – Present',
     oneLineImpact:
-      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks across Amazon's fleet. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
+      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
     metrics: ['500,000 safety checks', '3 million monitors'],
     href: 'https://caskeycoding.com/case-studies/workflow-orchestration',
   },
@@ -290,7 +290,7 @@ export default function Home() {
           <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">About Eric Caskey</h2>
         </div>
         <p className="leading-relaxed text-pretty">
-          Eric Caskey is a Senior Software Engineer at Amazon, based in New Jersey. He joined Amazon in June 2022 and has held the Senior Software Engineer title since August 2024, on a platform team where he architects a multi-region workflow orchestration platform whose validation guardrails run before anything executes, and owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages. Those guardrails have run 500,000 safety checks across Amazon&apos;s fleet. Before Amazon he spent nine years at Prudential Financial in Remote Access SRE, building the MFA self-service portal used more than 18,000 times in six languages and keeping the VPN running for 60,000 corporate users through the early months of COVID. He brings the same rigor to AI: spec-driven systems, curated context, and validation that catches a wrong &quot;yes&quot; before it ships. He writes about how this work gets done at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
+          Eric Caskey is a Senior Software Engineer at Amazon, based in New Jersey. He joined Amazon in June 2022 and has held the Senior Software Engineer title since August 2024, on a platform team where he architects a multi-region workflow orchestration platform whose validation guardrails run before anything executes, and owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages. Those guardrails have run 500,000 safety checks. Before Amazon he spent nine years at Prudential Financial in Remote Access SRE, building the MFA self-service portal used more than 18,000 times in six languages and keeping the VPN running for 60,000 corporate users through the early months of COVID. He brings the same rigor to AI: spec-driven systems, curated context, and validation that catches a wrong &quot;yes&quot; before it ships. He writes about how this work gets done at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
         </p>
         <div className="flex flex-col gap-1">
           <p className="eyebrow">Questions</p>

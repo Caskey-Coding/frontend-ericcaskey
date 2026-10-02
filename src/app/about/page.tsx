@@ -116,9 +116,8 @@ export default function About() {
           and mentored eight new-to-industry engineers in New York. In August
           2024 I moved into my current role as a Senior Software Engineer on a
           platform team, architecting a twelve-service workflow orchestration
-          platform whose safety framework has run roughly 500,000 checks
-          across Amazon&apos;s fleet, validating every change before it
-          lands. The lesson carried over from Prudential
+          platform whose safety framework has run roughly 500,000 checks,
+          validating every change before it lands. The lesson carried over from Prudential
           intact: the platforms worth building are the ones that stay quiet
           while everything they watch does not.
         </p>
