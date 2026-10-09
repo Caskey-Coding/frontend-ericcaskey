@@ -40,6 +40,8 @@ export const metadata: Metadata = {
     images: [ogImage],
   },
   twitter: { card: 'summary_large_image' },
+  // Static export of the existing mobile EC wordmark (Nav.tsx).
+  icons: { icon: [{ url: '/favicon.ico', type: 'image/x-icon' }] },
   alternates: { canonical: 'https://ericcaskey.com/' },
 };
 
