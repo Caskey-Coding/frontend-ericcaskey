@@ -36,7 +36,7 @@ const employers = [
   },
   {
     company: 'Prudential Financial',
-    role: 'Remote Access SRE → Senior Remote Access SRE',
+    role: 'Remote Access Analyst → Senior Remote Access SRE → Cloud Engineer, SRE',
     dates: 'Apr 2013 – Jun 2022',
     oneLineImpact:
       'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
@@ -76,6 +76,13 @@ const employers = [
 // never as investment edge (the composite fails net-of-cost; an edge claim to
 // a finance-literate reader is a credibility risk, not a selling point).
 const tools = [
+  {
+    kind: 'Method',
+    name: 'Spec-driven engineering platform',
+    tagline:
+      'One engineer, a fleet of AI coding agents, a work queue, and an attested merge gate, written up as a case study and taught as a lesson series.',
+    url: 'https://caskeycoding.com/case-studies/sdd-platform',
+  },
   {
     kind: 'Tool',
     name: 'Marathon Coach',
