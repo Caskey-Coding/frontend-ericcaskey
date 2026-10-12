@@ -35,7 +35,7 @@ const HOME_FAQ = [
   },
   {
     q: 'What has Eric Caskey built outside work?',
-    a: 'Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should. SpecSelf, a spec-driven personal operating system whose AI agents read but never write. A C++ Black-Scholes options engine tuned from 15 to 215 million prices a second. A Finance Reviewer that presents deterministic factor scores narrated through six investor perspectives.',
+    a: 'A spec-driven engineering platform that runs one engineer and a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Engineering. Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should. SpecSelf, a spec-driven personal operating system whose AI agents read but never write. A C++ Black-Scholes options engine tuned from 15 to 215 million prices a second. A Finance Reviewer that presents deterministic factor scores narrated through six investor perspectives.',
   },
   {
     q: 'How do I contact Eric Caskey?',
@@ -82,7 +82,7 @@ const featuredWork = [
   },
   {
     company: 'Prudential Financial',
-    role: 'Remote Access SRE → Senior Remote Access SRE',
+    role: 'Remote Access Analyst → Senior Remote Access SRE → Cloud Engineer, SRE',
     dates: 'Apr 2013 – Jun 2022',
     oneLineImpact:
       'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',

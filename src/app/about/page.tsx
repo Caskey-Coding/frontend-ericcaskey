@@ -110,21 +110,39 @@ export default function About() {
           how to remove failure modes rather than paper over them.
         </p>
         <p>
+          My last year there, from July 2021, was as a Cloud Engineer in Site
+          Reliability Engineering: hands-on AWS and Azure ownership at Fortune
+          100 scale, building the monitoring flow that alerted leadership
+          channels to global cloud outages in real time and partnering with
+          application teams to unblock deployments between on-prem and the
+          cloud. It was a deliberate pivot, and it is the year that made the
+          next move possible.
+        </p>
+        <p>
           In June 2022 I joined Amazon, where I built a monitoring lifecycle
           platform that onboarded more than 2,750 application stages and
           brought 3 million monitors under standardized management, and hired
           and mentored eight new-to-industry engineers in New York. In August
           2024 I moved into my current role as a Senior Software Engineer on a
-          platform team, architecting a twelve-service workflow orchestration
-          platform whose safety framework has run roughly 500,000 checks,
-          validating every change before it lands. The lesson carried over from Prudential
-          intact: the platforms worth building are the ones that stay quiet
-          while everything they watch does not.
+          platform team, architecting a multi-region workflow orchestration
+          control plane whose guardrails have run 500,000 safety checks,
+          validating every change before it lands. Since then I have mentored
+          engineers on three continents. The lesson carried over from
+          Prudential intact: the platforms worth building are the ones that
+          stay quiet while everything they watch does not.
         </p>
         <p>
-          Nights and weekends I test the same convictions where nobody is
-          grading me: an open-source RAG system engineered to refuse when it
-          should, a C++ options engine tuned to 215 million prices a second,
+          Outside work I run the same convictions as an engineering team of
+          one: one engineer, a fleet of AI coding agents, and a spec-driven
+          method where every feature starts as a written spec and nothing
+          merges until it passes the same gate the pipeline runs. The grading
+          is public. Caskey Engineering carries the case studies, a lesson
+          series that teaches the setup one file at a time, the numbers posts
+          that count what it produces and what it costs, and backtests that
+          report what did not work. The builds include Ballast, an open-source
+          RAG system engineered to refuse when it should; SpecSelf, a
+          spec-driven operating system for a life whose agents read but never
+          write; a C++ options engine tuned to 215 million prices a second;
           and AI finance tools where the model narrates numbers it is never
           allowed to derive. The selected builds are on the{' '}
           <a href="/work">work page</a>; the full writeups live on Caskey
@@ -162,7 +180,9 @@ export default function About() {
               Caskey Engineering
             </CrossSiteLink>
           </strong>
-          {' '}(caskeycoding.com). It is the engineering side of this website,
+          {' '}(caskeycoding.com), including An Engineering Team of One, a
+          lesson series on running a software team of one engineer and a
+          fleet of AI agents. It is the engineering side of this website,
           a working notebook where the arguments get worked out in full.
         </p>
       </section>
