@@ -6,6 +6,7 @@ import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { PersonJsonLd } from './components/PersonJsonLd';
 import { ogImage } from './lib/og';
+import { THEME_COLORS } from './lib/theme-colors';
 
 // Font palette aligned with caskeycoding.com: Inter for display + prose,
 // JetBrains Mono for the Systems Readout structural labels (spec rail, status
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://ericcaskey.com/' },
 };
 
-const themeInitScript = `(function(){try{var KEY='eric-caskey-theme';var LEGACY=['theme','caskey-site-theme'];var v=null;try{var u=new URL(window.location.href);var q=u.searchParams.get('theme');if(q==='dark'||q==='light'){v=q;u.searchParams.delete('theme');var next=u.pathname+(u.searchParams.toString()?'?'+u.searchParams:'')+u.hash;window.history.replaceState(null,'',next);localStorage.setItem(KEY,v);}}catch(e){}if(!v){var s=localStorage.getItem(KEY);if(s==='dark'||s==='light')v=s;}if(!v){for(var i=0;i<LEGACY.length;i++){var k=LEGACY[i];var lv=localStorage.getItem(k);if(lv==='dark'||lv==='light'){v=lv;localStorage.setItem(KEY,v);localStorage.removeItem(k);break;}}}var t=v||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);var m=document.getElementById('meta-theme-color');if(m)m.setAttribute('content',t==='dark'?'#111110':'#f9f9f8');}catch(e){}})();`;
+const themeInitScript = `(function(){try{var KEY='eric-caskey-theme';var LEGACY=['theme','caskey-site-theme'];var v=null;try{var u=new URL(window.location.href);var q=u.searchParams.get('theme');if(q==='dark'||q==='light'){v=q;u.searchParams.delete('theme');var next=u.pathname+(u.searchParams.toString()?'?'+u.searchParams:'')+u.hash;window.history.replaceState(null,'',next);localStorage.setItem(KEY,v);}}catch(e){}if(!v){var s=localStorage.getItem(KEY);if(s==='dark'||s==='light')v=s;}if(!v){for(var i=0;i<LEGACY.length;i++){var k=LEGACY[i];var lv=localStorage.getItem(k);if(lv==='dark'||lv==='light'){v=lv;localStorage.setItem(KEY,v);localStorage.removeItem(k);break;}}}var t=v||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);var colors=${JSON.stringify(THEME_COLORS)};document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute('content',colors[t]);});}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-01C9GQ8W3Q';
@@ -57,8 +58,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
+        <meta id="meta-theme-color" name="theme-color" content={THEME_COLORS.light} media="(prefers-color-scheme: light)" />
+        <meta id="meta-theme-color-dark" name="theme-color" content={THEME_COLORS.dark} media="(prefers-color-scheme: dark)" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <meta id="meta-theme-color" name="theme-color" content="#f9f9f8" />
         <PersonJsonLd />
         {gaId ? (
           <>

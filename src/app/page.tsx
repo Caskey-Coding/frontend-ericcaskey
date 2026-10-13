@@ -1,18 +1,13 @@
-import { LAST_MODIFIED, formatUpdated } from './lib/lastModified';
-import type { CSSProperties } from 'react';
+﻿import { LAST_MODIFIED } from './lib/lastModified';
 import Link from 'next/link';
 import { Headshot } from './components/Headshot';
 import { CrossSiteLink } from './components/CrossSiteLink';
-import { ExternalLinkIcon } from './components/ExternalLinkIcon';
 import { TimelineItem } from './components/TimelineItem';
+import { ProjectCard } from './components/ProjectCard';
 import { EssayCard } from './components/EssayCard';
-import StatusReadout from './components/StatusReadout';
 import { PERSON_ID } from './components/PersonJsonLd';
-
-// Staggered page-load reveal delay (one orchestrated load, family design
-// spec v2.1 §motion). Custom property consumed by `.reveal` in globals.css.
-const reveal = (ms: number): CSSProperties =>
-  ({ '--reveal-delay': `${ms}ms` }) as CSSProperties;
+import { featuredWork, personalProjects } from './lib/work';
+import writingShelf from '../data/writing-shelf.json';
 
 const websiteJsonLd = {
   dateModified: LAST_MODIFIED.home,
@@ -24,22 +19,23 @@ const websiteJsonLd = {
   author: { '@id': PERSON_ID, '@type': 'Person', name: 'Eric Caskey' },
 };
 
+// The visible answers and structured data deliberately share one source.
 const HOME_FAQ = [
   {
     q: 'Who is Eric Caskey?',
-    a: 'Eric Caskey is a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. He has spent fifteen years across five roles making production infrastructure safe enough to automate: at Amazon since June 2022, and at Prudential Financial for nine years before that. He writes about safety-critical platforms and AI reliability at Caskey Engineering.',
+    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate, and I write about safety-critical platforms and AI reliability at Caskey Engineering.",
   },
   {
     q: 'What does Eric Caskey work on at Amazon?',
-    a: "He owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages, and architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change and have run 500,000 safety checks. He also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.",
+    a: "I own the monitoring platform that standardizes monitors across application stages, and I architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change. I also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.",
   },
   {
     q: 'What has Eric Caskey built outside work?',
-    a: 'A spec-driven engineering platform that runs one engineer and a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Engineering. Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should. SpecSelf, a spec-driven personal operating system whose AI agents read but never write. A C++ Black-Scholes options engine tuned from 15 to 215 million prices a second. A Finance Reviewer that presents deterministic factor scores narrated through six investor perspectives.',
+    a: "I built a spec-driven engineering platform that runs my independent practice and a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Engineering. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer that presents deterministic factor scores narrated through investor perspectives.",
   },
   {
     q: 'How do I contact Eric Caskey?',
-    a: 'The contact form at ericcaskey.com/contact is the fastest route; he reads everything and replies within a week. He is also on LinkedIn at linkedin.com/in/ericrcaskey and on GitHub at github.com/CaskeyCoding.',
+    a: 'The contact form at ericcaskey.com/contact is the fastest route. I read everything and reply within a week. You can also find me on LinkedIn at linkedin.com/in/ericrcaskey and on GitHub at github.com/CaskeyCoding.',
   },
 ];
 
@@ -54,64 +50,16 @@ const faqJsonLd = {
   })),
 };
 
-// Status-panel figures , broadened to show range across the career, every
-// figure traceable to canonical copy: the Amazon scale numbers (hero bio +
-// /work Amazon row), the Prudential continuity number (/work Prudential row:
-// "60,000 corporate users through the early months of COVID"), and the tenure
-// from the bio ("Fifteen years at enterprise scale"). No new/unsourced numbers.
-const stats = [
-  { tag: 'Scale', figure: '3,000,000', label: 'monitors standardized' },
-  { tag: 'Safety', figure: '500,000', label: 'safety checks run' },
-  { tag: 'Continuity', figure: '60,000', label: 'users kept online' },
-  { tag: 'Experience', figure: '15 yrs', label: 'at enterprise scale' },
-];
-
-// Top two rows of the /work timeline, copy verbatim from
-// src/app/work/page.tsx , same claims, same hrefs, same chip metrics
-// (B-076 mirror rule: metrics are verbatim substrings of oneLineImpact,
-// additive metadata only; any change here must match /work byte-for-byte).
-const featuredWork = [
-  {
-    company: 'Amazon',
-    role: 'Software Engineer → Senior Software Engineer',
-    dates: 'Jun 2022 – Present',
-    oneLineImpact:
-      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
-    metrics: ['500,000 safety checks', '3 million monitors'],
-    href: 'https://caskeycoding.com/case-studies/workflow-orchestration',
-  },
-  {
-    company: 'Prudential Financial',
-    role: 'Remote Access Analyst → Senior Remote Access SRE → Cloud Engineer, SRE',
-    dates: 'Apr 2013 – Jun 2022',
-    oneLineImpact:
-      'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
-    metrics: ['200,000+ administrative actions', '60,000 corporate users'],
-    href: 'https://caskeycoding.com/case-studies/mfa-at-scale',
-  },
-];
-
-// Two selected /writing cards, copy verbatim from src/app/writing/page.tsx
-// (MIRROR RULE, content/001 rule 6). EC-BRAND-1 (2026-07-08): curated to the
-// AI-safety pair: Ballast (an AI system that refuses when it should) and the
-// workflow-guardrails essay, so the home stays safety-led while surfacing a
-// flagship independent build. Any copy edit here must match /writing exactly.
+// Keep the curated safety pair while taking titles, dates, and editor notes
+// from the same generated source as /writing. Feed order does not select them.
 const selectedWriting = [
-  {
-    title: "Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know'",
-    url: 'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
-    publishedDate: 'June 27, 2026',
-    editorNote:
-      'A RAG system whose most important feature is refusing to answer. How trust got built into the architecture instead of the prompt.',
-  },
-  {
-    title: 'Designing Safety Guardrails for Distributed Workflow Orchestration',
-    url: 'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
-    publishedDate: 'April 10, 2026',
-    editorNote:
-      "What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.",
-  },
-];
+  'ballast-an-llm-that-says-i-dont-know',
+  'designing-safety-guardrails-for-distributed-workflow-orchestration',
+].map((slug) => {
+  const essay = writingShelf.essays.find(({ url }) => url.endsWith(`/blog/${slug}`));
+  if (!essay) throw new Error(`Missing curated homepage essay: ${slug}`);
+  return essay;
+});
 
 export default function Home() {
   return (
@@ -125,68 +73,43 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/*
-        Masthead , "Systems Readout" (ericcaskey home redesign). A full-bleed,
-        always-dark "readout" band: JetBrains Mono structural labels + a left
-        spec-rail of mono coordinates, a Newsreader-serif bio, and the scale
-        figures rendered as a status panel. Self-contained dark palette
-        (.sr-* in globals.css) so it reads identically under either site theme;
-        the sections below stay on the global themed tokens. Reveal-on-load
-        keeps the one-orchestrated-load motion contract.
-      */}
-      <header className="sr-hero reveal" style={reveal(0)}>
-        <p className="sr-tag">Platform engineering · AI reliability</p>
-        <div className="sr-grid">
-          <aside className="sr-rail" aria-label="Profile at a glance">
-            <div><span className="k">LOC</span> new jersey</div>
-            <div><span className="k">ROLE</span> senior swe</div>
-            <div><span className="k">ORG</span> amazon</div>
-            <div><span className="k">SINCE</span> 2022</div>
-            <div><span className="k">PRIOR</span> prudential</div>
-            <div><span className="k">WRITES</span> caskeycoding.com</div>
-            <div><span className="k">UPDATED</span> <time dateTime={LAST_MODIFIED.home} title={formatUpdated(LAST_MODIFIED.home)}>{LAST_MODIFIED.home}</time></div>
-          </aside>
+      <header className="identity-hero" data-identity="spec">
+        <div className="identity-top">
           <div>
-            <div className="sr-masthead">
-              <div>
-                <h1 className="sr-name">Eric Caskey</h1>
-                {/* Monitoring figures below belong to the monitoring platform. */}
-                <p className="sr-lead">
-                  I build production platforms engineers can depend on.
-                </p>
-                <p className="sr-bio">
-                  Fifteen years making production infrastructure safe to depend
-                  on. At Amazon I architect a multi-region workflow orchestration
-                  platform with validation guardrails that run before anything
-                  executes. I also own the monitoring platform that keeps 3
-                  million monitors standardized across 2,750+ application stages.
-                  I bring that same rigor to AI: spec-driven
-                  systems, curated context, and validation that catches a wrong
-                  “yes” before it ships. I write about how this work actually gets
-                  done at Caskey Engineering.
-                </p>
-                <div className="sr-cta">
-                  <CrossSiteLink
-                    href="https://caskeycoding.com/case-studies/workflow-orchestration"
-                    rel="noopener"
-                    className="sr-btn sr-btn--p"
-                  >
-                    read the case study →
-                  </CrossSiteLink>
-                  <Link href="/about" className="sr-btn sr-btn--s">
-                    about →
-                  </Link>
-                  <Link href="/contact" className="sr-btn sr-btn--s">
-                    contact →
-                  </Link>
-                </div>
-              </div>
-              <div className="sr-photo">
-                <Headshot alt="Eric Caskey, headshot" eager />
-              </div>
-            </div>
-            <StatusReadout stats={stats} />
+            <p className="identity-prompt">$ whoami</p>
+            <h1 className="identity-name">Eric Caskey</h1>
           </div>
+          <Headshot
+            alt="Eric Caskey, headshot"
+            variant="avatar"
+            eager
+            className="identity-avatar"
+          />
+        </div>
+        <dl className="identity-fields">
+          <div>
+            <dt>role:</dt>
+            <dd>Senior Software Engineer, Amazon</dd>
+          </div>
+          <div>
+            <dt>focus:</dt>
+            <dd>Platform engineering / AI reliability</dd>
+          </div>
+          <div>
+            <dt>claim:</dt>
+            <dd className="identity-claim">Safe by default. Validated before it ships.</dd>
+          </div>
+        </dl>
+        <div className="identity-cta">
+          <CrossSiteLink
+            href="https://caskeycoding.com/case-studies/workflow-orchestration"
+            rel="noopener"
+            className="sr-btn sr-btn--p"
+          >
+            Read the case study →
+          </CrossSiteLink>
+          <Link href="/about" className="sr-btn sr-btn--s">About →</Link>
+          <Link href="/contact" className="sr-btn sr-btn--s">Contact →</Link>
         </div>
       </header>
 
@@ -196,76 +119,26 @@ export default function Home() {
           <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Featured work</h2>
         </div>
         <div className="flex flex-col">
-          {featuredWork.map((e) => (
-            <TimelineItem key={e.company} {...e} />
+          {featuredWork.map((employer) => (
+            <TimelineItem key={employer.company} {...employer} />
           ))}
-          {/* Description mirrors the Ballast tile on /work. */}
-          <CrossSiteLink
-            href="https://caskeycoding.com/case-studies/ballast"
-            rel="noopener"
-            className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
-          >
-            <div className="flex flex-col gap-2 py-5 border-b border-border transition-colors">
-              <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
-                <span className="font-semibold">Ballast</span>
-                <span className="text-sm text-muted">Independent AI project · Open source</span>
-              </div>
-              <p className="leading-relaxed text-sm md:text-base">
-                An open-source RAG system with a guardrails gateway, engineered to refuse when it should.
-              </p>
-              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-                Read how Ballast handles trust →
-                <ExternalLinkIcon className="shrink-0" />
-              </span>
-            </div>
-          </CrossSiteLink>
-          {/*
-            BLOG-SS-HOME-2 (content-strategy spec 014 homepage cross-links):
-            SpecSelf featured as a project. Same row idiom as TimelineItem,
-            built inline because its CTA resolves to specself.ai rather than a
-            Caskey Engineering case study (TimelineItem hardcodes that label).
-            Mirrors the /work Selected-builds SpecSelf tile; copy edits must
-            stay consistent there. Never name or link the private app.
-          */}
-          <CrossSiteLink
-            href="https://specself.ai"
-            rel="noopener"
-            className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
-          >
-            <div className="flex flex-col gap-2 py-5 border-b border-border transition-colors">
-              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
-                <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
-                  <span className="font-semibold">SpecSelf</span>
-                  <span className="text-sm text-muted">Personal project</span>
-                </div>
-                <span className="text-sm text-muted tabular-nums">2026 – Present</span>
-              </div>
-              <p className="leading-relaxed text-sm md:text-base">
-                An operating system for a life, run like a spec-driven codebase:
-                principles, goals, and decisions as versioned spec files, with
-                AI agents that read but never write.
-              </p>
-              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-                SpecSelf Starter at specself.ai →
-                <ExternalLinkIcon className="shrink-0" />
-              </span>
-            </div>
-            <span className="sr-only">(opens specself.ai)</span>
-          </CrossSiteLink>
+          {personalProjects.map((project) => (
+            <ProjectCard key={project.name} project={project} />
+          ))}
         </div>
         <p className="leading-relaxed">
           <Link href="/work">More on the work page →</Link>
         </p>
       </section>
 
-      <section className="flex flex-col gap-4">
+      <section id="selected-writing" aria-labelledby="selected-writing-heading" className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <p className="eyebrow">Writing</p>
-          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Selected writing</h2>
+          <h2 id="selected-writing-heading" className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Selected writing</h2>
         </div>
         <div className="flex flex-col">
-          {selectedWriting.map((e) => (
-            <EssayCard key={e.url} {...e} />
+          {selectedWriting.map((essay) => (
+            <EssayCard key={essay.url} {...essay} />
           ))}
         </div>
         <p className="leading-relaxed">
@@ -280,23 +153,29 @@ export default function Home() {
           writing, or a professional conversation. I read everything and reply
           within a week. The contact form is the fastest route.
         </p>
-        <Link href="/contact" className="btn-primary">
-          Contact →
-        </Link>
+        <Link href="/contact" className="btn-primary">Contact →</Link>
       </section>
-      <section className="flex flex-col gap-4">
+
+      <section id="about-eric" aria-labelledby="about-eric-heading" className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <p className="eyebrow">Who</p>
-          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">About Eric Caskey</h2>
+          <h2 id="about-eric-heading" className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">About Eric Caskey</h2>
         </div>
         <p className="leading-relaxed text-pretty">
-          Eric Caskey is a Senior Software Engineer at Amazon, based in New Jersey. He joined Amazon in June 2022 and has held the Senior Software Engineer title since August 2024, on a platform team where he architects a multi-region workflow orchestration platform whose validation guardrails run before anything executes, and owns the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages. Those guardrails have run 500,000 safety checks. Before Amazon he spent nine years at Prudential Financial in Remote Access SRE, building the MFA self-service portal used more than 18,000 times in six languages and keeping the VPN running for 60,000 corporate users through the early months of COVID. He brings the same rigor to AI: spec-driven systems, curated context, and validation that catches a wrong &quot;yes&quot; before it ships. He writes about how this work gets done at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
+          I&apos;m a platform engineer based in New Jersey. I build infrastructure
+          that makes safe operation the default, and bring the same rigor to AI:
+          written specs, curated context, and validation before anything ships.
+          I share the work at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
         </p>
+        <p><Link href="/about">More about me →</Link></p>
+      </section>
+
+      <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <p className="eyebrow">Questions</p>
           <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Common questions</h2>
         </div>
-        <dl className="flex flex-col gap-4">
+        <dl className="identity-faq flex flex-col gap-4">
           {HOME_FAQ.map(({ q, a }) => (
             <div key={q}>
               <dt className="font-semibold">{q}</dt>

@@ -1,6 +1,8 @@
 import { LAST_MODIFIED, formatUpdated } from '../lib/lastModified';
 import type { Metadata } from 'next';
 import { TimelineItem } from '../components/TimelineItem';
+import { ProjectCard } from '../components/ProjectCard';
+import { employers, personalProjects } from '../lib/work';
 import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ogImage } from '../lib/og';
 import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
@@ -22,52 +24,6 @@ export const metadata: Metadata = {
   alternates: { canonical: '/work' },
 };
 
-// B-076: `metrics` chips are verbatim substrings of each row's
-// oneLineImpact (additive display metadata, no new claims).
-const employers = [
-  {
-    company: 'Amazon',
-    role: 'Software Engineer → Senior Software Engineer',
-    dates: 'Jun 2022 – Present',
-    oneLineImpact:
-      "Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. Its guardrails have run 500,000 safety checks. I also own the monitoring platform underneath it, which keeps 3 million monitors standardized across 2,750+ application stages.",
-    metrics: ['500,000 safety checks', '3 million monitors'],
-    href: 'https://caskeycoding.com/case-studies/workflow-orchestration',
-  },
-  {
-    company: 'Prudential Financial',
-    role: 'Remote Access Analyst → Senior Remote Access SRE → Cloud Engineer, SRE',
-    dates: 'Apr 2013 – Jun 2022',
-    oneLineImpact:
-      'Built the MFA self-service portal used over 18,000 times in six languages, automated 200,000+ administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID.',
-    metrics: ['200,000+ administrative actions', '60,000 corporate users'],
-    href: 'https://caskeycoding.com/case-studies/mfa-at-scale',
-  },
-  {
-    company: 'Workforce Opportunity Services',
-    role: 'Consultant',
-    dates: '2011 – 2013',
-    oneLineImpact:
-      "Launched my technology career as a WOS consultant, rapidly learning enterprise IT environments and contributing to Prudential's remote access platform operations.",
-  },
-  {
-    company: 'Caskey Coding, LLC',
-    role: 'Owner, operator',
-    dates: 'Feb 2015 – May 2018',
-    oneLineImpact:
-      'Ran a New Jersey WordPress shop. Delivered ten sites for small businesses and community organizations. SEO work for The Drain Guys took monthly organic clicks from 2 to 52 in six months.',
-    metrics: ['ten sites', 'clicks from 2 to 52'],
-  },
-  {
-    company: 'NJ Army National Guard',
-    role: 'Military Police Officer, 50th Brigade Special Troops Battalion',
-    dates: 'Jul 2009 – Jun 2015',
-    oneLineImpact:
-      'Reached senior Specialist rank. Activated for 2012 Superstorm Sandy recovery, assigned to safeguard and distribute 241,000 gallons of FEMA fuel for nearly a month.',
-    metrics: ['241,000 gallons of FEMA fuel'],
-  },
-];
-
 // EC-BRAND-1 (specs → ericcaskey-com/content/004 amendment 2026-07-08):
 // "Selected builds" range band. Each entry is a portfolio-proof OUTBOUND link
 // (spec 009 policy: work-shaped surfaces resolve to caskeycoding, never
@@ -75,7 +31,15 @@ const employers = [
 // `kind` is the mono tile label. Finance entries are framed as engineering,
 // never as investment edge (the composite fails net-of-cost; an edge claim to
 // a finance-literate reader is a credibility risk, not a selling point).
-const tools = [
+type Build = {
+  kind: string;
+  name: string;
+  tagline: string;
+  url: string;
+  project?: (typeof personalProjects)[number];
+};
+
+const tools: Build[] = [
   {
     kind: 'Method',
     name: 'Spec-driven engineering platform',
@@ -99,24 +63,13 @@ const tools = [
     // EC-WORK-1: the public preview (/lab/investment-committee), not /finance.
     url: 'https://caskeycoding.com/lab/investment-committee',
   },
-  {
-    kind: 'Open source',
-    name: 'Ballast',
-    tagline:
-      'An open-source RAG system with a guardrails gateway, engineered to refuse when it should.',
-    url: 'https://caskeycoding.com/case-studies/ballast',
-  },
-  {
-    // BLOG-SS-HOME-2 (content-strategy spec 014 homepage cross-links): the
-    // one entry whose outbound link is specself.ai, not caskeycoding. Mirrors
-    // the SpecSelf row on the home Featured-work section; copy edits must
-    // stay consistent there. Never name or link the private app.
-    kind: 'Project',
-    name: 'SpecSelf',
-    tagline:
-      'An operating system for a life, run like a spec-driven codebase, with AI agents that read but never write.',
-    url: 'https://specself.ai',
-  },
+  ...personalProjects.map((project) => ({
+    kind: project.kind,
+    name: project.name,
+    tagline: project.description,
+    url: project.href,
+    project,
+  })),
   {
     kind: 'Engine',
     name: 'C++ pricing engine',
@@ -158,8 +111,8 @@ export default function Work() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
-      {/* Systems Readout sub-page header (FDS-7): a mono coordinate line +
-          serif title, hairline-sealed, same voice as the home masthead. */}
+      {/* Sub-page header: a mono coordinate line +
+          Inter title, hairline-sealed. */}
       <header className="sr-pagehead">
         <p className="coord">
           <span>Experience</span>
@@ -202,7 +155,9 @@ export default function Work() {
           advice.
         </p>
         <div className="sr-tiles">
-          {tools.map((t) => (
+          {tools.map((t) => t.project ? (
+            <ProjectCard key={t.name} project={t.project} variant="tile" />
+          ) : (
             <CrossSiteLink
               key={t.name}
               href={t.url}

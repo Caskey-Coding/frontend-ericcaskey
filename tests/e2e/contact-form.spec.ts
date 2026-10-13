@@ -69,6 +69,51 @@ test('contact form failure path renders the error message with fallback', async 
   await expect(alert).toContainText(/email me directly/i);
 });
 
+for (const mode of ['light', 'dark'] as const) {
+  for (const response of [
+    { kind: 'error', status: 500, body: { error: 'internal' }, selector: 'p.form-note--err', text: /did not go through/i },
+    { kind: 'success', status: 200, body: { ok: true }, selector: 'p.form-note--ok', text: /message sent/i },
+  ]) {
+  test(`contact ${response.kind} has rendered 4.5 contrast in ${mode} mode`, async ({ page }) => {
+    await page.emulateMedia({ colorScheme: mode, reducedMotion: 'reduce' });
+    await interceptContactPost(page, response.status, response.body);
+    await fillAndSubmit(page);
+    const alert = page.locator(response.selector);
+    await expect(alert).toContainText(response.text);
+    await expect(page.locator('html')).toHaveAttribute('data-theme', mode);
+    const contrast = await alert.evaluate(element => {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const context = canvas.getContext('2d', { willReadFrequently: true })!;
+      function rgba(color: string) {
+        context.clearRect(0, 0, 1, 1);
+        context.fillStyle = color;
+        context.fillRect(0, 0, 1, 1);
+        const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
+        return [r, g, b, a / 255];
+      }
+      function over(foreground: number[], background: number[]) {
+        return [0, 1, 2].map(i => foreground[i] * foreground[3] + background[i] * (1 - foreground[3])).concat(1);
+      }
+      function luminance(color: number[]) {
+        const [r, g, b] = color.map(value => value / 255).map(value => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      }
+      return [element, ...element.querySelectorAll('a')].map(target => {
+        const ancestors: Element[] = [];
+        for (let current: Element | null = target; current; current = current.parentElement) ancestors.unshift(current);
+        const background = ancestors.reduce((color, ancestor) => over(rgba(getComputedStyle(ancestor).backgroundColor), color), [255, 255, 255, 1]);
+        const foreground = over(rgba(getComputedStyle(target).color), background);
+        const a = luminance(foreground), b = luminance(background);
+        return { text: target.textContent, ratio: (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05) };
+      });
+    });
+    expect(contrast.length).toBeGreaterThanOrEqual(1);
+    expect(contrast.filter(({ ratio }) => ratio < 4.5), 'actual status text over alpha-composited tinted background').toEqual([]);
+  });
+  }
+}
+
 test('contact form network failure (no API at all) renders the error message', async ({ page }) => {
   // Simulates the B-070 production bug shape: the POST never reaches a
   // working backend. The user must see the error fallback, not silence.

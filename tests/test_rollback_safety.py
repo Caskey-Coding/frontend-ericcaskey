@@ -374,12 +374,14 @@ class WorkflowControlPlaneTests(unittest.TestCase):
         self.assertLess(verify_index, credentials_index)
         self.assertLess(references_index, credentials_index)
         self.assertIn('node rollback-control/scripts/deploy.mjs --no-build --validate-only --out-dir out', references)
+        self.assertIn('--legacy-content', references)
         self.assertLess(credentials_index, sync_index)
 
     def test_health_waits_for_cloudfront_invalidation_to_finish(self) -> None:
         deploy_job = workflow_job(self.source, "deploy")
         _, uploader = workflow_step(deploy_job, "Safely deploy verified export")
         self.assertIn('node rollback-control/scripts/deploy.mjs --no-build --out-dir out', uploader)
+        self.assertIn('--legacy-content', uploader)
         self.assertIn('CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}', uploader)
         self.assertIn('NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}', uploader)
         self.assertNotIn('aws s3 sync', deploy_job)
@@ -390,6 +392,8 @@ class WorkflowControlPlaneTests(unittest.TestCase):
         local = (REPO_ROOT / 'scripts' / 'deploy.sh').read_text(encoding="utf-8")
         self.assertIn('node scripts/deploy.mjs --no-build', production)
         self.assertIn('node scripts/deploy.mjs --no-build', local)
+        self.assertNotIn('--legacy-content', production)
+        self.assertNotIn('--legacy-content', local)
         for source in (production, self.source, local):
             self.assertNotIn('--delete', source)
         self.assertIn('node --test tests/deploy.test.mjs', PR_WORKFLOW.read_text(encoding='utf-8'))

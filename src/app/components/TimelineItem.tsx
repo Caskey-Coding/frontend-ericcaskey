@@ -1,20 +1,6 @@
 import { CrossSiteLink } from './CrossSiteLink';
 import { ExternalLinkIcon } from './ExternalLinkIcon';
-
-interface TimelineItemProps {
-  company: string;
-  role: string;
-  dates: string;
-  oneLineImpact: string;
-  href?: string;
-  /**
-   * B-076: 1-2 headline metrics rendered as accent-tinted chips above the
-   * prose. Additive display metadata only — every entry must be a verbatim
-   * substring of oneLineImpact (no new claims; the prose sentence stays the
-   * canonical copy per ericcaskey-com/content/001).
-   */
-  metrics?: string[];
-}
+import type { Employer } from '../lib/work';
 
 export function TimelineItem({
   company,
@@ -23,38 +9,28 @@ export function TimelineItem({
   oneLineImpact,
   href,
   metrics,
-}: TimelineItemProps) {
+}: Employer) {
   const content = (
     <div className="flex flex-col gap-2 py-5 border-b border-border transition-colors">
       <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
         <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
-          <span className="font-semibold">{company}</span>
+          <h3 className="font-semibold">{company}</h3>
           <span className="text-sm text-muted">{role}</span>
         </div>
         {/* tabular-nums: date ranges are comparable data (v2.1 §2.2). */}
         <span className="text-sm text-muted tabular-nums">{dates}</span>
       </div>
-      {metrics && metrics.length > 0 && (
-        // flex-wrap so chips stack instead of overflowing at 375/320px.
-        <ul className="flex flex-wrap gap-2 list-none p-0 m-0">
-          {metrics.map((m) => (
-            <li
-              key={m}
-              // Chip text uses text-primary (text-text), not accent: accent
-              // on accent-tint over the light bg computes to ~3.9:1 (<4.5);
-              // text-primary on the tint is ~14:1 light / ~12:1 dark.
-              className="px-2.5 py-1 text-xs font-medium tabular-nums text-text"
-              style={{
-                background: 'var(--color-accent-tint)',
-                borderRadius: 'var(--radius-pill)',
-              }}
-            >
-              {m}
-            </li>
-          ))}
-        </ul>
-      )}
       <p className="leading-relaxed text-sm md:text-base">{oneLineImpact}</p>
+      {metrics && metrics.length > 0 && (
+        <dl className="work-metrics">
+          {metrics.map(({ label, value }) => (
+            <div key={label}>
+              <dt>{label}:</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
       {href && (
         <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
           Case study on Caskey Engineering →
@@ -64,20 +40,18 @@ export function TimelineItem({
     </div>
   );
 
-  if (href) {
-    return (
-      <CrossSiteLink
-        href={href}
-        rel="noopener"
-        // Border-led hover (v2.1 §2.1): the row's hairline steps up to
-        // border-strong; no lift, no shadow on flat rows.
-        className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
-      >
-        {content}
-        <span className="sr-only">(opens Caskey Engineering)</span>
-      </CrossSiteLink>
-    );
-  }
-
-  return content;
+  return (
+    <article data-employer={company}>
+      {href ? (
+        <CrossSiteLink
+          href={href}
+          rel="noopener"
+          className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
+        >
+          {content}
+          <span className="sr-only">(opens Caskey Engineering)</span>
+        </CrossSiteLink>
+      ) : content}
+    </article>
+  );
 }
