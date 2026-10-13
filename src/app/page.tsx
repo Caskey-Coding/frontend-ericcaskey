@@ -31,7 +31,7 @@ const HOME_FAQ = [
   },
   {
     q: 'What has Eric Caskey built outside work?',
-    a: "I built a spec-driven engineering platform that runs my independent practice and a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Engineering. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer that presents deterministic factor scores narrated through investor perspectives.",
+    a: "I built a spec-driven engineering platform that runs my independent practice and a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Engineering. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer where the model narrates numbers it never derives.",
   },
   {
     q: 'How do I contact Eric Caskey?',
@@ -102,11 +102,11 @@ export default function Home() {
         </dl>
         <div className="identity-cta">
           <CrossSiteLink
-            href="https://caskeycoding.com/case-studies/workflow-orchestration"
+            href="https://caskeycoding.com/case-studies"
             rel="noopener"
             className="sr-btn sr-btn--p"
           >
-            Read the case study →
+            Read the case studies →
           </CrossSiteLink>
           <Link href="/about" className="sr-btn sr-btn--s">About →</Link>
           <Link href="/contact" className="sr-btn sr-btn--s">Contact →</Link>
@@ -162,10 +162,11 @@ export default function Home() {
           <h2 id="about-eric-heading" className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">About Eric Caskey</h2>
         </div>
         <p className="leading-relaxed text-pretty">
-          I&apos;m a platform engineer based in New Jersey. I build infrastructure
-          that makes safe operation the default, and bring the same rigor to AI:
-          written specs, curated context, and validation before anything ships.
-          I share the work at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
+          Fifteen years in enterprise infrastructure, from a help desk at
+          Prudential Financial to the workflow orchestration and monitoring
+          platforms I own at Amazon. The through-line has not changed: remove
+          the failure mode instead of papering over it, and make the safe path
+          the default one. I share the work at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
         </p>
         <p><Link href="/about">More about me →</Link></p>
       </section>
