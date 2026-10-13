@@ -18,7 +18,7 @@ test('identity, avatar, curated essays and matching first-person FAQ exist witho
   await expect(hero.locator('p').filter({ hasText: '$ whoami' })).toHaveText('$ whoami');
   await expect(hero.locator('dl.identity-fields dt')).toHaveText(['role:', 'focus:', 'claim:']);
   await expect(hero.locator('dl.identity-fields dd')).toHaveCount(3);
-  await expect(hero.getByRole('link', { name: 'Read the case study' })).toHaveAttribute('href', 'https://caskeycoding.com/case-studies/workflow-orchestration');
+  await expect(hero.getByRole('link', { name: 'Read the case studies' })).toHaveAttribute('href', 'https://caskeycoding.com/case-studies');
   const avatar = hero.locator('.identity-avatar img');
   await expect(avatar).toHaveAttribute('width', '80');
   await expect(avatar).toHaveAttribute('height', '80');

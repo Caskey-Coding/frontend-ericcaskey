@@ -75,7 +75,7 @@ export default function About() {
         <h1 className="page-title">About</h1>
         <p className="sub">
           Eric Caskey is a Senior Software Engineer at Amazon with fifteen years
-          in safety-critical infrastructure, from the NJ Army National Guard and
+          in enterprise infrastructure, from the NJ Army National Guard and
           Prudential Financial to the workflow orchestration and monitoring
           platforms he owns today. This page is the long version, in his own
           words.
@@ -132,11 +132,10 @@ export default function About() {
           stay quiet while everything they watch does not.
         </p>
         <p>
-          Outside work I run the same convictions as an engineering team of
+          Outside work I carry the same convictions into an engineering team of
           one: one engineer, a fleet of AI coding agents, and a spec-driven
           method where every feature starts as a written spec and nothing
-          merges until it passes the same gate the pipeline runs. The grading
-          is public. Caskey Engineering carries the case studies, a lesson
+          merges until it passes the same gate the pipeline runs. Caskey Engineering carries the case studies, a lesson
           series that teaches the setup one file at a time, the numbers posts
           that count what it produces and what it costs, and backtests that
           report what did not work. The builds include Ballast, an open-source
@@ -155,6 +154,9 @@ export default function About() {
           the 50th Brigade of the NJ Army National Guard, including a 2012
           Superstorm Sandy activation where I safeguarded the distribution of
           241,000 gallons of FEMA fuel for nearly a month.
+        </p>
+        <p>
+          Outside of engineering: a dad, a marathoner, and a constant reader on AI and distributed systems.
         </p>
       </section>
 
