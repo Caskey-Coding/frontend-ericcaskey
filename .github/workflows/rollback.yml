@@ -104,7 +104,7 @@ jobs:
       - name: Validate downloaded rollback references
         env:
           NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
-        run: node rollback-control/scripts/deploy.mjs --no-build --validate-only --out-dir out
+        run: node rollback-control/scripts/deploy.mjs --no-build --validate-only --out-dir out --legacy-content
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
@@ -115,7 +115,7 @@ jobs:
         env:
           NEXT_PUBLIC_CONTACT_API_URL: ${{ vars.NEXT_PUBLIC_CONTACT_API_URL }}
           CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-        run: node rollback-control/scripts/deploy.mjs --no-build --out-dir out
+        run: node rollback-control/scripts/deploy.mjs --no-build --out-dir out --legacy-content
 
   healthcheck:
     name: Multi-route healthcheck

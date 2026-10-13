@@ -5,7 +5,7 @@
 // wholesale when a child segment defines one. twitter:image autofills
 // from openGraph, so no separate twitter wiring is needed.
 export const OG_IMAGE_ALT =
-  'Eric Caskey: I build the systems other engineers depend on.';
+  'Eric Caskey — platform engineering and AI reliability. Safe by default. Validated before it ships.';
 
 export const ogImage = {
   url: '/og.png',

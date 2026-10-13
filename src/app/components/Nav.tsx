@@ -97,19 +97,19 @@ export function Nav() {
         backgroundColor: 'color-mix(in srgb, var(--color-bg) 88%, transparent)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        height: 'var(--nav-height)',
+        minHeight: 'var(--nav-height)',
       }}
     >
-      <div className="mx-auto w-full max-w-3xl px-6 flex items-center justify-between h-full">
+      <div className="mx-auto w-full max-w-3xl px-6 flex items-center justify-between gap-2 min-h-[var(--nav-height)]">
         <Link
           href="/"
-          className="inline-flex items-center min-h-11 font-semibold tracking-tight text-text"
+          className="inline-flex shrink-0 items-center min-h-11 font-semibold tracking-tight text-text"
           style={{ fontSize: '1.0625rem' }}
-          aria-label="Eric Caskey, home"
+          aria-label="EC — Eric Caskey, home"
         >
           {/* Below md the full wordmark + links + toggle overflow a 360px
               viewport, so collapse to a monogram. aria-label keeps the
-              accessible name as the full wordmark. */}
+              accessible name includes both the monogram and full wordmark. */}
           <span className="md:hidden" aria-hidden="true">
             E<span className="text-accent">C</span>
           </span>
@@ -117,17 +117,16 @@ export function Nav() {
             Eric <span className="text-accent">Caskey</span>
           </span>
         </Link>
-        <div className="flex items-center gap-3 md:gap-4">
-          <nav aria-label="Primary">
-            <ul className="flex items-center gap-3 md:gap-5 text-[0.8125rem] md:text-sm font-medium">
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2 md:gap-4">
+          <nav aria-label="Primary" className="min-w-0">
+            {/* Text-spacing overrides can make this wider than a narrow
+                viewport. Wrap links and let the header grow with its content. */}
+            <ul className="flex flex-wrap items-center justify-end gap-x-3 gap-y-0 md:gap-x-5 text-[0.8125rem] md:text-sm font-medium">
               {navLinks.map(({ href, label }) => {
                 const active = pathname === href;
                 return (
                   <li key={href}>
-                    {/* Active treatment is color + underline only — both are
-                        zero-width, so the 320px header (B-073: zero slack)
-                        never reflows between states. No weight change, no
-                        padding/letter-spacing change. */}
+                    {/* Active treatment preserves each link's dimensions. */}
                     <Link
                       href={href}
                       aria-current={active ? 'page' : undefined}
@@ -148,7 +147,7 @@ export function Nav() {
             type="button"
             onClick={toggle}
             aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="theme-toggle"
+            className="theme-toggle shrink-0"
           >
             {mounted ? (mode === 'dark' ? <SunIcon /> : <MoonIcon />) : <MoonIcon />}
           </button>

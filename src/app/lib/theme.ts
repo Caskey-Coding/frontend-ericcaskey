@@ -1,5 +1,7 @@
 'use client';
 
+import { THEME_COLORS } from './theme-colors';
+
 export type SiteThemeMode = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'eric-caskey-theme';
@@ -34,8 +36,11 @@ export function resolveEffectiveTheme(): SiteThemeMode {
 export function applyTheme(mode: SiteThemeMode) {
   if (typeof document === 'undefined') return;
   document.documentElement.setAttribute('data-theme', mode);
-  const meta = document.getElementById('meta-theme-color') as HTMLMetaElement | null;
-  if (meta) meta.content = mode === 'dark' ? '#111110' : '#f9f9f8';
+  // Both media-qualified tags take the explicit choice. With JS disabled,
+  // their initial values continue to follow the operating-system preference.
+  document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach(meta => {
+    meta.content = THEME_COLORS[mode];
+  });
 }
 
 export function setTheme(mode: SiteThemeMode) {

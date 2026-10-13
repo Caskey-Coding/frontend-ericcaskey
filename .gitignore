@@ -18,3 +18,6 @@ ds-bundle/
 .ds-sync/
 
 src/generated/
+# Python validation caches
+__pycache__/
+

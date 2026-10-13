@@ -5,6 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from 'node:fs';
 import { join, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { assertIdentityContent, assertRouteHeading } from './identity-html.mjs';
 
 const SITE = 'https://ericcaskey.com';
 const BUCKET = 's3://ericcaskey.com';
@@ -25,11 +26,7 @@ function nonempty(file) {
 }
 
 function routeBody(html, title) {
-  const heading = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1].replace(/<[^>]+>/g, '').trim();
-  // Current /writing uses "Selected writing"; retain the earlier plain title
-  // so the current control-plane uploader can verify older rollback exports.
-  const expected = title === 'Writing' ? ['writing', 'selected writing'] : [title.toLowerCase()];
-  if (!expected.includes(heading?.toLowerCase())) throw Error(`deploy: route heading does not match ${title}`);
+  assertRouteHeading(html, title);
 }
 
 /** Only executable scripts and stylesheet links, excluding third-party URLs. */
@@ -47,7 +44,7 @@ export function assetUrls(html, base) {
   return assets;
 }
 
-export function validateExport({ outDir, contactApi }) {
+export function validateExport({ outDir, contactApi, legacyContent = false }) {
   let endpoint;
   try { endpoint = new URL(contactApi); } catch { /* Reject malformed configuration below. */ }
   if (!endpoint || endpoint.protocol !== 'https:' || !endpoint.hostname || /\s/.test(contactApi) || endpoint.username || endpoint.password) {
@@ -62,6 +59,7 @@ export function validateExport({ outDir, contactApi }) {
     nonempty(file);
     const html = readFileSync(file, 'utf8');
     routeBody(html, title);
+    if (route === '/' && !legacyContent) assertIdentityContent(html);
     if (!assetUrls(html, `${SITE}${route}`).some(asset => asset.script)) throw Error(`deploy: route has no scripts: ${route}`);
   }
   const scripts = exported.filter(p => /[\\/]_next[\\/]static[\\/].*\.js$/.test(p));
@@ -105,7 +103,7 @@ function runAws(args) {
   return execFileSync(launch.file, launch.args, { shell: launch.shell, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], env: { ...process.env, AWS_PAGER: '' } });
 }
 
-export async function verifyLive(contactApi, fetcher = fetch) {
+export async function verifyLive(contactApi, fetcher = fetch, { legacyContent = false } = {}) {
   const checked = new Map();
   let contactFound = false;
   for (const [route, title] of ROUTES) {
@@ -114,6 +112,7 @@ export async function verifyLive(contactApi, fetcher = fetch) {
     if (response.status !== 200 || !response.headers.get('content-type')?.includes('text/html')) throw Error(`deploy: live route failed: ${route}`);
     const html = await response.text();
     routeBody(html, title);
+    if (route === '/' && !legacyContent) assertIdentityContent(html);
     const assets = assetUrls(html, url);
     if (!assets.some(asset => asset.script)) throw Error(`deploy: live route has no scripts: ${route}`);
     for (const { url: asset, script } of assets) {
@@ -142,7 +141,7 @@ export async function deploy(config, { run = runAws, fetcher = fetch } = {}) {
   try { id = JSON.parse(result).Invalidation?.Id; } catch { /* Refuse malformed CLI output below. */ }
   if (!/^[A-Z0-9]+$/.test(id ?? '')) throw Error('deploy: missing or invalid CloudFront invalidation ID');
   run(['cloudfront', 'wait', 'invalidation-completed', '--distribution-id', config.distributionId, '--id', id]);
-  await verifyLive(config.contactApi, fetcher);
+  await verifyLive(config.contactApi, fetcher, { legacyContent: config.legacyContent });
 }
 
 async function main() {
@@ -150,7 +149,7 @@ async function main() {
   let outDir = resolve('out');
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--out-dir' && args[i + 1]) outDir = resolve(args[++i]);
-    else if (!['--no-build', '--validate-only'].includes(args[i])) throw Error(`deploy: unknown or incomplete option ${args[i]}`);
+    else if (!['--no-build', '--validate-only', '--legacy-content'].includes(args[i])) throw Error(`deploy: unknown or incomplete option ${args[i]}`);
   }
   if (!args.includes('--no-build') && !args.includes('--validate-only')) {
     if (!process.env.NEXT_PUBLIC_CONTACT_API_URL) throw Error('deploy: contact API required before build');
@@ -158,7 +157,7 @@ async function main() {
       execFileSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', command.split(' '), { stdio: 'inherit', shell: process.platform === 'win32' });
     }
   }
-  await deploy({ outDir, contactApi: process.env.NEXT_PUBLIC_CONTACT_API_URL, distributionId: process.env.CLOUDFRONT_DISTRIBUTION_ID, validateOnly: args.includes('--validate-only') });
+  await deploy({ outDir, contactApi: process.env.NEXT_PUBLIC_CONTACT_API_URL, distributionId: process.env.CLOUDFRONT_DISTRIBUTION_ID, validateOnly: args.includes('--validate-only'), legacyContent: args.includes('--legacy-content') });
   console.log(args.includes('--validate-only') ? 'Export preflight passed.' : 'Deploy complete: invalidation completed and live routes/assets verified.');
 }
 

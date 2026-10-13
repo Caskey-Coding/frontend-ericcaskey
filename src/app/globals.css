@@ -1,18 +1,42 @@
 @import "tailwindcss";
 
-/* Shared design token contract — see specs/_shared/architecture/002 */
+/* Personal palette exception: ericcaskey frontend/004 and shared architecture/002.
+   Values live in one palette; components consume semantic roles. */
 :root {
-  --color-bg:             #f9f9f8;
-  --color-surface:        #ffffff;
-  --color-border:         #e4e4e2;
-  --color-border-strong:  #d6d6d2; /* interactive/hover boundaries (v2.1 §1.3) */
-  --color-text-primary:   #111110;
-  --color-text-secondary: #5c5c59; /* was #6b6b68; darker for better AA at 14px (design system v2 §1.1) */
-  --color-accent:         #0c7c59;
-  --color-accent-hover:   #095c43;
-  --color-accent-tint:    color-mix(in srgb, var(--color-accent) 18%, transparent);
-  --color-on-accent:      #ffffff; /* on #0c7c59: 5.2:1 (family design spec v2.1 §1.3) */
-  --color-danger:         #d32f2f;
+  color-scheme: light;
+  --palette-paper: #f5f3eb;
+  --palette-sheet: #fcfbf7;
+  --palette-ink: #13130f;
+  --palette-raised-ink: #1c1c16;
+  --palette-text: #25251d;
+  --palette-muted: #656456;
+  --palette-soft-text: #ece9df;
+  --palette-soft-muted: #b5b3a3;
+  --palette-line: #d7d3c5;
+  --palette-line-strong: #aaa696;
+  --palette-dark-line: #38382c;
+  --palette-dark-line-strong: #696958;
+  --palette-green: #14694c;
+  --palette-green-deep: #0f513c;
+  --palette-mint: #73d5ab;
+  --palette-mint-bright: #96e4c2;
+  --color-bg: var(--palette-paper);
+  --color-surface: var(--palette-sheet);
+  --color-border: var(--palette-line);
+  --color-border-strong: var(--palette-line-strong);
+  --color-text-primary: var(--palette-text);
+  --color-text-secondary: var(--palette-muted);
+  --color-accent: var(--palette-green);
+  --color-accent-hover: var(--palette-green-deep);
+  --color-accent-tint: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  --color-on-accent: var(--palette-sheet);
+  --color-danger: #d32f2f;
+  --color-hero-bg: var(--palette-ink);
+  --color-hero-text: var(--palette-soft-text);
+  --color-hero-muted: var(--palette-soft-muted);
+  --color-hero-line: var(--palette-dark-line);
+  --color-hero-accent: var(--palette-mint);
+  --font-code: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* v2.1 crispness pass (family design spec v2.1 §1.1): one step tighter. */
   --radius-sm:    4px;
@@ -46,18 +70,17 @@
 }
 
 [data-theme="dark"] {
-  --color-bg:             #111110;
-  --color-surface:        #1c1c1b;
-  --color-border:         #2e2e2c;
-  --color-border-strong:  #3a3a37;
-  --color-text-primary:   #f0efec;
-  --color-text-secondary: #a0a09b; /* was #8f8f8b; brighter for dark bg readability (design system v2 §1.1) */
-  --color-accent:         #2baa7e;
-  --color-accent-hover:   #35c593;
-  --color-accent-tint:    color-mix(in srgb, var(--color-accent) 22%, transparent);
-  --color-on-accent:      #0b0b0a; /* on #2baa7e: 6.7:1 (family design spec v2.1 §1.3) */
-  --color-danger:         #ef6a6a;
-
+  color-scheme: dark;
+  --color-bg: var(--palette-ink);
+  --color-surface: var(--palette-raised-ink);
+  --color-border: var(--palette-dark-line);
+  --color-border-strong: var(--palette-dark-line-strong);
+  --color-text-primary: var(--palette-soft-text);
+  --color-text-secondary: var(--palette-soft-muted);
+  --color-accent: var(--palette-mint);
+  --color-accent-hover: var(--palette-mint-bright);
+  --color-on-accent: var(--palette-ink);
+  --color-danger: #ef6a6a;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.55);
@@ -65,18 +88,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-bg:             #111110;
-    --color-surface:        #1c1c1b;
-    --color-border:         #2e2e2c;
-    --color-border-strong:  #3a3a37;
-    --color-text-primary:   #f0efec;
-    --color-text-secondary: #a0a09b; /* was #8f8f8b; brighter for dark bg readability (design system v2 §1.1) */
-    --color-accent:         #2baa7e;
-    --color-accent-hover:   #35c593;
-    --color-accent-tint:    color-mix(in srgb, var(--color-accent) 22%, transparent);
-    --color-on-accent:      #0b0b0a;
-    --color-danger:         #ef6a6a;
-
+    color-scheme: dark;
+    --color-bg: var(--palette-ink);
+    --color-surface: var(--palette-raised-ink);
+    --color-border: var(--palette-dark-line);
+    --color-border-strong: var(--palette-dark-line-strong);
+    --color-text-primary: var(--palette-soft-text);
+    --color-text-secondary: var(--palette-soft-muted);
+    --color-accent: var(--palette-mint);
+    --color-accent-hover: var(--palette-mint-bright);
+    --color-on-accent: var(--palette-ink);
+    --color-danger: #ef6a6a;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
     --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.45);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.55);
@@ -113,27 +135,6 @@ html {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/*
- * Masthead page-load reveal (family design spec v2.1 §motion discipline:
- * one orchestrated load, not scattered micro-interactions). Base state is
- * visible, so the content is never trapped hidden if animations don't run;
- * the keyframe rises from a small offset. Stagger via inline
- * --reveal-delay. Honors prefers-reduced-motion below.
- */
-@keyframes reveal-rise {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.reveal {
-  animation: reveal-rise var(--duration-slow) var(--ease-out) both;
-  animation-delay: var(--reveal-delay, 0ms);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal { animation: none; }
 }
 
 /*
@@ -391,149 +392,54 @@ textarea.field-input { resize: vertical; }
   border-left-color: var(--color-danger);
 }
 
-/* ============================================================
-   Home masthead — "Systems Readout" (ericcaskey home redesign)
-   An always-dark, full-bleed "readout" band: JetBrains Mono structural
-   labels + Newsreader serif prose, a faint dot-grid canvas, a left spec-rail
-   of mono coordinates, and the scale figures as a status panel. Self-contained
-   dark palette (--sr-*) so the masthead reads identically under either site
-   theme; the sections below it stay on the global themed tokens.
-   ============================================================ */
-.sr {
-  /* Light theme — white readout panel (sits a touch above the warm page bg).
-     Overridden to dark ink under [data-theme="dark"] below, so the masthead
-     follows the site's light/dark toggle. */
-  --sr-ink: #ffffff;
-  --sr-line: #ddd8c9;
-  --sr-line2: #cbc5b4;
-  --sr-paper: #1b1a16;
-  --sr-bio: #46423a;
-  --sr-muted: #6c685c;
-  --sr-faint: #8d8779;
-  --sr-green: #0c7c59;
-  --sr-green-deep: #0a6a4c;
-  --sr-on-green: #ffffff;
-  --sr-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sr-serif: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+/* A static identity record. The inverse hero uses the same palette as the
+   light/dark page, with explicit roles for its intentionally dark surface. */
+.sr .eyebrow { font-family: var(--font-code); letter-spacing: 0.1em; }
+.sr h2 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.01em; }
+.identity-hero {
+  background: var(--color-hero-bg);
+  color: var(--color-hero-text);
+  border: 1px solid var(--color-hero-line);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  font-family: var(--font-code);
 }
-[data-theme='dark'] .sr {
-  --sr-ink: #13130f;
-  --sr-line: #2c2c22;
-  --sr-line2: #3a3a2e;
-  --sr-paper: #ece9df;
-  --sr-bio: #cfcdbf;
-  --sr-muted: #9b9b8c;
-  --sr-faint: #6f6f62;
-  --sr-green: #37c08f;
-  --sr-green-deep: #2baa7e;
-  --sr-on-green: #0b0b08;
-}
-
-/* Mono eyebrows + serif section headings, scoped to the home page only. */
-.sr .eyebrow { font-family: var(--sr-mono); letter-spacing: 0.14em; }
-.sr h2 { font-family: var(--sr-serif); font-weight: 600; letter-spacing: -0.01em; }
-
-/* Full-bleed dark band. Breaks out of the max-w-3xl main, re-insetting its
-   content to the column edges; cancels the main's top padding so it tucks
-   under the sticky nav. */
-.sr-hero {
-  margin-inline: calc(50% - 50vw);
-  padding-inline: calc(50vw - 50%);
-  margin-top: -3rem;
-  padding-top: 3.25rem;
-  padding-bottom: 2.75rem;
-  background: var(--sr-ink);
-  color: var(--sr-paper);
-  background-image: radial-gradient(var(--sr-line) 1px, transparent 1px);
-  background-size: 22px 22px;
-  border-bottom: 1px solid var(--sr-line);
-  font-family: var(--sr-serif);
-}
-@media (min-width: 768px) {
-  .sr-hero { margin-top: -5rem; padding-top: 4rem; padding-bottom: 3.25rem; }
+.identity-prompt { color: var(--color-hero-accent); font-size: 0.875rem; margin-bottom: 1.75rem; }
+.identity-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.identity-name { font-family: var(--font-code); font-size: clamp(1.875rem, 5vw, 3.25rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.055em; margin: 0; }
+.identity-avatar { display: block; flex: 0 0 80px; overflow: hidden; border-radius: 0.5rem; }
+.identity-fields { display: grid; gap: 1rem; font-size: 0.9375rem; line-height: 1.7; }
+.identity-fields > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.75rem; }
+.identity-fields dt { color: var(--color-hero-muted); }
+.identity-fields dd { min-width: 0; overflow-wrap: anywhere; }
+.identity-fields .identity-claim { font-size: clamp(1.125rem, 3vw, 1.4rem); line-height: 1.5; font-weight: 500; }
+.identity-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; padding-top: 1.75rem; margin-top: 1.75rem; border-top: 1px solid var(--color-hero-line); font-size: 0.875rem; }
+.sr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0.7rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-weight: 500; }
+.sr-btn--p { background: var(--color-hero-accent); color: var(--color-hero-bg); font-weight: 600; }
+.sr-btn--p:hover { background: var(--palette-mint-bright); color: var(--color-hero-bg); }
+.sr-btn--s { border: 1px solid var(--palette-dark-line-strong); color: var(--color-hero-text); }
+.sr-btn--s:hover { border-color: var(--color-hero-accent); color: var(--color-hero-accent); }
+.identity-hero :focus-visible { outline-color: var(--color-hero-accent); }
+.work-metrics { display: grid; gap: 0.65rem; margin: 1rem 0 0.5rem; padding-left: 1rem; border-left: 2px solid var(--color-border-strong); }
+.work-metrics > div { display: grid; grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.4fr); gap: 0.5rem 1rem; font-family: var(--font-code); line-height: 1.6; }
+.work-metrics dt { color: var(--color-text-secondary); font-size: 0.875rem; }
+.work-metrics dd { color: var(--color-text-primary); font-size: 0.9375rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.project-status { display: inline-block; width: fit-content; padding: 0.2rem 0.55rem; border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); font: 0.875rem/1.5 var(--font-code); color: var(--color-accent); }
+.identity-faq dt { font-family: var(--font-code); font-size: 0.9375rem; }
+.identity-faq dd { color: var(--color-text-secondary); }
+@media (max-width: 440px) {
+  .identity-fields > div { grid-template-columns: 1fr; gap: 0.15rem; }
+  .work-metrics > div { grid-template-columns: 1fr; gap: 0.1rem; }
+  .identity-top { align-items: flex-start; }
 }
 
-.sr-grid { display: grid; grid-template-columns: 132px 1fr; gap: 0 1.75rem; }
-@media (max-width: 720px) { .sr-grid { grid-template-columns: 1fr; } }
-
-.sr-rail {
-  font-family: var(--sr-mono);
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  color: var(--sr-faint);
-  line-height: 2.1;
-  border-right: 1px solid var(--sr-line);
-  padding-top: 0.5rem;
-}
-.sr-rail .k { color: var(--sr-green-deep); }
-.sr-rail .live { color: var(--sr-green); }
-@media (max-width: 720px) {
-  .sr-rail { display: flex; flex-wrap: wrap; gap: 0 1rem; border-right: none; border-bottom: 1px solid var(--sr-line); padding-bottom: 0.75rem; margin-bottom: 1.25rem; line-height: 1.9; }
-}
-
-.sr-tag {
-  font-family: var(--sr-mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--sr-green);
-  margin: 0 0 1.4rem;
-  white-space: nowrap;
-}
-@media (max-width: 560px) { .sr-tag { white-space: normal; } }
-.sr-masthead { display: grid; grid-template-columns: 1fr 218px; gap: 2rem; align-items: start; }
-@media (max-width: 720px) { .sr-masthead { grid-template-columns: 1fr; gap: 1.5rem; } }
-
-.sr-name {
-  font-family: var(--sr-mono);
-  font-weight: 700;
-  font-size: clamp(2.1rem, 6vw, 3.3rem);
-  letter-spacing: -0.02em;
-  line-height: 1;
-  margin: 0 0 1.1rem;
-  color: var(--sr-paper);
-}
-.sr-lead {
-  font-size: clamp(1.35rem, 3.4vw, 1.65rem);
-  line-height: 1.3;
-  font-weight: 500;
-  margin: 0 0 1.1rem;
-  color: var(--sr-paper);
-}
-.sr-bio {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: var(--sr-bio);
-  margin: 0 0 1.6rem;
-  max-width: 46ch;
-}
-.sr-cta { display: flex; gap: 0.75rem; font-family: var(--sr-mono); font-size: 13px; letter-spacing: 0.03em; flex-wrap: wrap; }
-.sr-btn { padding: 0.7rem 1.1rem; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out); }
-.sr-btn--p { background: var(--sr-green-deep); color: var(--sr-on-green); font-weight: 600; box-shadow: var(--shadow-md); }
-.sr-btn--p:hover { background: var(--sr-green); color: var(--sr-on-green); }
-.sr-btn--s { border: 1px solid var(--sr-line2); color: var(--sr-paper); }
-.sr-btn--s:hover { border-color: var(--sr-green-deep); color: var(--sr-paper); }
-
-.sr-photo { border: 1px solid var(--sr-line2); border-radius: 8px; overflow: hidden; }
-.sr-photo :is(img, picture) { display: block; width: 100%; height: 100%; }
-.sr-photo img { aspect-ratio: 3 / 4; object-fit: cover; border-radius: 0 !important; filter: grayscale(0.12) contrast(1.02); }
-[data-theme='dark'] .sr-photo img { mix-blend-mode: luminosity; opacity: 0.92; filter: grayscale(0.25) contrast(1.03); }
-@media (max-width: 720px) { .sr-photo { max-width: 220px; } }
-
-.sr-status { margin-top: 2.25rem; border-top: 1px solid var(--sr-line); }
-.sr-status .row { display: grid; grid-template-columns: 116px 1fr; gap: 1.1rem; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid var(--sr-line); font-family: var(--sr-mono); }
-.sr-status .lbl { font-size: 11px; letter-spacing: 0.14em; color: var(--sr-green-deep); text-transform: uppercase; }
-.sr-status .val { justify-self: end; font-size: 1.45rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--sr-paper); }
-.sr-status .val small { color: var(--sr-muted); font-size: 0.8rem; }
-@media (max-width: 720px) { .sr-status .row { grid-template-columns: 100px 1fr; } .sr-status .val { justify-self: start; } }
-
-/* Sub-page readout header — a mono coordinate line + serif title, hairline-
+/* Sub-page readout header — a mono coordinate line + sans title, hairline-
    sealed. Lighter than the home masthead band, but carries the Systems
    Readout voice onto /work, /about, etc. */
 .sr-pagehead { padding-bottom: 1.75rem; border-bottom: 1px solid var(--color-border); }
-.sr-pagehead .coord { font-family: var(--sr-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 0.9rem; display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; }
+.sr-pagehead .coord { font-family: var(--font-code); font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 0.9rem; display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; }
 .sr-pagehead .coord .sep { color: var(--color-text-secondary); }
-.sr-pagehead h1 { font-family: var(--sr-serif); font-weight: 600; letter-spacing: -0.015em; margin: 0; }
+.sr-pagehead h1 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.015em; margin: 0; }
 .sr-pagehead .sub { margin: 1rem 0 0; color: var(--color-text-secondary); line-height: 1.7; max-width: 56ch; font-size: 1.05rem; }
 
 /* Labeled tiles — the design-system-site's two-up "card pair" grammar, kept
@@ -543,8 +449,8 @@ textarea.field-input { resize: vertical; }
 @media (max-width: 640px) { .sr-tiles { grid-template-columns: 1fr; } }
 .sr-tile { display: block; padding: 1.05rem 1.2rem; border: 1px solid var(--color-border); border-radius: var(--radius-lg); text-decoration: none; color: inherit; transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out); }
 .sr-tile:hover { border-color: var(--color-accent); background: var(--color-accent-tint); }
-.sr-tile .k { font-family: var(--sr-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 0.4rem; }
-.sr-tile .t { font-family: var(--sr-serif); font-weight: 600; font-size: 1.1rem; color: var(--color-text-primary); display: flex; align-items: center; gap: 0.4rem; }
+.sr-tile .k { font-family: var(--font-code); font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 0.4rem; }
+.sr-tile .t { font-family: var(--font-sans); font-weight: 600; font-size: 1.1rem; color: var(--color-text-primary); display: flex; align-items: center; gap: 0.4rem; }
 .sr-tile .d { margin: 0.35rem 0 0; color: var(--color-text-secondary); font-size: 0.92rem; line-height: 1.55; }
 .sr-tiles--3 { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 640px) { .sr-tiles--3 { grid-template-columns: 1fr; } }
