@@ -7,13 +7,13 @@ import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Get in touch with Eric Caskey: hiring, engineering, and press inquiries.',
+    'Contact Eric Caskey about engineering work, the writing, or a professional conversation. Replies within a week.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
     type: 'website',
     title: 'Contact',
-    description: 'Get in touch with Eric Caskey: hiring, engineering, and press inquiries.',
+    description: 'Contact Eric Caskey about engineering work, the writing, or a professional conversation. Replies within a week.',
     url: 'https://ericcaskey.com/contact',
     images: [ogImage],
   },

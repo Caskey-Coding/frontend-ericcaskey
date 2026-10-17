@@ -120,18 +120,10 @@ export default function Writing() {
         </p>
         <h1 className="page-title">Selected writing</h1>
         <p className="sub">
-          Eric Caskey writes long-form engineering essays at Caskey Engineering
-          on spec-driven development, safety guardrails for distributed systems,
-          and AI reliability. The five selected here best show the method rather
-          than the result: a C++ options pricer tuned from 15 to 215 million
-          prices a second, where most of the speedup assumptions died one
-          measurement at a time; Ballast, a RAG system whose most important
-          feature is refusing to answer; an honest account of building a
-          personal finance reviewer, where the hard part was rarely the AI; the
-          validation engines behind workflow orchestration, where an incorrect
-          &quot;yes&quot; is a production incident; and the folder architecture
-          that lets AI agents and humans both find their way around a codebase.
-          The full archive lives at{' '}
+          I write about low-latency C++, spec-driven development,
+          distributed-system safety, and AI reliability. These five essays
+          follow the implementation decisions and measurements behind the work.
+          The full archive is on{' '}
           <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
             Caskey Engineering
           </CrossSiteLink>
