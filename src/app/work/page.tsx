@@ -130,8 +130,8 @@ export default function Work() {
           Engineer at Amazon today. He joined Amazon in June 2022 and has held
           the Senior Software Engineer title since August 2024. The deep case
           studies, with the metrics and the architectural decisions, live on{' '}
-          <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
-            Caskey Engineering
+          <CrossSiteLink href="https://caskeycoding.com/case-studies" rel="noopener">
+            Caskey Engineering case studies
           </CrossSiteLink>
           .
         </p>
@@ -173,9 +173,9 @@ export default function Work() {
       </section>
 
       <p className="leading-relaxed text-muted">
-        Everything above, and several things that are not, lives in full on{' '}
-        <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
-          Caskey Engineering
+        Read the architectural decisions and tradeoffs in my{' '}
+        <CrossSiteLink href="https://caskeycoding.com/case-studies" rel="noopener">
+          public case studies
         </CrossSiteLink>
         .
       </p>
