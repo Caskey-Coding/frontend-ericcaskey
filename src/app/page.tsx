@@ -129,6 +129,10 @@ export default function Home() {
         <p className="leading-relaxed">
           <Link href="/work">More on the work page →</Link>
         </p>
+        <p className="leading-relaxed text-pretty" data-bridge="independent-work">
+          For independent work on AI-assisted delivery, explore{' '}
+          <CrossSiteLink href="https://caskeycoding.com/#workflow-assessment">Caskey Engineering</CrossSiteLink>.
+        </p>
       </section>
 
       <section id="selected-writing" aria-labelledby="selected-writing-heading" className="flex flex-col gap-4">

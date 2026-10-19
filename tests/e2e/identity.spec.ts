@@ -44,6 +44,10 @@ test('identity, avatar, curated essays and matching first-person FAQ exist witho
   for (const { answer } of rendered) expect(answer).toMatch(/\bI(?:\b|')/);
   await expect(page.locator('dl.identity-faq')).toContainText('reply within a week');
   await expect(page.locator('main a[href="/contact"]').first()).toBeVisible();
+  // Without JavaScript the theme query is never appended, so the exact href holds.
+  const bridge = page.locator('main [data-bridge="independent-work"]');
+  await expect(bridge).toHaveText('For independent work on AI-assisted delivery, explore Caskey Engineering.');
+  await expect(bridge.locator('a[href="https://caskeycoding.com/#workflow-assessment"]')).toHaveText('Caskey Engineering');
   await context.close();
 });
 
