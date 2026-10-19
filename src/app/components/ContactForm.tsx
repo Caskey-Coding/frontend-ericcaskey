@@ -9,6 +9,7 @@ const API_URL = process.env.NEXT_PUBLIC_CONTACT_API_URL ?? '';
 export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [messageLength, setMessageLength] = useState(0);
+  const [emailInvalid, setEmailInvalid] = useState(false);
 
   function getString(data: FormData, key: string): string {
     const v = data.get(key);
@@ -29,10 +30,21 @@ export function ContactForm() {
     const email = getString(data, 'email');
     const message = getString(data, 'message');
 
+    // noValidate suppresses the browser bubble, not the constraint check:
+    // the type="email" input still reports a malformed address here.
+    const emailInput = form.elements.namedItem('email');
+    const emailMalformed =
+      emailInput instanceof HTMLInputElement && emailInput.validity.typeMismatch;
+    setEmailInvalid(!email || emailMalformed);
+
     // Client validation failure is distinct from a send failure: tell the
     // user what to fix rather than implying the message bounced.
-    if (!name || !email || message.length < 10 || message.length > 2000) {
+    if (!name || !email || emailMalformed || message.length < 10 || message.length > 2000) {
       setStatus('invalid');
+      // Focus after render so aria-describedby is already on the field.
+      if (emailMalformed && emailInput instanceof HTMLInputElement) {
+        requestAnimationFrame(() => emailInput.focus());
+      }
       return;
     }
 
@@ -75,6 +87,8 @@ export function ContactForm() {
           required
           placeholder="you@example.com"
           className="field-input"
+          aria-invalid={status === 'invalid' && emailInvalid ? true : undefined}
+          aria-describedby={status === 'invalid' && emailInvalid ? 'contact-email-error' : undefined}
         />
       </label>
 
@@ -129,6 +143,11 @@ export function ContactForm() {
 
         {status === 'invalid' && (
           <p className="form-note form-note--err">
+            {emailInvalid && (
+              <span id="contact-email-error">
+                Enter a valid email address, like you@example.com.{' '}
+              </span>
+            )}
             Please add your name, a valid email, and a message between 10 and
             2000 characters.
           </p>

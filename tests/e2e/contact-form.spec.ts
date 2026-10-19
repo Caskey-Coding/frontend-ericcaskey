@@ -45,14 +45,21 @@ test('contact form success path renders the sent confirmation', async ({ page })
     });
   });
 
-  await fillAndSubmit(page);
+  await page.goto('/contact');
+  await page.getByPlaceholder('Full name').fill('  Playwright Test  ');
+  await page.getByPlaceholder('you@example.com').fill('e2e@example.com');
+  await page
+    .getByPlaceholder('Role, project, or inquiry')
+    .fill('  E2E test message, intercepted before any network leaves the browser.  ');
+  await page.getByRole('button', { name: /send message/i }).click();
 
   await expect(page.getByText(/message sent/i)).toBeVisible();
   expect(posts).toHaveLength(1);
-  const payload = JSON.parse(posts[0]);
-  expect(payload).toMatchObject({
+  // Exact payload: trimmed fields, no honeypot or extra keys.
+  expect(JSON.parse(posts[0])).toEqual({
     name: 'Playwright Test',
     email: 'e2e@example.com',
+    message: 'E2E test message, intercepted before any network leaves the browser.',
   });
   // Form resets on success.
   await expect(page.getByPlaceholder('Full name')).toHaveValue('');
@@ -139,3 +146,35 @@ test('contact form client validation message for a too-short message', async ({ 
 
   await expect(page.locator('p.form-note--err')).toContainText(/between 10 and\s+2000 characters/i);
 });
+
+for (const malformed of ['not-an-email', 'e2e@', '@example.com', 'e2e example@example.com']) {
+  test(`contact form rejects malformed email "${malformed}" without a request`, async ({ page }) => {
+    const posts: string[] = [];
+    await page.route('**/contact', async (route) => {
+      if (route.request().method() !== 'POST') {
+        await route.fallback();
+        return;
+      }
+      posts.push(route.request().postData() ?? '');
+      await route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    });
+
+    await page.goto('/contact');
+    await page.getByPlaceholder('Full name').fill('Playwright Test');
+    const email = page.getByPlaceholder('you@example.com');
+    await email.fill(malformed);
+    await page
+      .getByPlaceholder('Role, project, or inquiry')
+      .fill('A message long enough to pass the length check.');
+    await page.getByRole('button', { name: /send message/i }).click();
+
+    await expect(page.locator('#contact-email-error')).toContainText(/valid email address/i);
+    await expect(email).toHaveAttribute('aria-invalid', 'true');
+    await expect(email).toHaveAttribute('aria-describedby', 'contact-email-error');
+    await expect(email).toHaveAccessibleDescription(/valid email address/i);
+    await expect(email).toBeFocused();
+    await expect(page.getByText(/message sent/i)).toHaveCount(0);
+    await expect(page.getByText(/did not go through/i)).toHaveCount(0);
+    expect(posts).toHaveLength(0);
+  });
+}

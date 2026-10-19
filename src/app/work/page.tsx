@@ -137,10 +137,16 @@ export default function Work() {
         </p>
       </header>
 
-      <section className="flex flex-col border-t border-border">
-        {employers.map((e) => (
-          <TimelineItem key={e.company} {...e} />
-        ))}
+      <section className="flex flex-col gap-5" aria-labelledby="experience-heading">
+        <div className="flex flex-col gap-1">
+          <p className="eyebrow">Career</p>
+          <h2 id="experience-heading" className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Experience</h2>
+        </div>
+        <div className="flex flex-col border-t border-border">
+          {employers.map((e) => (
+            <TimelineItem key={e.company} {...e} />
+          ))}
+        </div>
       </section>
 
       <section className="flex flex-col gap-5">
@@ -152,7 +158,14 @@ export default function Work() {
           A selection of what I build on my own time, on the same stack I use at
           work. Most link to the live tool, the writeup, or the playground on
           Caskey Engineering. The finance work is engineering, not investment
-          advice.
+          advice. The spec-driven platform is the method behind my independent
+          work on AI-assisted delivery; the{' '}
+          <CrossSiteLink href="https://caskeycoding.com/#workflow-assessment" rel="noopener">
+            workflow assessment on Caskey Engineering
+          </CrossSiteLink>{' '}
+          describes how that work starts. The Amazon and Prudential entries
+          above describe my work in those organizations; they are separate
+          from this independent practice and imply no employer endorsement.
         </p>
         <div className="sr-tiles">
           {tools.map((t) => t.project ? (

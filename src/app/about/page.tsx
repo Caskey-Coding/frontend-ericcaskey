@@ -184,8 +184,17 @@ export default function About() {
           </strong>
           {' '}(caskeycoding.com), including An Engineering Team of One, a
           lesson series on running a software team of one engineer and a
-          fleet of AI agents. It is the engineering side of this website,
-          a working notebook where the arguments get worked out in full.
+          fleet of AI agents. Caskey Engineering is also my independent
+          engineering practice, separate from my role at Amazon. This site
+          covers my career; that one covers the method and the evidence
+          behind it.
+        </p>
+        <p className="leading-relaxed text-pretty">
+          For independent work on AI-assisted delivery, explore{' '}
+          <CrossSiteLink href="https://caskeycoding.com/#workflow-assessment">
+            Caskey Engineering
+          </CrossSiteLink>
+          .
         </p>
       </section>
 
