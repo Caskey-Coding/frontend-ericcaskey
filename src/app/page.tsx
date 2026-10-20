@@ -1,4 +1,4 @@
-﻿import { LAST_MODIFIED } from './lib/lastModified';
+import { LAST_MODIFIED } from './lib/lastModified';
 import Link from 'next/link';
 import { Headshot } from './components/Headshot';
 import { CrossSiteLink } from './components/CrossSiteLink';
@@ -23,7 +23,7 @@ const websiteJsonLd = {
 const HOME_FAQ = [
   {
     q: 'Who is Eric Caskey?',
-    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate, and I write about safety-critical platforms and AI reliability at Caskey Engineering.",
+    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate, and my independent practice, Caskey Engineering, helps teams assess context, review, and release checks in AI-assisted software delivery.",
   },
   {
     q: 'What does Eric Caskey work on at Amazon?',
