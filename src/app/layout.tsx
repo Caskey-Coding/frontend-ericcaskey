@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: '%s | Eric Caskey',
   },
   description:
-    'Eric Caskey brings platform-engineering rigor to AI: validation, guardrails, and spec-driven systems that make AI safe to ship, after 15 years at Amazon scale.',
+    'Eric Caskey, Senior Software Engineer at Amazon: fifteen years of enterprise infrastructure and safe automation. Independent practice: Caskey Engineering.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',

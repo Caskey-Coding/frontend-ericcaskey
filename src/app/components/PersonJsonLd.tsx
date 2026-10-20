@@ -19,7 +19,7 @@ const person = {
   image: 'https://ericcaskey.com/eric-caskey-1200.jpg',
   sameAs: PERSON_SAME_AS,
   jobTitle: 'Senior Software Engineer',
-  description: 'Eric Caskey is a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. He has spent fifteen years across five roles making production infrastructure safe enough to automate: at Amazon since June 2022, and at Prudential Financial for nine years before that. He writes about safety-critical platforms and AI reliability at Caskey Engineering.',
+  description: 'Eric Caskey is a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. He has spent fifteen years across five roles making production infrastructure safe enough to automate: at Amazon since June 2022, and at Prudential Financial for nine years before that. His independent practice, Caskey Engineering, helps teams assess context, review, and release checks in AI-assisted software delivery.',
   worksFor: {
     '@type': 'Organization',
     name: 'Amazon',
