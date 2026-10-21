@@ -26,7 +26,7 @@ No manifest or lock resolution changes.
   declared ranges are included. This does not prove all installed bytes,
   active module loads, affected inputs or deployment provenance.
 - The FSAFE-9 snapshot had eleven open alerts. The same ten alert numbers
-  remain open; sharp alert 47 is now fixed, with `fixed_at`
+  remain open; sharp alert 47 (GHSA-wq5f-xc86-pv6w) is now fixed, with `fixed_at`
   `2026-10-18T22:49:23Z` and no dismissal. The observed lock and installed
   sharp are 0.35.5, within Next 16.4.1's `^0.35.5` optional range.
   This is hosted source state and local metadata, not live remediation.
@@ -37,25 +37,26 @@ No manifest or lock resolution changes.
 
 The older snapshot, original command streams, hashes, current metadata and
 review receipts are retained privately. The prior snapshot's immutable raw
-vulnerability receipt was hash-verified before extracting this repository.
+vulnerability receipt and this repository's extraction were hash-verified;
+a fresh retained comparison confirms exact parsed extraction equality.
 
 ## Hosted alert disposition
 
 All listed alerts concern `package-lock.json`. Affected-range checks and
 candidate declarations are metadata checks, not advisory reproductions.
 
-| Alert | Package and locked version | Severity | GHSA | Disposition |
-| --- | --- | --- | --- | --- |
-| 45 | compression 1.8.1 | high | GHSA-vc2v-76pw-4v95 | FSAFE-90: parent pin blocks a simple lock refresh |
-| 42 | brace-expansion 1.1.18 | medium | GHSA-q2hr-2g5m-vwhr | FSAFE-89: assess 1.1.21 within the existing range |
-| 41 | brace-expansion 5.0.9 | medium | GHSA-q2hr-2g5m-vwhr | FSAFE-89: assess 5.0.12 within the existing range |
-| 37 | fast-uri 3.1.5 | high | GHSA-qw65-cvwx-89v3 | FSAFE-89: assess 3.1.8, including npm-only findings |
-| 31 | baseline-browser-mapping 2.10.32 | medium | GHSA-w5vr-8v7q-w6rv | FSAFE-89: assess 2.11.0 within both consumer ranges |
-| 30 | browserslist 4.28.2 | high | GHSA-73wf-gq98-2v4g | FSAFE-89: assess 4.28.7 |
-| 28 | fast-uri 3.1.5 | high | GHSA-jqff-g426-hqxp | FSAFE-89 |
-| 27 | fast-uri 3.1.5 | high | GHSA-f65p-4m7j-42xc | FSAFE-89 |
-| 26 | fast-uri 3.1.5 | high | GHSA-fph4-wmhf-6fwf | FSAFE-89 |
-| 25 | fast-uri 3.1.5 | high | GHSA-5jgf-p345-68v8 | FSAFE-89 |
+| Alert | Package and locked version | Severity | GHSA | Hosted scope | Inspected reachable surface | Disposition |
+| --- | --- | --- | --- | --- | --- | --- |
+| 45 | compression 1.8.1 | high | GHSA-vc2v-76pw-4v95 | development | serve local E2E server; affected input and deployed reachability unknown | FSAFE-90: parent pin blocks a simple lock refresh |
+| 42 | brace-expansion 1.1.18 | medium | GHSA-q2hr-2g5m-vwhr | development | minimatch tooling input; affected input and deployed reachability unknown | FSAFE-89: assess 1.1.21 within the existing range |
+| 41 | brace-expansion 5.0.9 | medium | GHSA-q2hr-2g5m-vwhr | development | nested minimatch lint input; affected input and deployed reachability unknown | FSAFE-89: assess 5.0.12 within the existing range |
+| 37 | fast-uri 3.1.5 | high | GHSA-qw65-cvwx-89v3 | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89: assess 3.1.8, including npm-only findings |
+| 31 | baseline-browser-mapping 2.10.32 | medium | GHSA-w5vr-8v7q-w6rv | runtime | Next production declaration and browserslist; affected input and deployed reachability unknown | FSAFE-89: assess 2.11.0 within both consumer ranges |
+| 30 | browserslist 4.28.2 | high | GHSA-73wf-gq98-2v4g | development | Babel compilation targets; affected input and deployed reachability unknown | FSAFE-89: assess 4.28.7 |
+| 28 | fast-uri 3.1.5 | high | GHSA-jqff-g426-hqxp | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
+| 27 | fast-uri 3.1.5 | high | GHSA-f65p-4m7j-42xc | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
+| 26 | fast-uri 3.1.5 | high | GHSA-fph4-wmhf-6fwf | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
+| 25 | fast-uri 3.1.5 | high | GHSA-5jgf-p345-68v8 | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
 
 The npm report contains fourteen distinct GHSA identifiers. Five are absent
 from the ten-alert hosted set:
@@ -86,7 +87,9 @@ The declared ranges permit the named versions:
 - Babel's compilation-target helper uses browserslist `^4.24.0`.
 - browserslist uses baseline-browser-mapping `^2.10.12`; Next also uses
   `^2.9.19`. The latter is a production dependency declaration, so the
-  package must not be described as universally dev-only.
+  package must not be described as universally dev-only. Candidate browserslist
+  4.28.7 raises its baseline-browser-mapping range to `^2.10.44`; assess that
+  coupled selection with 2.11.0 and verify all current advisory ranges.
 
 FSAFE-90 remains unresolved: installed and registry-latest serve 14.2.6
 pins compression exactly to 1.8.1. Although compression 1.8.2 exists, it
@@ -111,7 +114,8 @@ Source inspection found the following bounded consumers:
   local E2E. Compression and AJV therefore have a declared test-server
   consumer. No advisory probe or live-server attribution was performed.
 - Sharp is imported by manual avatar/favicon scripts. Those scripts were
-  inspected, not run. The config disables Next image optimization, but that
+  inspected, not run. The favicon script passes the tracked `public/icon.svg`
+  to sharp, a concrete SVG decoding consumer. The config disables Next image optimization, but that
   does not certify all sharp inputs or native binaries.
 - DOMPurify is absent from this lock and the selected source scan. It has no
   hosted alert in this repository's observed set; this is not a universal
@@ -130,7 +134,9 @@ The item excludes installs outside the worktree. The brief's overview says
 require a fresh worktree npm ci. This assessment follows that specific
 worktree-only baseline instruction; it performs no dependency upgrade.
 
-Baseline lint passed. JSON parsing, all-record disposition, declared-range
+Baseline `npm run lint` passed as required by the item. The brief also names
+`npm run ci:lint`, which this repository does not define; no such command is
+claimed as executed. JSON parsing, all-record disposition, declared-range
 checks and publication checks are retained with the final review evidence.
 These are triage and repository checks, not vulnerability behavior tests.
 No artificial mutation was needed.
