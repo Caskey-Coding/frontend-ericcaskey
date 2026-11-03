@@ -2,8 +2,13 @@
   "_comment": "EC-WRITING-1 committed fallback for scripts/fetch-writing-feed.mjs. Regenerate with: node scripts/fetch-writing-feed.mjs --write-snapshot",
   "posts": [
     {
+      "slug": "the-marathon-i-wanted-my-kids-to-see",
+      "title": "The Marathon I Wanted My Kids to See",
+      "date": "2026-11-02"
+    },
+    {
       "slug": "pricing-215-million-options-a-second",
-      "title": "Fifteen Million Was the Easy Part",
+      "title": "Pricing 215 million options a second with SIMD C++",
       "date": "2026-07-09"
     },
     {

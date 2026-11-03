@@ -11,6 +11,8 @@
 # build. Each `note` is a double-quoted string. Changing membership or a note
 # is an editorial decision (owner territory).
 essays:
+  - slug: the-marathon-i-wanted-my-kids-to-see
+    note: "A return to running, a New York finish, and the example I wanted to set for my kids."
   - slug: pricing-215-million-options-a-second
     note: "A clean C++ options pricer, tuned from 15 to 215 million prices a second. Most of my speedup assumptions died one measurement at a time."
   - slug: ballast-an-llm-that-says-i-dont-know
