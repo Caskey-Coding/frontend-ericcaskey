@@ -1,6 +1,12 @@
 {
   "essays": [
     {
+      "title": "The Marathon I Wanted My Kids to See",
+      "url": "https://caskeycoding.com/blog/the-marathon-i-wanted-my-kids-to-see",
+      "publishedDate": "November 2, 2026",
+      "editorNote": "A return to running, a New York finish, and the example I wanted to set for my kids."
+    },
+    {
       "title": "Pricing 215 million options a second with SIMD C++",
       "url": "https://caskeycoding.com/blog/pricing-215-million-options-a-second",
       "publishedDate": "July 9, 2026",

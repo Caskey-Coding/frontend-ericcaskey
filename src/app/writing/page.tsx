@@ -9,14 +9,14 @@ import writingShelf from '../../data/writing-shelf.json';
 export const metadata: Metadata = {
   title: 'Writing',
   description:
-    'Five selected essays by Eric Caskey on low-latency C++, spec-driven development, safety-critical distributed systems, and AI application engineering.',
+    'Selected essays by Eric Caskey on software engineering, running, and family.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
     type: 'website',
     title: 'Writing',
     description:
-      'Five selected essays by Eric Caskey on low-latency C++, spec-driven development, safety-critical distributed systems, and AI application engineering.',
+      'Selected essays by Eric Caskey on software engineering, running, and family.',
     url: 'https://ericcaskey.com/writing',
     images: [ogImage],
   },
@@ -29,9 +29,7 @@ export const metadata: Metadata = {
 // scripts/fetch-writing-feed.mjs (prebuild) and emitted to
 // src/data/writing-shelf.json, so the shelf never drifts stale against the
 // canonical blog. publishedDate is "Month D, YYYY", newest-first.
-// EC-BRAND-1 (2026-07-08): shelf widened 3 → 5 to surface the two flagship
-// builder essays (C++ pricing engine, Ballast). Order stays strictly
-// newest-first; home cards 1-2 mirror the top two (MIRROR RULE, content/001).
+// Homepage selections are curated independently in src/app/page.tsx.
 type Essay = {
   title: string;
   url: string;
@@ -112,7 +110,7 @@ export default function Writing() {
         <p className="coord">
           <span>Essays</span>
           <span className="sep" aria-hidden="true">·</span>
-          <span>5 selected</span>
+          <span>{essays.length} selected</span>
           <span className="sep" aria-hidden="true">·</span>
           <span>caskeycoding.com</span>
           <span className="sep" aria-hidden="true">·</span>
@@ -121,8 +119,8 @@ export default function Writing() {
         <h1 className="page-title">Selected writing</h1>
         <p className="sub">
           I write about low-latency C++, spec-driven development,
-          distributed-system safety, and AI reliability. These five essays
-          follow the implementation decisions and measurements behind the work.
+          distributed-system safety, and AI reliability, alongside personal
+          essays about running and family.
           The full archive is on{' '}
           <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
             Caskey Engineering
