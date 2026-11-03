@@ -7,7 +7,7 @@ import { ogImage } from '../lib/og';
 import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: { absolute: 'About Eric Caskey | Platform Engineering & AI Reliability' },
   description:
     "Career narrative, values, and the mission behind Eric Caskey's platform engineering work.",
   openGraph: {
