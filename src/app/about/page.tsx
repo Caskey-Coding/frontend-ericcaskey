@@ -196,6 +196,10 @@ export default function About() {
           </CrossSiteLink>
           .
         </p>
+        <p className="leading-relaxed">
+          For a conversation about engineering or writing,{' '}
+          <a href="/contact">get in touch</a>.
+        </p>
       </section>
 
       {/* FDS-8: border-led frame on the headshot (v2.1 §2.1, no lift),
