@@ -50,7 +50,7 @@ export const employers: Employer[] = [
       "Launched my technology career as a WOS consultant, rapidly learning enterprise IT environments and contributing to Prudential's remote access platform operations.",
   },
   {
-    company: 'Caskey Coding',
+    company: 'Caskey Coding, LLC',
     role: 'Owner, operator',
     dates: 'Feb 2015 – May 2018',
     oneLineImpact:

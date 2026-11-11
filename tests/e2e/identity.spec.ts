@@ -11,6 +11,7 @@ const BRIDGE_SENTENCE =
   'I write up what I build at caskeycoding.com: case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments.';
 const CONTACT_LINE =
   'Questions about one of the open-source projects, something I wrote, or a speaking or professional conversation? Send a note. I am not taking client work.';
+const PAST_BUSINESS_NAMES = ['Caskey Coding, LLC', 'Caskey Coding LLC'];
 const RETIRED_PATTERN =
   /Caskey\s+Engineering|Caskey\s+Coding,?\s+LLC|legalName|independent\s+(?:engineering\s+)?practice|workflow[-\s]+assessment|implementation\s+pilot/i;
 
@@ -67,13 +68,19 @@ test('sister site is named Caskey Coding and no page links the retired offer, at
   for (const path of ['/', '/about', '/work', '/writing', '/contact']) {
     await page.goto(path);
     await expect(page.locator('a[href*="#workflow-assessment"]'), path).toHaveCount(0);
-    const html = await page.content();
+    let html = await page.content();
+    // The 2015 to 2018 company stays in the career history as dated fact,
+    // on /work only, under its exact historical names.
+    if (path === '/work') for (const name of PAST_BUSINESS_NAMES) html = html.replaceAll(name, '');
     expect(html, path).not.toMatch(RETIRED_PATTERN);
   }
   await page.goto('/contact');
   await expect(page.locator('main')).toContainText(CONTACT_LINE);
   await page.goto('/work');
-  await expect(page.locator('article[data-employer="Caskey Coding"]')).toBeVisible();
+  const pastBusiness = page.locator('article[data-employer="Caskey Coding, LLC"]');
+  await expect(pastBusiness).toBeVisible();
+  await expect(pastBusiness).toContainText('Feb 2015 – May 2018');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard\.$/);
 });
 
 test('homepage metrics belong to one employer and home/work claims and project statuses agree', async ({ page }) => {

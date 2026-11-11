@@ -18,6 +18,15 @@ const textExtensions = new Set(['.ts', '.tsx', '.js', '.mjs', '.json', '.md', '.
 const RETIRED_SOURCE = String.raw`Caskey\s+Engineering|Caskey\s+Coding,?\s+LLC|legalName|independent\s+(?:engineering\s+)?practice|workflow[-\s]+assessment|implementation\s+pilot`;
 const retiredPattern = () => new RegExp(RETIRED_SOURCE, 'gi');
 
+// The 2015 to 2018 company stays in the career history as dated fact. These
+// are the only permitted occurrences: (file, exact string, maximum count).
+// Any other match, a different spelling, or a count above the maximum fails.
+const ALLOWLIST = [
+  { file: 'src/app/lib/work.ts', text: 'Caskey Coding, LLC', max: 1 },
+  { file: 'src/app/work/page.tsx', text: 'Caskey Coding LLC', max: 2 },
+  { file: 'public/llms-full.txt', text: 'Caskey Coding, LLC', max: 1 },
+];
+
 function* walk(dir) {
   let entries;
   try {
@@ -36,21 +45,38 @@ function matchesIn(text) {
   const found = [];
   for (const match of text.matchAll(retiredPattern())) {
     const line = text.slice(0, match.index).split('\n').length;
-    found.push({ line, term: match[0].replace(/\s+/g, ' ') });
+    found.push({ line, term: match[0].replace(/\s+/g, ' '), raw: match[0] });
   }
   return found;
 }
 
-function findRetiredFraming(baseDir = root) {
+function findRetiredFraming(baseDir = root, allowlist = ALLOWLIST) {
   const hits = [];
   for (const sub of scanDirs) {
     for (const file of walk(join(baseDir, sub))) {
       const name = relative(baseDir, file).replaceAll('\\', '/');
-      for (const { line, term } of matchesIn(readFileSync(file, 'utf8'))) hits.push(`${name}:${line}: ${term}`);
+      const seen = new Map();
+      for (const { line, term, raw } of matchesIn(readFileSync(file, 'utf8'))) {
+        const entry = allowlist.find(e => e.file === name && e.text === raw);
+        if (!entry) {
+          hits.push(`${name}:${line}: ${term}`);
+          continue;
+        }
+        const count = (seen.get(entry) ?? 0) + 1;
+        seen.set(entry, count);
+        if (count > entry.max) hits.push(`${name}:${line}: ${term} (allowlist max ${entry.max} exceeded)`);
+      }
     }
   }
   return hits;
 }
+
+test('every allowlisted past-business occurrence is present at its maximum count', () => {
+  for (const { file, text, max } of ALLOWLIST) {
+    const count = readFileSync(join(root, file), 'utf8').split(text).length - 1;
+    assert.equal(count, max, `${file}: expected ${max} of "${text}", found ${count}`);
+  }
+});
 
 test('no retired practice or entity framing in src/, content/, or public/', () => {
   const hits = findRetiredFraming();

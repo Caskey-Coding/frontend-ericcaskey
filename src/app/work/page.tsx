@@ -10,14 +10,14 @@ import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 export const metadata: Metadata = {
   title: 'Work',
   description:
-    'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding, NJ Army National Guard.',
+    'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
     type: 'website',
     title: 'Work',
     description:
-      'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding, NJ Army National Guard.',
+      'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
     url: 'https://ericcaskey.com/work',
     images: [ogImage],
   },
