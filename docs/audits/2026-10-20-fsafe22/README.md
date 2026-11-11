@@ -1,162 +1,226 @@
 # FSAFE-22: frontend dependency triage
 
-Assessment date: 2026-10-21. This directory keeps the date specified by the
-accepted brief. Source: `bde92dd3f66098d3c0b48ce9406a9418be407bf2`.
-Governing work: FSAFE-22 in
-[Caskey Coding BACKLOG](https://github.com/Caskey-Coding/caskeycoding-specs/blob/16f8e40690cf4828daf927d35f52f6f154ba441a/BACKLOG.md),
-with `briefs/FSAFE-TRIAGE-WAVE-2.md`.
+Refreshed 2026-11-10 against `main` at
+`cf9b0cd0b58a83d41def91c33ea2271af363ae43` (after #201). The directory keeps
+its original 2026-10-20 name; every count, table and JSON file below is from
+the 2026-11-10 refresh unless a line says otherwise.
 
 This is triage, not a dependency repair or runtime security certification.
-Ten hosted alerts remain open (seven high, three medium). The separate npm
-audit exits 1 with eleven affected package records (ten high, one moderate);
-these include propagated parent effects and are not eleven hosted alerts.
-No manifest or lock resolution changes.
 
-## Evidence and reconciliation
+- Production dependency audit (`npm audit --omit=dev`): **0** findings.
+- Full audit (`npm audit`): **12** package records (3 high, 9 moderate),
+  carrying 7 distinct GHSA identifiers. Exit code 1.
+- Open Dependabot alerts: **6** (1 high, 3 medium, 2 low), all with
+  `development` scope and `transitive` relationship.
+- No finding reaches the deployed site. The production site is a static
+  export; every remaining package is used only by lint tooling or the local
+  E2E test server.
 
-- `alerts.json` is the unedited single-page GitHub API response for open
-  alerts. Its ten records equal the earlier paginated collection. The API
-  does not provide an analyzed source SHA.
-- `npm-findings.json` is the unedited `npm audit --json` output from the
-  isolated baseline installation, including its proposed fixes. Those
+No manifest or lock change is made here.
+
+## Procedure
+
+Run from a fresh worktree of the source commit. Node 22.17.0 and npm 10.9.2
+were used locally; `.nvmrc` pins Node 20, which was not executed here.
+
+```sh
+npm ci --no-audit --no-fund
+npm audit --json > npm-findings.json          # full; exits 1 when findings exist
+npm audit --omit=dev --json > omit-dev.json   # production graph only; not committed (0 findings)
+gh api repos/Caskey-Coding/frontend-ericcaskey/dependabot/alerts --paginate \
+  -q '[.[]|select(.state=="open")]' > open-pages.txt
+node -e 'const fs=require("fs");fs.writeFileSync("alerts.json",JSON.stringify(fs.readFileSync("open-pages.txt","utf8").trim().split("\n").flatMap(l=>JSON.parse(l))))'
+node installed.js npm-findings.json <source-sha> > installed.json
+```
+
+The `gh api` call is read-only. `installed.js` reads `package-lock.json`,
+each installed `package.json` and the audit file; it is reproduced in the
+appendix below. Supporting lookups used for the tables:
+
+```sh
+gh api repos/Caskey-Coding/frontend-ericcaskey/dependabot/alerts --paginate \
+  -q '.[]|select(.state!="open")|[.number,.state,.dependency.package.name,.security_advisory.ghsa_id,(.fixed_at//""),(.dismissed_at//"")]|@tsv'
+MSYS_NO_PATHCONV=1 gh api advisories/<GHSA-ID>   # published_at, withdrawn_at, ranges
+npm ls <package> --all
+npm view serve version dependencies.compression dependencies.ajv
+```
+
+## Files
+
+- `alerts.json`: the six open Dependabot alert records, unedited, as one array.
+- `npm-findings.json`: unedited `npm audit --json` output. Its `fixAvailable`
   proposals are data, not approved upgrades.
-- `installed.json` records thirteen locked/installed manifest observations,
-  including the twelve paths named by the eleven npm records and sharp.
-  All thirteen observed versions match the lock. Manifest hashes and incoming
-  declared ranges are included. This does not prove all installed bytes,
-  active module loads, affected inputs or deployment provenance.
-- The FSAFE-9 snapshot had eleven open alerts. The same ten alert numbers
-  remain open; sharp alert 47 (GHSA-wq5f-xc86-pv6w) is now fixed, with `fixed_at`
-  `2026-10-18T22:49:23Z` and no dismissal. The observed lock and installed
-  sharp are 0.35.5, within Next 16.4.1's `^0.35.5` optional range.
-  This is hosted source state and local metadata, not live remediation.
-- Recent lock history includes Next-group PR181 and dependency batch PR189.
-  Current mainline already contains those changes; no duplicate upgrade is
-  proposed here. REFINE-138 PR180 is closed unmerged and is not a dependency
-  repair. This report does not validate that PR's owner's supersession claims.
+- `installed.json`: lock and installed manifest observations for the twelve
+  audit node paths (all twelve installed versions match the lock), plus the
+  19 declared consumer edges that resolve to them. Lock sha256
+  `3e1a1f7598e1972d4c996c073d27418526530e2f7540c84f68f6676a5ce1308c`.
+  This does not prove installed bytes, active module loads or affected inputs.
 
-The older snapshot, original command streams, hashes, current metadata and
-review receipts are retained privately. The prior snapshot's immutable raw
-vulnerability receipt and this repository's extraction were hash-verified;
-a fresh retained comparison confirms exact parsed extraction equality.
+## Open Dependabot alerts
 
-## Hosted alert disposition
+All six concern `package-lock.json`.
 
-All listed alerts concern `package-lock.json`. Affected-range checks and
-candidate declarations are metadata checks, not advisory reproductions.
+| Alert | Package, locked version | Severity | GHSA | First patched | Consumer path | Runtime or dev | Reachable from the deployed site |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 45 | compression 1.8.1 | high | GHSA-vc2v-76pw-4v95 | 1.8.2 | serve 14.2.6 (exact pin) | dev | No. Local E2E server only |
+| 48 | fast-uri 3.1.8 | medium | GHSA-wjr9-j795-jxcr | 3.1.9 | serve, ajv 8.18.0 (`^3.0.1`) | dev | No. Local E2E server only |
+| 49 | fast-uri 3.1.8 | low | GHSA-333x-w4r6-6crp | 3.1.9 | serve, ajv | dev | No. Local E2E server only |
+| 50 | fast-uri 3.1.8 | medium | GHSA-w74x-v6f9-j3xg | 3.1.9 | serve, ajv | dev | No. Local E2E server only |
+| 51 | fast-uri 3.1.8 | low | GHSA-xhq7-xmqj-769h | 3.1.9 | serve, ajv | dev | No. Local E2E server only |
+| 53 | minimatch 10.2.5 | medium | GHSA-g3hv-75wg-m249 | 11.0.1 | eslint-config-next, typescript-eslint 8.65.0, typescript-estree (`^10.2.2`) | dev | No. Lint only |
 
-| Alert | Package and locked version | Severity | GHSA | Hosted scope | Inspected reachable surface | Disposition |
-| --- | --- | --- | --- | --- | --- | --- |
-| 45 | compression 1.8.1 | high | GHSA-vc2v-76pw-4v95 | development | serve local E2E server; affected input and deployed reachability unknown | FSAFE-90: parent pin blocks a simple lock refresh |
-| 42 | brace-expansion 1.1.18 | medium | GHSA-q2hr-2g5m-vwhr | development | minimatch tooling input; affected input and deployed reachability unknown | FSAFE-89: assess 1.1.21 within the existing range |
-| 41 | brace-expansion 5.0.9 | medium | GHSA-q2hr-2g5m-vwhr | development | nested minimatch lint input; affected input and deployed reachability unknown | FSAFE-89: assess 5.0.12 within the existing range |
-| 37 | fast-uri 3.1.5 | high | GHSA-qw65-cvwx-89v3 | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89: assess 3.1.8, including npm-only findings |
-| 31 | baseline-browser-mapping 2.10.32 | medium | GHSA-w5vr-8v7q-w6rv | runtime | Next production declaration and browserslist; affected input and deployed reachability unknown | FSAFE-89: assess 2.11.0 within both consumer ranges |
-| 30 | browserslist 4.28.2 | high | GHSA-73wf-gq98-2v4g | development | Babel compilation targets; affected input and deployed reachability unknown | FSAFE-89: assess 4.28.7 |
-| 28 | fast-uri 3.1.5 | high | GHSA-jqff-g426-hqxp | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
-| 27 | fast-uri 3.1.5 | high | GHSA-f65p-4m7j-42xc | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
-| 26 | fast-uri 3.1.5 | high | GHSA-fph4-wmhf-6fwf | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
-| 25 | fast-uri 3.1.5 | high | GHSA-5jgf-p345-68v8 | development | AJV in serve local E2E; affected input and deployed reachability unknown | FSAFE-89 |
+The fast-uri advisories were published between 2026-10-23 and 2026-11-01,
+after #201's candidate 3.1.8 was chosen. The minimatch advisory was published
+2026-10-30; alert 53 opened when #201 merged. Neither is a regression
+introduced by a version change.
 
-The npm report contains fourteen distinct GHSA identifiers. Five are absent
-from the ten-alert hosted set:
+## npm audit records
 
-| npm-only identifier | Package | Follow-up |
+| Record | Severity | Kind | Source advisory | Graph | Runtime or dev |
+| --- | --- | --- | --- | --- | --- |
+| compression | high | direct advisory | GHSA-vc2v-76pw-4v95 | serve | dev |
+| serve | high | propagated | via compression | root devDependency | dev |
+| zod | high | direct advisory | GHSA-mrhx-c7xc-m3w5 (`<4.6.6`) | eslint-plugin-react-hooks 7.1.1 (`^3.25.0 \|\| ^4.0.0`) | dev |
+| fast-uri | moderate | direct advisory | four GHSAs, alerts 48 to 51 | serve, ajv | dev |
+| minimatch | moderate | direct advisory | GHSA-g3hv-75wg-m249 | typescript-estree | dev |
+| @typescript-eslint/typescript-estree | moderate | propagated | via minimatch | typescript-eslint | dev |
+| @typescript-eslint/parser | moderate | propagated | via typescript-estree | typescript-eslint | dev |
+| @typescript-eslint/utils | moderate | propagated | via typescript-estree | typescript-eslint | dev |
+| @typescript-eslint/type-utils | moderate | propagated | via typescript-estree, utils | typescript-eslint | dev |
+| @typescript-eslint/eslint-plugin | moderate | propagated | via parser, type-utils, utils | typescript-eslint | dev |
+| typescript-eslint | moderate | propagated | via the four above | eslint-config-next | dev |
+| eslint-config-next | moderate | propagated | via typescript-eslint | root devDependency | dev |
+
+zod has no open hosted alert: alert 52 was auto-dismissed by Dependabot on
+2026-11-03 (development scope). Nobody dismissed it by hand, and the
+installed zod 4.4.3 remains inside the advisory range, so npm still
+reports it.
+
+## Change since the 2026-10-21 snapshot
+
+| Measure | 2026-10-21 (source `bde92dd`) | 2026-11-10 (source `cf9b0cd`) |
 | --- | --- | --- |
-| GHSA-qhr7-859c-m2p7 | brace-expansion | FSAFE-89 |
-| GHSA-6j4f-fj2g-mc7p | brace-expansion | FSAFE-89 |
-| GHSA-c83g-rgw3-j3cx | browserslist | FSAFE-89 |
-| GHSA-hrr3-gc8f-f4qj | fast-uri | FSAFE-89 |
-| GHSA-vfj7-8cjw-p6xm | braces | FSAFE-91 |
+| Open Dependabot alerts | 10 (7 high, 3 medium) | 6 (1 high, 3 medium, 2 low) |
+| Full npm audit records | 11 (10 high, 1 moderate) | 12 (3 high, 9 moderate) |
+| Distinct GHSAs in npm audit | 14 | 7 |
+| Production-only npm audit | not recorded | 0 |
 
-Every npm package record is assigned: FSAFE-89 owns baseline-browser-mapping,
-brace-expansion, browserslist and fast-uri; FSAFE-90 owns compression and
-its propagated serve record; FSAFE-91 owns braces, micromatch, fast-glob,
-@next/eslint-plugin-next and eslint-config-next.
+Hosted alerts closed as `fixed` on 2026-11-10 when #201 merged: 25 to 31,
+34, 37 to 43 (fast-uri, brace-expansion both copies, browserslist,
+baseline-browser-mapping). Sharp alert 47 was already fixed on 2026-10-18.
+#201's own body reports the step on `main` just before it: full audit 15
+(6 high) to 12 (3 high), production audit 1 moderate to 0. Those
+before-values are reported by #201, not re-observed here.
 
-## Graph, candidate limits and source applicability
+The braces finding (GHSA-vfj7-8cjw-p6xm) left the npm report without a
+version change: braces is still 3.0.3, and the advisory shows `withdrawn_at`
+2026-10-23.
 
-FSAFE-89 candidates were observed through registry metadata only. They have
-not been installed, executed or checked against downloaded tarball bytes.
-Historical first-patched fields are not current-version recommendations.
-The declared ranges permit the named versions:
+## Follow-up disposition
 
-- minimatch 3.1.5 uses brace-expansion `^1.1.7`; the nested minimatch 10.2.5
-  uses `^5.0.5`. Both copies must be assessed.
-- serve's AJV 8.18.0 uses fast-uri `^3.0.1`.
-- Babel's compilation-target helper uses browserslist `^4.24.0`.
-- browserslist uses baseline-browser-mapping `^2.10.12`; Next also uses
-  `^2.9.19`. The latter is a production dependency declaration, so the
-  package must not be described as universally dev-only. Candidate browserslist
-  4.28.7 raises its baseline-browser-mapping range to `^2.10.44`; assess that
-  coupled selection with 2.11.0 and verify all current advisory ranges.
+- **FSAFE-89** (fast-uri, brace-expansion, browserslist,
+  baseline-browser-mapping): its candidates landed in #201 and the original
+  alerts are fixed. The four new fast-uri advisories need 3.1.9, which is
+  published and satisfies ajv's `^3.0.1`. This is a new in-range candidate,
+  not yet installed or tested.
+- **FSAFE-90** (compression via serve): unresolved. Registry-latest serve
+  14.2.7 still pins compression exactly at 1.8.1. npm proposes serve 10.0.2,
+  a major downgrade, which is not approved.
+- **FSAFE-91** (braces): no longer applicable. The advisory is withdrawn.
+- **minimatch** (alert 53): no supported in-range fix observed. typescript-estree
+  8.72.2 (registry latest) still declares `^10.2.2`, and the newest 10.x is
+  10.2.6, below the 11.0.1 fix. npm proposes eslint-config-next 16.4.6, but
+  that version still declares typescript-eslint `^8.56.0` and npm marks every
+  typescript-eslint through 8.72.2 as affected. That proposal is unverified.
+- **zod**: 4.6.7 is published and satisfies eslint-plugin-react-hooks'
+  `^3.25.0 || ^4.0.0`. This is an in-range candidate, not yet tested.
 
-FSAFE-90 remains unresolved: installed and registry-latest serve 14.2.6
-pins compression exactly to 1.8.1. Although compression 1.8.2 exists, it
-does not satisfy that pin. npm proposes a major downgrade to serve 10.0.2;
-no downgrade, override or unsupported graph is approved.
+Every candidate above is a registry declaration, not a tested artifact.
 
-FSAFE-91 remains unresolved: registry-latest braces is 3.0.3, still covered
-by the npm advisory. The graph is eslint-config-next 16.4.1 →
-@next/eslint-plugin-next 16.4.1 → fast-glob 3.3.1 → micromatch 4.0.8 →
-braces 3.0.3. npm proposes eslint-config-next 14.2.35, a major downgrade.
-That is not an approved remediation. A future supported-parent correction
-or explicitly reviewed migration needs separate evidence.
+## Reachability
 
-Source inspection found the following bounded consumers:
+- `next.config.ts` declares a static export. The deploy workflow builds
+  `out/` and uploads it to static hosting; no Node server runs any
+  dependency in production. `npm audit --omit=dev` reports nothing.
+- `serve` (and so compression, ajv and fast-uri) is a devDependency used by
+  `playwright.config.ts` as `npx serve out -l 3000 --no-clipboard` for local
+  and CI E2E runs, bound to a local port.
+- eslint-config-next, typescript-eslint, minimatch and zod run only under
+  `npm run lint`, on repository source.
 
-- `next.config.ts` declares a static export and unoptimized images.
-  The workflow uploads `out/` to S3/CloudFront. This describes the intended
-  serving architecture, not proof of every deployed asset or exposure.
-- ESLint/Babel/glob dependencies are build/lint tooling in the inspected
-  graph. Their presence is not proof of an affected input or non-exposure.
-- `playwright.config.ts` uses `npx serve out -l 3000 --no-clipboard` for
-  local E2E. Compression and AJV therefore have a declared test-server
-  consumer. No advisory probe or live-server attribution was performed.
-- Sharp is imported by manual avatar/favicon scripts. Those scripts were
-  inspected, not run. The favicon script passes the tracked `public/icon.svg`
-  to sharp, a concrete SVG decoding consumer. The config disables Next image optimization, but that
-  does not certify all sharp inputs or native binaries.
-- DOMPurify is absent from this lock and the selected source scan. It has no
-  hosted alert in this repository's observed set; this is not a universal
-  absence claim about external code.
+These are source and graph observations. No advisory probe was run.
 
-## Validation and release boundary
+## Release recommendation
 
-The baseline used an isolated `npm ci --no-audit --no-fund` with Node
-22.17.0 and npm 10.9.2. The workflow declares Node 20; that engine was not
-executed in this assessment. The existing lock flags one install-script
-package, unrs-resolver 1.12.2. Ordinary npm logs do not independently attest
-every hook invocation. No shared installation occurred.
+Two holds were combined on 2026-10-21; they are now separated.
 
-The item excludes installs outside the worktree. The brief's overview says
-“no installs”, while its installed-artifact requirement and step 1 explicitly
-require a fresh worktree npm ci. This assessment follows that specific
-worktree-only baseline instruction; it performs no dependency upgrade.
+- **Dependency hold: lift.** No runtime finding remains, and every open
+  alert is a development dependency outside the deployed static export.
+  The three remaining high records (compression, serve, zod) are dev-only.
+  FSAFE-90, the fast-uri and zod candidates, and the minimatch chain stay
+  open as tooling follow-ups, not release blockers.
+- **Deploy review: still required per merge.** A merge to `main` rebuilds and
+  redeploys the whole site, including for documentation-only paths. Observed
+  on 2026-11-10: the `production` environment has no protection rules; the
+  deploy workflow now fails a build that lacks the contact API variable, and
+  that variable is set; the last three production deploy runs (including
+  `cf9b0cd`) succeeded. These are observations, not a fresh deploy review,
+  which remains the merging agent's gate.
 
-Baseline `npm run lint` passed as required by the item. The brief also names
-`npm run ci:lint`, which this repository does not define; no such command is
-claimed as executed. JSON parsing, all-record disposition, declared-range
-checks and publication checks are retained with the final review evidence.
-These are triage and repository checks, not vulnerability behavior tests.
-No artificial mutation was needed.
+## Evidence map
 
-A merge into main triggers the entire production workflow even for these
-documentation paths. The last observed mainline deployment run was completed
-successfully; that metadata is not a new release approval or an asset-level
-verification. Source publication and any deployment must retain final-head
-CI, disclosure and actual frontend blast-radius/idle/configuration/rollback
-checks. The item excludes deploys; this triage grants no new production,
-permission, exposure or spend authority.
-
-| Criterion | Evidence | Boundary / grade | Remaining gap |
+| Criterion | Evidence | Boundary | Gap |
 | --- | --- | --- | --- |
-| Reconcile all hosted findings | Ten raw alerts, prior eleven-number snapshot, fixed alert 47 | Metadata, Adequate | GitHub analyzed SHA unknown |
-| Include separate npm findings | Eleven records, fourteen GHSAs, five additional IDs | Audit metadata, Adequate | Advisory behavior unexecuted |
-| Inspect installed applicability | Thirteen matching manifests and declared consumer graph | Owned installation metadata, Adequate | Loaded/deployed versions and affected inputs unknown |
-| Scope supported follow-ups | FSAFE-89/90/91 mapping; registry declarations and exact parent pins | Source/metadata, Adequate | Artifact verification, repair tests and compatibility remain |
-| Preserve release boundaries | Unchanged manifests/lock; main push deploy trigger inspected | Source intent, Adequate | Actual production release evidence remains held |
+| Current hosted alerts | `alerts.json`, six open records, read-only API | Hosted metadata, 2026-11-10 | GitHub's analyzed commit is not reported |
+| Current npm findings | `npm-findings.json` (12 records, 7 GHSAs); production audit 0 | Registry advisory metadata on a fresh `npm ci` | Advisory behavior not executed |
+| Runtime vs dev classification | `installed.json` (all `dev: true`), `npm ls`, production audit 0 | Lock and manifest graph | Loaded modules not traced |
+| Reachability | Static export config, E2E server command, lint scripts | Source inspection | No advisory probe |
+| Follow-up scope | Registry ranges for serve, ajv, typescript-estree, eslint-plugin-react-hooks | Registry declarations | Candidates not installed or tested |
+| Release recommendation | Production audit 0; environment and workflow observations | Metadata and source | Fresh per-merge deploy review not performed here |
 
-No source upgrade, alert dismissal, shared runtime restart, configuration,
-credential, permission or registration change was performed. The findings
-remain unresolved except for the separately observed historical sharp fix.
+## Appendix: installed.js
+
+```js
+// usage: node installed.js <npm-audit-full.json> <source_sha>  (run from the repository root after npm ci)
+const fs = require("fs"), c = require("crypto");
+const sha = (f) => c.createHash("sha256").update(fs.readFileSync(f)).digest("hex");
+const lock = JSON.parse(fs.readFileSync("package-lock.json", "utf8")).packages;
+const audit = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+const paths = [...new Set(Object.values(audit.vulnerabilities).flatMap((v) => v.nodes))].sort();
+const nameOf = (p) => lock[p].name || p.slice(p.lastIndexOf("node_modules/") + 13);
+const resolve = (from, name) => {
+  let p = from;
+  for (;;) {
+    const t = (p ? p + "/" : "") + "node_modules/" + name;
+    if (lock[t]) return t;
+    if (!p) return null;
+    const i = p.lastIndexOf("/node_modules/");
+    p = i < 0 ? "" : p.slice(0, i);
+  }
+};
+const records = paths.map((p) => {
+  const m = JSON.parse(fs.readFileSync(p + "/package.json", "utf8"));
+  return {
+    path: p, package: nameOf(p), locked_version: lock[p].version, installed_version: m.version,
+    version_matches: lock[p].version === m.version, dev: !!lock[p].dev, optional: !!lock[p].optional,
+    manifest_sha256: sha(p + "/package.json"), dependencies: m.dependencies || {},
+    engines: m.engines || null, lifecycle: Object.fromEntries(Object.entries(m.scripts || {}).filter(([k]) => /^(pre|post)?install$|^prepare$/.test(k))),
+  };
+});
+const declared_edges = [];
+for (const [k, e] of Object.entries(lock)) {
+  for (const field of ["dependencies", "devDependencies", "optionalDependencies", "peerDependencies"]) {
+    for (const [name, range] of Object.entries(e[field] || {})) {
+      const r = resolve(k, name);
+      if (r && paths.includes(r)) declared_edges.push({ consumer_path: k || ".", field, package: name, declared_range: range, resolved_path: r, locked_version: lock[r].version });
+    }
+  }
+}
+console.log(JSON.stringify({
+  source_ref: process.argv[3], observed_at: new Date().toISOString(),
+  installation: `Fresh worktree npm ci --no-audit --no-fund; Node ${process.versions.node}; .nvmrc pins Node ${fs.readFileSync(".nvmrc", "utf8").trim()}.`,
+  package_lock_sha256: sha("package-lock.json"), manifest_sha256: sha("package.json"),
+  records, declared_edges,
+  boundary: "Manifest versions and declared graph only, not tarball byte integrity, loaded versions, affected inputs or deployed applicability.",
+}, null, 2));
+```
