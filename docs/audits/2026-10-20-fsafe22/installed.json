@@ -1,0 +1,413 @@
+{
+  "source_ref": "cf9b0cd0b58a83d41def91c33ea2271af363ae43",
+  "observed_at": "2026-11-11T02:25:39.543Z",
+  "installation": "Fresh worktree npm ci --no-audit --no-fund; Node 22.17.0; .nvmrc pins Node 20.",
+  "package_lock_sha256": "3e1a1f7598e1972d4c996c073d27418526530e2f7540c84f68f6676a5ce1308c",
+  "manifest_sha256": "b8f646fa788ee5cfde97fa4f750448b8d57aade942c02270ca9f0a5e08e9ee86",
+  "records": [
+    {
+      "path": "node_modules/compression",
+      "package": "compression",
+      "locked_version": "1.8.1",
+      "installed_version": "1.8.1",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "5c2303e1e6b34b76a1c913d4f09fc0b3e374d4539aa5c89b99d6d58ed91620e2",
+      "dependencies": {
+        "bytes": "3.1.2",
+        "compressible": "~2.0.18",
+        "debug": "2.6.9",
+        "negotiator": "~0.6.4",
+        "on-headers": "~1.1.0",
+        "safe-buffer": "5.2.1",
+        "vary": "~1.1.2"
+      },
+      "engines": {
+        "node": ">= 0.8.0"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next",
+      "package": "eslint-config-next",
+      "locked_version": "16.4.5",
+      "installed_version": "16.4.5",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "82f76eb5d2a37bcdf572d203b411c115bcf8e400f2b6fe226088ccc77b4a2706",
+      "dependencies": {
+        "@next/eslint-plugin-next": "16.4.5",
+        "eslint-import-resolver-node": "^0.3.6",
+        "eslint-import-resolver-typescript": "^3.5.2",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-jsx-a11y": "^6.10.0",
+        "eslint-plugin-react": "^7.37.0",
+        "eslint-plugin-react-hooks": "^7.1.0",
+        "globals": "16.4.0",
+        "typescript-eslint": "^8.56.0"
+      },
+      "engines": null,
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next/node_modules/typescript-eslint",
+      "package": "typescript-eslint",
+      "locked_version": "8.65.0",
+      "installed_version": "8.65.0",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "cebce2b9ca24bb4f78a522714e78784b88fb347266577ecbec089fcb58189f6f",
+      "dependencies": {
+        "@typescript-eslint/eslint-plugin": "8.65.0",
+        "@typescript-eslint/parser": "8.65.0",
+        "@typescript-eslint/utils": "8.65.0",
+        "@typescript-eslint/typescript-estree": "8.65.0"
+      },
+      "engines": {
+        "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin",
+      "package": "@typescript-eslint/eslint-plugin",
+      "locked_version": "8.65.0",
+      "installed_version": "8.65.0",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "2e58fde177fbfc14d60653bb812d6e4f89b519894a187110bbd2a7aec59aa563",
+      "dependencies": {
+        "@eslint-community/regexpp": "^4.12.2",
+        "ignore": "^7.0.5",
+        "natural-compare": "^1.4.0",
+        "ts-api-utils": "^2.5.0",
+        "@typescript-eslint/scope-manager": "8.65.0",
+        "@typescript-eslint/visitor-keys": "8.65.0",
+        "@typescript-eslint/type-utils": "8.65.0",
+        "@typescript-eslint/utils": "8.65.0"
+      },
+      "engines": {
+        "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin/node_modules/@typescript-eslint/type-utils",
+      "package": "@typescript-eslint/type-utils",
+      "locked_version": "8.65.0",
+      "installed_version": "8.65.0",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "5e60ccf1aee8aae752d3343f8e624e051f11c876f07c2cb526a7a91875a73859",
+      "dependencies": {
+        "debug": "^4.4.3",
+        "ts-api-utils": "^2.5.0",
+        "@typescript-eslint/types": "8.65.0",
+        "@typescript-eslint/typescript-estree": "8.65.0",
+        "@typescript-eslint/utils": "8.65.0"
+      },
+      "engines": {
+        "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/parser",
+      "package": "@typescript-eslint/parser",
+      "locked_version": "8.65.0",
+      "installed_version": "8.65.0",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "d9d6b5b45ff43bcbe278b4809f7d193d95fbd5828d665f172ffd262050aa9e8a",
+      "dependencies": {
+        "debug": "^4.4.3",
+        "@typescript-eslint/scope-manager": "8.65.0",
+        "@typescript-eslint/visitor-keys": "8.65.0",
+        "@typescript-eslint/typescript-estree": "8.65.0",
+        "@typescript-eslint/types": "8.65.0"
+      },
+      "engines": {
+        "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/typescript-estree",
+      "package": "@typescript-eslint/typescript-estree",
+      "locked_version": "8.65.0",
+      "installed_version": "8.65.0",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "2f982e420e8b483cc612fd050a021ec7a8d8b6ca03e917cdcf39f1c679be2c5f",
+      "dependencies": {
+        "debug": "^4.4.3",
+        "minimatch": "^10.2.2",
+        "semver": "^7.7.3",
+        "tinyglobby": "^0.2.15",
+        "ts-api-utils": "^2.5.0",
+        "@typescript-eslint/tsconfig-utils": "8.65.0",
+        "@typescript-eslint/project-service": "8.65.0",
+        "@typescript-eslint/types": "8.65.0",
+        "@typescript-eslint/visitor-keys": "8.65.0"
+      },
+      "engines": {
+        "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/utils",
+      "package": "@typescript-eslint/utils",
+      "locked_version": "8.65.0",
+      "installed_version": "8.65.0",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "d640c221b784752a371e972e68930d366830d85f209701fb6e2d004563bd3b80",
+      "dependencies": {
+        "@eslint-community/eslint-utils": "^4.9.1",
+        "@typescript-eslint/scope-manager": "8.65.0",
+        "@typescript-eslint/typescript-estree": "8.65.0",
+        "@typescript-eslint/types": "8.65.0"
+      },
+      "engines": {
+        "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/minimatch",
+      "package": "minimatch",
+      "locked_version": "10.2.5",
+      "installed_version": "10.2.5",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "4b3a08a7ad20dead8bbe4b4fe97a2746bded7c51d218ef3034eb4e330ad31f08",
+      "dependencies": {
+        "brace-expansion": "^5.0.5"
+      },
+      "engines": {
+        "node": "18 || 20 || >=22"
+      },
+      "lifecycle": {
+        "prepare": "tshy"
+      }
+    },
+    {
+      "path": "node_modules/fast-uri",
+      "package": "fast-uri",
+      "locked_version": "3.1.8",
+      "installed_version": "3.1.8",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "30cad05aad3d3596513706451dbfc7e0422f9c1d00f2903ecc34580327d54bc7",
+      "dependencies": {},
+      "engines": null,
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/serve",
+      "package": "serve",
+      "locked_version": "14.2.6",
+      "installed_version": "14.2.6",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "b32b020767ea103e05fc50f0134b64d7c203cacee6da18f4f849d142e5cd1f92",
+      "dependencies": {
+        "@zeit/schemas": "2.36.0",
+        "ajv": "8.18.0",
+        "arg": "5.0.2",
+        "boxen": "7.0.0",
+        "chalk": "5.0.1",
+        "chalk-template": "0.4.0",
+        "clipboardy": "3.0.0",
+        "compression": "1.8.1",
+        "is-port-reachable": "4.0.0",
+        "serve-handler": "6.1.7",
+        "update-check": "1.5.4"
+      },
+      "engines": {
+        "node": ">= 14"
+      },
+      "lifecycle": {}
+    },
+    {
+      "path": "node_modules/zod",
+      "package": "zod",
+      "locked_version": "4.4.3",
+      "installed_version": "4.4.3",
+      "version_matches": true,
+      "dev": true,
+      "optional": false,
+      "manifest_sha256": "c630bd10b52dcf71c112a2bf78dbf2734b9db58d62de663b8d86c2ec2c8cda2e",
+      "dependencies": {},
+      "engines": null,
+      "lifecycle": {}
+    }
+  ],
+  "declared_edges": [
+    {
+      "consumer_path": ".",
+      "field": "devDependencies",
+      "package": "eslint-config-next",
+      "declared_range": "16.4.5",
+      "resolved_path": "node_modules/eslint-config-next",
+      "locked_version": "16.4.5"
+    },
+    {
+      "consumer_path": ".",
+      "field": "devDependencies",
+      "package": "serve",
+      "declared_range": "^14.2.4",
+      "resolved_path": "node_modules/serve",
+      "locked_version": "14.2.6"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next",
+      "field": "dependencies",
+      "package": "typescript-eslint",
+      "declared_range": "^8.56.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint",
+      "field": "dependencies",
+      "package": "@typescript-eslint/eslint-plugin",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint",
+      "field": "dependencies",
+      "package": "@typescript-eslint/parser",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/parser",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint",
+      "field": "dependencies",
+      "package": "@typescript-eslint/typescript-estree",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/typescript-estree",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint",
+      "field": "dependencies",
+      "package": "@typescript-eslint/utils",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/utils",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin",
+      "field": "dependencies",
+      "package": "@typescript-eslint/type-utils",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin/node_modules/@typescript-eslint/type-utils",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin",
+      "field": "dependencies",
+      "package": "@typescript-eslint/utils",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/utils",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin",
+      "field": "peerDependencies",
+      "package": "@typescript-eslint/parser",
+      "declared_range": "^8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/parser",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin/node_modules/@typescript-eslint/type-utils",
+      "field": "dependencies",
+      "package": "@typescript-eslint/typescript-estree",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/typescript-estree",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/eslint-plugin/node_modules/@typescript-eslint/type-utils",
+      "field": "dependencies",
+      "package": "@typescript-eslint/utils",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/utils",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/parser",
+      "field": "dependencies",
+      "package": "@typescript-eslint/typescript-estree",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/typescript-estree",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/typescript-estree",
+      "field": "dependencies",
+      "package": "minimatch",
+      "declared_range": "^10.2.2",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/minimatch",
+      "locked_version": "10.2.5"
+    },
+    {
+      "consumer_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/utils",
+      "field": "dependencies",
+      "package": "@typescript-eslint/typescript-estree",
+      "declared_range": "8.65.0",
+      "resolved_path": "node_modules/eslint-config-next/node_modules/typescript-eslint/node_modules/@typescript-eslint/typescript-estree",
+      "locked_version": "8.65.0"
+    },
+    {
+      "consumer_path": "node_modules/eslint-plugin-react-hooks",
+      "field": "dependencies",
+      "package": "zod",
+      "declared_range": "^3.25.0 || ^4.0.0",
+      "resolved_path": "node_modules/zod",
+      "locked_version": "4.4.3"
+    },
+    {
+      "consumer_path": "node_modules/serve",
+      "field": "dependencies",
+      "package": "compression",
+      "declared_range": "1.8.1",
+      "resolved_path": "node_modules/compression",
+      "locked_version": "1.8.1"
+    },
+    {
+      "consumer_path": "node_modules/serve/node_modules/ajv",
+      "field": "dependencies",
+      "package": "fast-uri",
+      "declared_range": "^3.0.1",
+      "resolved_path": "node_modules/fast-uri",
+      "locked_version": "3.1.8"
+    },
+    {
+      "consumer_path": "node_modules/zod-validation-error",
+      "field": "peerDependencies",
+      "package": "zod",
+      "declared_range": "^3.25.0 || ^4.0.0",
+      "resolved_path": "node_modules/zod",
+      "locked_version": "4.4.3"
+    }
+  ],
+  "boundary": "Manifest versions and declared graph only, not tarball byte integrity, loaded versions, affected inputs or deployed applicability."
+}
