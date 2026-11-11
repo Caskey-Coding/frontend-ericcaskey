@@ -184,7 +184,7 @@ export default function About() {
           </strong>
           {' '}(caskeycoding.com), including An Engineering Team of One, a
           lesson series on running a software team of one engineer and a
-          fleet of AI agents. The open-source projects are personal work,
+          fleet of AI agents. My open-source projects are personal work,
           separate from my role at Amazon. This site covers my career; that
           one covers the method and the evidence behind it.
         </p>

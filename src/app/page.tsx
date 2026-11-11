@@ -23,7 +23,7 @@ const websiteJsonLd = {
 const HOME_FAQ = [
   {
     q: 'Who is Eric Caskey?',
-    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate. The open-source projects are personal work, separate from my role at Amazon.",
+    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate. My open-source projects are personal work, separate from my role at Amazon.",
   },
   {
     q: 'What does Eric Caskey work on at Amazon?',

@@ -7,7 +7,7 @@ const LAYOUT_DESCRIPTION =
 const PERSON_SENTENCE =
   'He has spent fifteen years across five roles making production infrastructure safe enough to automate: at Amazon since June 2022, and at Prudential Financial for nine years before that.';
 const FAQ_SENTENCE =
-  'The open-source projects are personal work, separate from my role at Amazon.';
+  'My open-source projects are personal work, separate from my role at Amazon.';
 
 test('home page carries one entity description across meta, Person JSON-LD, and visible FAQ', async ({ page }) => {
   await page.goto('/');

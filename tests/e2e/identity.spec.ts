@@ -73,7 +73,7 @@ test('sister site is named Caskey Coding and no page links the retired offer, at
   await page.goto('/contact');
   await expect(page.locator('main')).toContainText(CONTACT_LINE);
   await page.goto('/work');
-  await expect(page.locator('article[data-employer="Personal projects (open source)"]')).toBeVisible();
+  await expect(page.locator('article[data-employer="Caskey Coding"]')).toBeVisible();
 });
 
 test('homepage metrics belong to one employer and home/work claims and project statuses agree', async ({ page }) => {
