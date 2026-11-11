@@ -22,14 +22,14 @@ Amazon, Software Engineer → Senior Software Engineer, Jun 2022 – Present: Ar
 guardrails: 500,000 cumulative safety checks
 monitoring: 3 million monitors
 monitoring coverage: 2,750+ application stages
-Case study on Caskey Engineering → (https://caskeycoding.com/case-studies/workflow-orchestration)
+Case study on Caskey Coding → (https://caskeycoding.com/case-studies/workflow-orchestration)
 
 Prudential Financial, Remote Access Analyst → Senior Remote Access SRE → Cloud Engineer, SRE, Apr 2013 – Jun 2022: Built the MFA self-service portal, automated administrative work, and kept the VPN running through the early months of COVID.
 MFA self-service: over 18,000 uses
 portal languages: six languages
 automation: 200,000+ administrative actions
 VPN continuity: 60,000 corporate users
-Case study on Caskey Engineering → (https://caskeycoding.com/case-studies/mfa-at-scale)
+Case study on Caskey Coding → (https://caskeycoding.com/case-studies/mfa-at-scale)
 
 Ballast · Independent AI project · Open source
 status: shipped (Public versioned release)
@@ -43,16 +43,16 @@ SpecSelf Starter at specself.ai → (https://specself.ai)
 
 More on the work page → (https://ericcaskey.com/work)
 
-For independent work on AI-assisted delivery, explore Caskey Engineering (https://caskeycoding.com/#workflow-assessment).
+I write up what I build at caskeycoding.com (https://caskeycoding.com): case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments.
 
 Writing
 
 Selected writing
 
-Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know' · June 27, 2026 · Caskey Engineering (https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know)
+Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know' · June 27, 2026 · Caskey Coding (https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know)
 A RAG system whose most important feature is refusing to answer. How trust got built into the architecture instead of the prompt.
 
-Designing Safety Guardrails for Distributed Workflow Orchestration · April 10, 2026 · Caskey Engineering (https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration)
+Designing Safety Guardrails for Distributed Workflow Orchestration · April 10, 2026 · Caskey Coding (https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration)
 What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.
 
 More on the writing page → (https://ericcaskey.com/writing)
@@ -67,7 +67,7 @@ Who
 
 About Eric Caskey
 
-Fifteen years in enterprise infrastructure, from a help desk at Prudential Financial to the workflow orchestration and monitoring platforms I own at Amazon. The through-line has not changed: remove the failure mode instead of papering over it, and make the safe path the default one. I share the work at Caskey Engineering (https://caskeycoding.com).
+Fifteen years in enterprise infrastructure, from a help desk at Prudential Financial to the workflow orchestration and monitoring platforms I own at Amazon. The through-line has not changed: remove the failure mode instead of papering over it, and make the safe path the default one. I share the work at Caskey Coding (https://caskeycoding.com).
 
 More about me → (https://ericcaskey.com/about)
 
@@ -76,13 +76,13 @@ Questions
 Common questions
 
 Who is Eric Caskey?
-I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate, and my independent practice, Caskey Engineering, helps teams assess context, review, and release checks in AI-assisted software delivery.
+I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate. My open-source projects are personal work, separate from my role at Amazon.
 
 What does Eric Caskey work on at Amazon?
 I own the monitoring platform that standardizes monitors across application stages, and I architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change. I also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.
 
 What has Eric Caskey built outside work?
-I built a spec-driven engineering platform that runs my independent practice and a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Engineering. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer where the model narrates numbers it never derives.
+I built a spec-driven engineering platform that runs a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Coding. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer where the model narrates numbers it never derives.
 
 How do I contact Eric Caskey?
 The contact form at ericcaskey.com/contact is the fastest route. I read everything and reply within a week. You can also find me on LinkedIn at linkedin.com/in/ericrcaskey and on GitHub at github.com/CaskeyCoding.
@@ -103,7 +103,7 @@ My last year there, from July 2021, was as a Cloud Engineer in Site Reliability 
 
 In June 2022 I joined Amazon, where I built a monitoring lifecycle platform that onboarded more than 2,750 application stages and brought 3 million monitors under standardized management, and hired and mentored eight new-to-industry engineers in New York. In August 2024 I moved into my current role as a Senior Software Engineer on a platform team, architecting a multi-region workflow orchestration control plane whose guardrails have run 500,000 safety checks, validating every change before it lands. Since then I have mentored engineers on three continents. The lesson carried over from Prudential intact: the platforms worth building are the ones that stay quiet while everything they watch does not.
 
-Outside work I carry the same convictions into an engineering team of one: one engineer, a fleet of AI coding agents, and a spec-driven method where every feature starts as a written spec and nothing merges until it passes the same gate the pipeline runs. Caskey Engineering carries the case studies, a lesson series that teaches the setup one file at a time, the numbers posts that count what it produces and what it costs, and backtests that report what did not work. The builds include Ballast, an open-source RAG system engineered to refuse when it should; SpecSelf, a spec-driven operating system for a life whose agents read but never write; a C++ options engine tuned to 215 million prices a second; and AI finance tools where the model narrates numbers it is never allowed to derive. The selected builds are on the work page (https://ericcaskey.com/work); the full writeups live on Caskey Engineering.
+Outside work I carry the same convictions into an engineering team of one: one engineer, a fleet of AI coding agents, and a spec-driven method where every feature starts as a written spec and nothing merges until it passes the same gate the pipeline runs. Caskey Coding carries the case studies, a lesson series that teaches the setup one file at a time, the numbers posts that count what it produces and what it costs, and backtests that report what did not work. The builds include Ballast, an open-source RAG system engineered to refuse when it should; SpecSelf, a spec-driven operating system for a life whose agents read but never write; a C++ options engine tuned to 215 million prices a second; and AI finance tools where the model narrates numbers it is never allowed to derive. The selected builds are on the work page (https://ericcaskey.com/work); the full writeups live on Caskey Coding.
 
 Along the way I ran a New Jersey WordPress shop called Caskey Coding from 2015 to 2018 (ten sites for small businesses and community organizations), and served six years as a Military Police Officer in the 50th Brigade of the NJ Army National Guard, including a 2012 Superstorm Sandy activation where I safeguarded the distribution of 241,000 gallons of FEMA fuel for nearly a month.
 
@@ -127,9 +127,9 @@ Build the systems other engineers depend on. Write honestly about how it goes.
 
 On writing
 
-I publish long-form essays on workflow orchestration, safety-critical platforms, and spec-driven development at Caskey Engineering (https://caskeycoding.com) (caskeycoding.com), including An Engineering Team of One, a lesson series on running a software team of one engineer and a fleet of AI agents. Caskey Engineering is also my independent engineering practice, separate from my role at Amazon. This site covers my career; that one covers the method and the evidence behind it.
+I publish long-form essays on workflow orchestration, safety-critical platforms, and spec-driven development at Caskey Coding (https://caskeycoding.com) (caskeycoding.com), including An Engineering Team of One, a lesson series on running a software team of one engineer and a fleet of AI agents. My open-source projects are personal work, separate from my role at Amazon. This site covers my career; that one covers the method and the evidence behind it.
 
-For independent work on AI-assisted delivery, explore Caskey Engineering (https://caskeycoding.com/#workflow-assessment).
+I write up what I build at caskeycoding.com (https://caskeycoding.com): case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments.
 
 # Work (https://ericcaskey.com/work)
 
@@ -137,7 +137,7 @@ Experience · 5 roles · 2009 → present
 
 Work
 
-Eric Caskey has held five roles since 2009, fifteen of those years in technology, from the NJ Army National Guard to Senior Software Engineer at Amazon today. He joined Amazon in June 2022 and has held the Senior Software Engineer title since August 2024. The deep case studies, with the metrics and the architectural decisions, live on Caskey Engineering case studies (https://caskeycoding.com/case-studies).
+Eric Caskey has held five roles since 2009, fifteen of those years in technology, from the NJ Army National Guard to Senior Software Engineer at Amazon today. He joined Amazon in June 2022 and has held the Senior Software Engineer title since August 2024. The deep case studies, with the metrics and the architectural decisions, live on Caskey Coding case studies (https://caskeycoding.com/case-studies).
 
 Career
 
@@ -147,14 +147,14 @@ Amazon, Software Engineer → Senior Software Engineer, Jun 2022 – Present: Ar
 guardrails: 500,000 cumulative safety checks
 monitoring: 3 million monitors
 monitoring coverage: 2,750+ application stages
-Case study on Caskey Engineering → (https://caskeycoding.com/case-studies/workflow-orchestration)
+Case study on Caskey Coding → (https://caskeycoding.com/case-studies/workflow-orchestration)
 
 Prudential Financial, Remote Access Analyst → Senior Remote Access SRE → Cloud Engineer, SRE, Apr 2013 – Jun 2022: Built the MFA self-service portal, automated administrative work, and kept the VPN running through the early months of COVID.
 MFA self-service: over 18,000 uses
 portal languages: six languages
 automation: 200,000+ administrative actions
 VPN continuity: 60,000 corporate users
-Case study on Caskey Engineering → (https://caskeycoding.com/case-studies/mfa-at-scale)
+Case study on Caskey Coding → (https://caskeycoding.com/case-studies/mfa-at-scale)
 
 Workforce Opportunity Services, Consultant, 2011 – 2013: Launched my technology career as a WOS consultant, rapidly learning enterprise IT environments and contributing to Prudential's remote access platform operations.
 
@@ -166,7 +166,7 @@ Projects
 
 Selected builds
 
-A selection of what I build on my own time, on the same stack I use at work. Most link to the live tool, the writeup, or the playground on Caskey Engineering. The finance work is engineering, not investment advice. The spec-driven platform is the method behind my independent work on AI-assisted delivery; the workflow assessment on Caskey Engineering (https://caskeycoding.com/#workflow-assessment) describes how that work starts. The Amazon and Prudential entries above describe my work in those organizations; they are separate from this independent practice and imply no employer endorsement.
+A selection of what I build on my own time, on the same stack I use at work. Most link to the live tool, the writeup, or the playground on Caskey Coding. The finance work is engineering, not investment advice. I write up what I build at caskeycoding.com (https://caskeycoding.com): case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments. The open-source projects are personal work, separate from my role at Amazon. The Amazon and Prudential entries above describe my work in those organizations and imply no employer endorsement.
 
 Method · Spec-driven engineering platform: One engineer, a fleet of AI coding agents, a work queue, and an attested merge gate, written up as a case study and taught as a lesson series. (https://caskeycoding.com/case-studies/sdd-platform)
 Tool · Marathon Coach: Grounded AI marathon training plans with Garmin integration. (https://caskeycoding.com/lab/marathon-coach)
@@ -185,7 +185,7 @@ Essays · 5 selected · caskeycoding.com
 
 Selected writing
 
-I write about low-latency C++, spec-driven development, distributed-system safety, and AI reliability. These five essays follow the implementation decisions and measurements behind the work. The full archive is on Caskey Engineering (https://caskeycoding.com/blog).
+I write about low-latency C++, spec-driven development, distributed-system safety, and AI reliability. These five essays follow the implementation decisions and measurements behind the work. The full archive is on Caskey Coding (https://caskeycoding.com/blog).
 
 July 9, 2026 · Pricing 215 million options a second with SIMD C++ (https://caskeycoding.com/blog/pricing-215-million-options-a-second)
 A clean C++ options pricer, tuned from 15 to 215 million prices a second. Most of my speedup assumptions died one measurement at a time.
@@ -210,7 +210,7 @@ Contact
 
 Get in touch about an engineering project, a question about the writing, or a professional conversation. I read everything and reply within a week. The form below is the fastest route.
 
-Asking about AI-assisted delivery? A note on the workflow, where it slows down, and the outcome you want helps me give a useful first reply. If there is a fit, scope and availability are discussed after that. The workflow assessment on Caskey Engineering (https://caskeycoding.com/#workflow-assessment) outlines what that conversation can cover. Recruiting and other professional conversations are just as welcome here.
+Questions about one of the open-source projects, something I wrote, or a speaking or professional conversation? Send a note. I am not taking client work. Recruiting and other professional conversations are just as welcome here.
 
 Direct
 

@@ -7,7 +7,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/derive-last-modified.mjs && node scripts/fetch-writing-feed.mjs",
     "build": "next build",
-    "lint": "eslint .",
+    "lint": "eslint . && node --test tests/brand/retiredFraming.test.mjs",
     "pretypecheck": "node scripts/derive-last-modified.mjs",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",

@@ -33,7 +33,7 @@ export function TimelineItem({
       )}
       {href && (
         <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-          Case study on Caskey Engineering →
+          Case study on Caskey Coding →
           <ExternalLinkIcon className="shrink-0" />
         </span>
       )}
@@ -49,7 +49,7 @@ export function TimelineItem({
           className="link-plain block transition-colors hover:[&_.font-semibold]:text-[color:var(--color-accent)] hover:[&>div]:border-[color:var(--color-border-strong)]"
         >
           {content}
-          <span className="sr-only">(opens Caskey Engineering)</span>
+          <span className="sr-only">(opens Caskey Coding)</span>
         </CrossSiteLink>
       ) : content}
     </article>

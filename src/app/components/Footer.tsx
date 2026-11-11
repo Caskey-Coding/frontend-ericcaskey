@@ -12,7 +12,7 @@ export function Footer() {
           <p>
             The engineering side:{' '}
             <CrossSiteLink href="https://caskeycoding.com" rel="me noopener">
-              Caskey Engineering
+              Caskey Coding
             </CrossSiteLink>
           </p>
           <ul className="flex items-center gap-6">

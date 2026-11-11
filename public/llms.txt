@@ -4,9 +4,7 @@ Senior Software Engineer at Amazon. I build the systems other engineers depend o
 
 Fifteen years in enterprise infrastructure. I joined Amazon in June 2022 and have held the Senior Software Engineer title since August 2024. There I architect a workflow orchestration platform whose guardrails have run 500,000 cumulative safety checks, and own the monitoring platform that keeps 3 million monitors standardized across 2,750+ application stages. From April 2013 to June 2022 I worked at Prudential Financial, moving from Remote Access Analyst to Senior Remote Access SRE to Cloud Engineer in Site Reliability Engineering. There I built the MFA self-service portal used over 18,000 times in six languages and kept the VPN running for 60,000 corporate users through the early months of COVID.
 
-This site covers the person and the career: employment history, how to reach me, a short reading shelf. Caskey Engineering (https://caskeycoding.com) is my independent engineering practice, separate from my role at Amazon: long-form writing, the spec-driven method, and independent builds, alongside case studies of my employer work. The Amazon and Prudential work described here is employment, not Caskey Engineering client work, and implies no employer endorsement.
-
-For independent work on AI-assisted delivery, explore Caskey Engineering: https://caskeycoding.com/#workflow-assessment
+This site covers the person and the career: employment history, how to reach me, a short reading shelf. I write up what I build at caskeycoding.com (https://caskeycoding.com): case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments. The open-source projects are personal work, separate from my role at Amazon. The Amazon and Prudential work described here is employment and implies no employer endorsement.
 
 ## Key Facts
 
@@ -20,8 +18,7 @@ For independent work on AI-assisted delivery, explore Caskey Engineering: https:
 - Safety: 500,000 cumulative safety checks run by the orchestration platform's guardrails
 - Continuity: 60,000 corporate users kept online through the early months of COVID
 - Automation: 200,000+ administrative actions automated; MFA self-service portal used 18,000+ times in six languages
-- Independent practice: Caskey Engineering, https://caskeycoding.com, helping teams assess context, review, and release checks in AI-assisted software delivery
-- Independent work bridge: https://caskeycoding.com/#workflow-assessment
+- Open-source projects and writing: Caskey Coding, https://caskeycoding.com
 - Independent builds: a spec-driven engineering platform (https://caskeycoding.com/case-studies/sdd-platform), Ballast (shipped, public versioned release; https://caskeycoding.com/case-studies/ballast), SpecSelf (active, evolving spec; https://specself.ai), the Finance Reviewer (https://caskeycoding.com/lab/investment-committee), Marathon Coach (https://caskeycoding.com/lab/marathon-coach)
 - Contact: https://ericcaskey.com/contact
 - Canonical entity id: https://ericcaskey.com/#person
@@ -35,6 +32,5 @@ Independent builds include a spec-driven engineering platform, one engineer and 
 - Contact: https://ericcaskey.com/contact
 - Contact form: https://ericcaskey.com/contact (replies within a week)
 - Privacy: https://ericcaskey.com/privacy
-- Independent practice: https://caskeycoding.com
-- Workflow assessment: https://caskeycoding.com/#workflow-assessment
+- Caskey Coding: https://caskeycoding.com
 - Full text: https://ericcaskey.com/llms-full.txt

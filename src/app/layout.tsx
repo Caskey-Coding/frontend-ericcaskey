@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: '%s | Eric Caskey',
   },
   description:
-    'Eric Caskey, Senior Software Engineer at Amazon: fifteen years of enterprise infrastructure and safe automation. Independent practice: Caskey Engineering.',
+    'Eric Caskey, Senior Software Engineer at Amazon: fifteen years of enterprise infrastructure and safe automation. Open-source projects and writing at caskeycoding.com.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',

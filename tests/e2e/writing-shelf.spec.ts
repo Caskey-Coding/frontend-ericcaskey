@@ -42,7 +42,7 @@ test('/writing renders the six curated essays with feed-sourced titles', async (
   await expect(marathonLink.locator('p')).toHaveText([
     'November 2, 2026',
     'A return to running, a New York finish, and the example I wanted to set for my kids.',
-    'Caskey Engineering',
+    'Caskey Coding',
   ]);
 
   for (const title of EXPECTED_TITLES) {
