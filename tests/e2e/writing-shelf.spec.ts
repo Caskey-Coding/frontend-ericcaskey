@@ -6,10 +6,11 @@ import { test, expect } from '@playwright/test';
 // the FEED-sourced titles/dates. The whole point of the feature is that the
 // shelf tracks the canonical blog rather than a hardcoded copy that drifts.
 
-// The five expected titles, as published in the feed (note entry 3: the feed
+// The six expected titles, as published in the feed (note entry 4: the feed
 // title "Building a Personal Finance Reviewer..." replaces the previously
 // hardcoded "Building an AI Finance App").
 const EXPECTED_TITLES = [
+  'The Marathon I Wanted My Kids to See',
   'Pricing 215 million options a second with SIMD C++',
   "Best Feature Is Saying 'I Don't Know'", // Ballast (apostrophes)
   'Building a Personal Finance Reviewer: What Survived the Rewrite',
@@ -17,16 +18,32 @@ const EXPECTED_TITLES = [
   'Spec-Driven Development and the Folder Architecture That Makes It Work',
 ];
 
-test('/writing renders the five curated essays with feed-sourced titles', async ({
+test('/writing renders the six curated essays with feed-sourced titles', async ({
   page,
 }) => {
   const response = await page.goto('/writing');
   expect(response, 'no response for /writing').not.toBeNull();
   expect(response!.status(), '/writing returned non-200').toBe(200);
 
-  // Exactly five essay rows (each essay is one h2 heading in the shelf).
+  // Exactly six essay rows (each essay is one h2 heading in the shelf).
   const headings = page.locator('article section h2');
-  await expect(headings, 'expected exactly five essay rows').toHaveCount(5);
+  await expect(headings, 'expected exactly six essay rows').toHaveCount(6);
+  await expect(headings.first()).toHaveText('The Marathon I Wanted My Kids to See');
+  await expect(page.locator('article header .coord')).toContainText('6 selected');
+
+  const marathonLink = page.locator('article section a').first();
+  // CrossSiteLink adds the active theme after hydration; the destination
+  // must still be the exact canonical post.
+  const marathonUrl = new URL((await marathonLink.getAttribute('href'))!);
+  marathonUrl.searchParams.delete('theme');
+  expect(marathonUrl.href).toBe(
+    'https://caskeycoding.com/blog/the-marathon-i-wanted-my-kids-to-see',
+  );
+  await expect(marathonLink.locator('p')).toHaveText([
+    'November 2, 2026',
+    'A return to running, a New York finish, and the example I wanted to set for my kids.',
+    'Caskey Engineering',
+  ]);
 
   for (const title of EXPECTED_TITLES) {
     await expect(
@@ -37,7 +54,7 @@ test('/writing renders the five curated essays with feed-sourced titles', async 
 
   // Every row links to its caskeycoding.com/blog post.
   const postLinks = page.locator('a[href*="caskeycoding.com/blog/"]');
-  expect(await postLinks.count(), 'expected at least five blog links').toBeGreaterThanOrEqual(5);
+  expect(await postLinks.count(), 'expected at least six blog links').toBeGreaterThanOrEqual(6);
 });
 
 test('/writing reflects the feed, not the stale hardcoded copy', async ({
