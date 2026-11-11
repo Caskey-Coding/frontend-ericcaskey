@@ -26,7 +26,6 @@ const person = {
     url: 'https://www.amazon.com',
     sameAs: 'https://www.wikidata.org/wiki/Q3884',
   },
-  affiliation: { '@id': 'https://caskeycoding.com/#organization' },
   homeLocation: {
     '@type': 'Place',
     address: {

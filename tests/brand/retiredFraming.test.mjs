@@ -83,6 +83,28 @@ test('no retired practice or entity framing in src/, content/, or public/', () =
   assert.deepEqual(hits, [], `Retired framing found:\n${hits.join('\n')}`);
 });
 
+// The sister site no longer publishes an Organization node, so nothing may
+// reference it by id.
+const ORGANIZATION_REF = 'caskeycoding.com/#organization';
+
+function findOrganizationRefs(baseDir = root) {
+  const hits = [];
+  for (const sub of ['src', 'public']) {
+    for (const file of walk(join(baseDir, sub))) {
+      const name = relative(baseDir, file).replaceAll('\\', '/');
+      readFileSync(file, 'utf8').split('\n').forEach((text, index) => {
+        if (text.includes(ORGANIZATION_REF)) hits.push(`${name}:${index + 1}: ${ORGANIZATION_REF}`);
+      });
+    }
+  }
+  return hits;
+}
+
+test('no reference to the removed caskeycoding.com Organization node in src/ or public/', () => {
+  const hits = findOrganizationRefs();
+  assert.deepEqual(hits, [], `Organization reference found:\n${hits.join('\n')}`);
+});
+
 test('the pattern catches each retired term, including across a line break', () => {
   for (const sample of [
     'caskey engineering',
