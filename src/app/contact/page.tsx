@@ -67,7 +67,8 @@ export default function Contact() {
       <p className="leading-relaxed text-pretty">
         Questions about one of the open-source projects, something I wrote, or
         a speaking or professional conversation? Send a note. I am not taking
-        client work.
+        client work. Recruiting and other professional conversations are just
+        as welcome here.
       </p>
 
       <ContactForm />
