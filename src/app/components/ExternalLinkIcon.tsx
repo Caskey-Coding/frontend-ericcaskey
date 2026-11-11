@@ -1,7 +1,7 @@
 /**
  * B-076: small external-link glyph for whole-row outbound links.
  * Decorative only (aria-hidden) — every consumer pairs it with an
- * sr-only "(opens Caskey Engineering)" span inside the link so the
+ * sr-only "(opens Caskey Coding)" span inside the link so the
  * destination is part of the link's accessible name.
  */
 export function ExternalLinkIcon({ className }: { className?: string }) {

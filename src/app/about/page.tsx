@@ -135,7 +135,7 @@ export default function About() {
           Outside work I carry the same convictions into an engineering team of
           one: one engineer, a fleet of AI coding agents, and a spec-driven
           method where every feature starts as a written spec and nothing
-          merges until it passes the same gate the pipeline runs. Caskey Engineering carries the case studies, a lesson
+          merges until it passes the same gate the pipeline runs. Caskey Coding carries the case studies, a lesson
           series that teaches the setup one file at a time, the numbers posts
           that count what it produces and what it costs, and backtests that
           report what did not work. The builds include Ballast, an open-source
@@ -145,7 +145,7 @@ export default function About() {
           and AI finance tools where the model narrates numbers it is never
           allowed to derive. The selected builds are on the{' '}
           <a href="/work">work page</a>; the full writeups live on Caskey
-          Engineering.
+          Coding.
         </p>
         <p>
           Along the way I ran a New Jersey WordPress shop called Caskey Coding
@@ -179,22 +179,21 @@ export default function About() {
           platforms, and spec-driven development at{' '}
           <strong>
             <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
-              Caskey Engineering
+              Caskey Coding
             </CrossSiteLink>
           </strong>
           {' '}(caskeycoding.com), including An Engineering Team of One, a
           lesson series on running a software team of one engineer and a
-          fleet of AI agents. Caskey Engineering is also my independent
-          engineering practice, separate from my role at Amazon. This site
-          covers my career; that one covers the method and the evidence
-          behind it.
+          fleet of AI agents. The open-source projects are personal work,
+          separate from my role at Amazon. This site covers my career; that
+          one covers the method and the evidence behind it.
         </p>
         <p className="leading-relaxed text-pretty">
-          For independent work on AI-assisted delivery, explore{' '}
-          <CrossSiteLink href="https://caskeycoding.com/#workflow-assessment">
-            Caskey Engineering
-          </CrossSiteLink>
-          .
+          I write up what I build at{' '}
+          <CrossSiteLink href="https://caskeycoding.com">caskeycoding.com</CrossSiteLink>
+          : case studies with the design decisions and the limits, a lesson
+          series on running an engineering team of one, and a lab of working
+          experiments.
         </p>
         <p className="leading-relaxed">
           For a conversation about engineering or writing,{' '}

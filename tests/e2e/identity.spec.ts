@@ -7,6 +7,12 @@ const essays = [
   'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
 ];
 const themeColors = { light: '#f5f3eb', dark: '#13130f' };
+const BRIDGE_SENTENCE =
+  'I write up what I build at caskeycoding.com: case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments.';
+const CONTACT_LINE =
+  'Questions about one of the open-source projects, something I wrote, or a speaking or professional conversation? Send a note. I am not taking client work.';
+const RETIRED_PATTERN =
+  /Caskey\s+Engineering|Caskey\s+Coding,?\s+LLC|legalName|independent\s+(?:engineering\s+)?practice|workflow[-\s]+assessment|implementation\s+pilot/i;
 
 test('identity, avatar, curated essays and matching first-person FAQ exist without JavaScript', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ baseURL, javaScriptEnabled: false, reducedMotion: 'reduce' });
@@ -46,9 +52,28 @@ test('identity, avatar, curated essays and matching first-person FAQ exist witho
   await expect(page.locator('main a[href="/contact"]').first()).toBeVisible();
   // Without JavaScript the theme query is never appended, so the exact href holds.
   const bridge = page.locator('main [data-bridge="independent-work"]');
-  await expect(bridge).toHaveText('For independent work on AI-assisted delivery, explore Caskey Engineering.');
-  await expect(bridge.locator('a[href="https://caskeycoding.com/#workflow-assessment"]')).toHaveText('Caskey Engineering');
+  await expect(bridge).toHaveText(BRIDGE_SENTENCE);
+  await expect(bridge.locator('a[href="https://caskeycoding.com"]')).toHaveText('caskeycoding.com');
   await context.close();
+});
+
+test('sister site is named Caskey Coding and no page links the retired offer, at 390px phone width', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const bridge = page.locator('main [data-bridge="independent-work"]');
+  await expect(bridge).toBeVisible();
+  await expect(bridge).toHaveText(BRIDGE_SENTENCE);
+  await expect(page.locator('footer').getByRole('link', { name: 'Caskey Coding' })).toBeVisible();
+  for (const path of ['/', '/about', '/work', '/writing', '/contact']) {
+    await page.goto(path);
+    await expect(page.locator('a[href*="#workflow-assessment"]'), path).toHaveCount(0);
+    const html = await page.content();
+    expect(html, path).not.toMatch(RETIRED_PATTERN);
+  }
+  await page.goto('/contact');
+  await expect(page.locator('main')).toContainText(CONTACT_LINE);
+  await page.goto('/work');
+  await expect(page.locator('article[data-employer="Personal projects (open source)"]')).toBeVisible();
 });
 
 test('homepage metrics belong to one employer and home/work claims and project statuses agree', async ({ page }) => {

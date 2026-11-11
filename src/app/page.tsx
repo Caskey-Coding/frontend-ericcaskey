@@ -23,7 +23,7 @@ const websiteJsonLd = {
 const HOME_FAQ = [
   {
     q: 'Who is Eric Caskey?',
-    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate, and my independent practice, Caskey Engineering, helps teams assess context, review, and release checks in AI-assisted software delivery.",
+    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate. The open-source projects are personal work, separate from my role at Amazon.",
   },
   {
     q: 'What does Eric Caskey work on at Amazon?',
@@ -31,7 +31,7 @@ const HOME_FAQ = [
   },
   {
     q: 'What has Eric Caskey built outside work?',
-    a: "I built a spec-driven engineering platform that runs my independent practice and a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Engineering. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer where the model narrates numbers it never derives.",
+    a: "I built a spec-driven engineering platform that runs a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Coding. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer where the model narrates numbers it never derives.",
   },
   {
     q: 'How do I contact Eric Caskey?',
@@ -130,8 +130,10 @@ export default function Home() {
           <Link href="/work">More on the work page →</Link>
         </p>
         <p className="leading-relaxed text-pretty" data-bridge="independent-work">
-          For independent work on AI-assisted delivery, explore{' '}
-          <CrossSiteLink href="https://caskeycoding.com/#workflow-assessment">Caskey Engineering</CrossSiteLink>.
+          I write up what I build at{' '}
+          <CrossSiteLink href="https://caskeycoding.com">caskeycoding.com</CrossSiteLink>: case studies with
+          the design decisions and the limits, a lesson series on running an
+          engineering team of one, and a lab of working experiments.
         </p>
       </section>
 
@@ -170,7 +172,7 @@ export default function Home() {
           Prudential Financial to the workflow orchestration and monitoring
           platforms I own at Amazon. The through-line has not changed: remove
           the failure mode instead of papering over it, and make the safe path
-          the default one. I share the work at <CrossSiteLink href="https://caskeycoding.com">Caskey Engineering</CrossSiteLink>.
+          the default one. I share the work at <CrossSiteLink href="https://caskeycoding.com">Caskey Coding</CrossSiteLink>.
         </p>
         <p><Link href="/about">More about me →</Link></p>
       </section>

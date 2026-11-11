@@ -1,7 +1,6 @@
 import { LAST_MODIFIED, formatUpdated } from '../lib/lastModified';
 import type { Metadata } from 'next';
 import { ContactForm } from '../components/ContactForm';
-import { CrossSiteLink } from '../components/CrossSiteLink';
 import { ogImage } from '../lib/og';
 import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 
@@ -66,15 +65,9 @@ export default function Contact() {
       </header>
 
       <p className="leading-relaxed text-pretty">
-        Asking about AI-assisted delivery? A note on the workflow, where it
-        slows down, and the outcome you want helps me give a useful first
-        reply. If there is a fit, scope and availability are discussed after
-        that. The{' '}
-        <CrossSiteLink href="https://caskeycoding.com/#workflow-assessment" rel="noopener">
-          workflow assessment on Caskey Engineering
-        </CrossSiteLink>{' '}
-        outlines what that conversation can cover. Recruiting and other professional
-        conversations are just as welcome here.
+        Questions about one of the open-source projects, something I wrote, or
+        a speaking or professional conversation? Send a note. I am not taking
+        client work.
       </p>
 
       <ContactForm />

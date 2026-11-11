@@ -10,14 +10,14 @@ import { BreadcrumbJsonLd } from '../components/BreadcrumbJsonLd';
 export const metadata: Metadata = {
   title: 'Work',
   description:
-    'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
+    'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, personal open-source projects, NJ Army National Guard.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',
     type: 'website',
     title: 'Work',
     description:
-      'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard.',
+      'Where Eric Caskey has built platforms, infrastructure, and safety-critical systems. Amazon, Prudential Financial, personal open-source projects, NJ Army National Guard.',
     url: 'https://ericcaskey.com/work',
     images: [ogImage],
   },
@@ -131,7 +131,7 @@ export default function Work() {
           the Senior Software Engineer title since August 2024. The deep case
           studies, with the metrics and the architectural decisions, live on{' '}
           <CrossSiteLink href="https://caskeycoding.com/case-studies" rel="noopener">
-            Caskey Engineering case studies
+            Caskey Coding case studies
           </CrossSiteLink>
           .
         </p>
@@ -157,15 +157,17 @@ export default function Work() {
         <p className="leading-relaxed">
           A selection of what I build on my own time, on the same stack I use at
           work. Most link to the live tool, the writeup, or the playground on
-          Caskey Engineering. The finance work is engineering, not investment
-          advice. The spec-driven platform is the method behind my independent
-          work on AI-assisted delivery; the{' '}
-          <CrossSiteLink href="https://caskeycoding.com/#workflow-assessment" rel="noopener">
-            workflow assessment on Caskey Engineering
-          </CrossSiteLink>{' '}
-          describes how that work starts. The Amazon and Prudential entries
-          above describe my work in those organizations; they are separate
-          from this independent practice and imply no employer endorsement.
+          Caskey Coding. The finance work is engineering, not investment
+          advice. I write up what I build at{' '}
+          <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
+            caskeycoding.com
+          </CrossSiteLink>
+          : case studies with the design decisions and the limits, a lesson
+          series on running an engineering team of one, and a lab of working
+          experiments. The open-source projects are personal work, separate
+          from my role at Amazon. The Amazon and Prudential entries above
+          describe my work in those organizations and imply no employer
+          endorsement.
         </p>
         <div className="sr-tiles">
           {tools.map((t) => t.project ? (

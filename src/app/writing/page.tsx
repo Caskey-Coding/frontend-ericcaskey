@@ -76,10 +76,10 @@ function EssayRow({ title, url, publishedDate, editorNote }: Essay) {
             <ExternalLinkIcon className="shrink-0 mt-1 text-muted" />
           </h2>
           <p className="leading-relaxed">{editorNote}</p>
-          <p className="text-sm text-muted">Caskey Engineering</p>
+          <p className="text-sm text-muted">Caskey Coding</p>
         </div>
       </div>
-      <span className="sr-only">(opens Caskey Engineering)</span>
+      <span className="sr-only">(opens Caskey Coding)</span>
     </CrossSiteLink>
   );
 }
@@ -123,7 +123,7 @@ export default function Writing() {
           essays about running and family.
           The full archive is on{' '}
           <CrossSiteLink href="https://caskeycoding.com/blog" rel="noopener">
-            Caskey Engineering
+            Caskey Coding
           </CrossSiteLink>
           .
         </p>

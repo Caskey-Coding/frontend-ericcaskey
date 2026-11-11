@@ -22,7 +22,7 @@ export function EssayCard({
       </h3>
       {/* tabular-nums: dates are comparable data (v2.1 §2.2). */}
       <p className="text-sm text-muted tabular-nums">
-        {publishedDate} · Caskey Engineering
+        {publishedDate} · Caskey Coding
       </p>
       <p className="leading-relaxed">{editorNote}</p>
     </article>

@@ -25,7 +25,7 @@ export function ToolCard({ name, tagline, url }: ToolCardProps) {
         Open tool →
         <ExternalLinkIcon className="shrink-0" />
       </span>
-      <span className="sr-only">(opens Caskey Engineering)</span>
+      <span className="sr-only">(opens Caskey Coding)</span>
     </CrossSiteLink>
   );
 }
