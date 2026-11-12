@@ -20,11 +20,14 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4
+        with:
+          just-version: '1.59.0'
       - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
       - name: Scan for disallowed content
-        run: python scripts/voice_scan.py --profile frontend-nda --root .
+        run: just nda-scan
 
   voice-scan:
     name: Voice Rule Scan
@@ -32,11 +35,14 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4
+        with:
+          just-version: '1.59.0'
       - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
       - name: Enforce voice rules from ericcaskey-com/frontend/001
-        run: python scripts/voice_scan.py --profile voice --root .
+        run: just voice-scan
 
   lint:
     name: Lint
@@ -46,19 +52,25 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4
+        with:
+          just-version: '1.59.0'
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
       - name: Public asset guard (size + GPS EXIF)
-        run: python3 scripts/check-public-assets.py
+        run: just public-assets
       - name: Rollback safety tests
-        run: python3 tests/test_rollback_safety.py
+        run: just rollback-safety
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci
       - name: Deployment safety tests
-        run: node --test tests/deploy.test.mjs
-      - run: npm run lint
-      - run: npm run typecheck
+        run: just deploy-tests
+      - run: just lint
+      - run: just typecheck
 
   build:
     name: Build (static export)
@@ -68,12 +80,15 @@ jobs:
     needs: [nda-scan, voice-scan, lint]
     steps:
       - uses: actions/checkout@v7
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4
+        with:
+          just-version: '1.59.0'
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci
-      - run: npm run build
+      - run: just build
       - uses: actions/upload-artifact@v7
         with:
           name: static-export-pr-${{ github.event.pull_request.number }}
@@ -88,6 +103,9 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v7
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4
+        with:
+          just-version: '1.59.0'
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
@@ -100,7 +118,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
       - name: Run E2E
-        run: npm run test:e2e
+        run: just e2e
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
@@ -116,12 +134,15 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v7
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4
+        with:
+          just-version: '1.59.0'
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci
-      - run: npm audit --omit=dev --audit-level=high
+      - run: just audit
 
   pr-comment:
     name: PR Comment
