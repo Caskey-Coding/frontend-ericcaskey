@@ -23,6 +23,7 @@ ROUTE_HEALTHCHECK = ".github/scripts/healthcheck.sh"
 WORKFLOW = REPO_ROOT / ".github/workflows/rollback.yml"
 PRODUCTION_WORKFLOW = REPO_ROOT / ".github/workflows/deploy-production.yml"
 PR_WORKFLOW = REPO_ROOT / ".github/workflows/pr-validation.yml"
+JUSTFILE = REPO_ROOT / "justfile"
 PRECHECK = REPO_ROOT / "scripts/precheck.sh"
 EXPECTED_API_URL = "https://contact.example.test"
 ARTIFACT_NAME = "rollback-static-export-${{ github.run_id }}"
@@ -396,7 +397,9 @@ class WorkflowControlPlaneTests(unittest.TestCase):
         self.assertNotIn('--legacy-content', local)
         for source in (production, self.source, local):
             self.assertNotIn('--delete', source)
-        self.assertIn('node --test tests/deploy.test.mjs', PR_WORKFLOW.read_text(encoding='utf-8'))
+        self.assertIn('run: just deploy-tests', PR_WORKFLOW.read_text(encoding='utf-8'))
+        self.assertIn('deploy-tests:\n    node --test tests/deploy.test.mjs\n',
+                      JUSTFILE.read_text(encoding='utf-8').replace('\r\n', '\n'))
         self.assertIn('node --test tests/deploy.test.mjs', PRECHECK.read_text(encoding='utf-8'))
 
     def test_healthcheck_cannot_be_downgraded_by_old_target(self) -> None:
@@ -434,7 +437,9 @@ class WorkflowControlPlaneTests(unittest.TestCase):
         precheck_source = PRECHECK.read_text(encoding="utf-8")
 
         self.assertIn("name: Rollback safety tests", ci_source)
-        self.assertIn("run: python3 tests/test_rollback_safety.py", ci_source)
+        self.assertIn("run: just rollback-safety", ci_source)
+        self.assertIn("rollback-safety:\n    python tests/test_rollback_safety.py\n",
+                      JUSTFILE.read_text(encoding="utf-8").replace("\r\n", "\n"))
         self.assertIn("python3 tests/test_rollback_safety.py", precheck_source)
 
 
