@@ -13,14 +13,14 @@ export function Footer() {
           <p>
             The engineering side:{' '}
             <CrossSiteLink href="https://caskeycoding.com" rel="me noopener">
-              <span className="inline-flex items-center gap-1">
+              <span className="whitespace-nowrap">
                 <Image
                   src="/caskey-coding-mark.svg"
                   width={16}
                   height={16}
                   alt=""
                   aria-hidden="true"
-                  className="[html[data-theme=dark]_&]:hidden"
+                  className="mr-1 inline-block align-[-2px] [html[data-theme=dark]_&]:hidden"
                 />
                 <Image
                   src="/caskey-coding-mark-dark.svg"
@@ -28,7 +28,7 @@ export function Footer() {
                   height={16}
                   alt=""
                   aria-hidden="true"
-                  className="hidden [html[data-theme=dark]_&]:block"
+                  className="mr-1 hidden align-[-2px] [html[data-theme=dark]_&]:inline-block"
                 />
                 Caskey Coding
               </span>
