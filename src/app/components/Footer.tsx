@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { CrossSiteLink } from './CrossSiteLink';
 
@@ -12,7 +13,25 @@ export function Footer() {
           <p>
             The engineering side:{' '}
             <CrossSiteLink href="https://caskeycoding.com" rel="me noopener">
-              Caskey Coding
+              <span className="inline-flex items-center gap-1">
+                <Image
+                  src="/caskey-coding-mark.svg"
+                  width={16}
+                  height={16}
+                  alt=""
+                  aria-hidden="true"
+                  className="[html[data-theme=dark]_&]:hidden"
+                />
+                <Image
+                  src="/caskey-coding-mark-dark.svg"
+                  width={16}
+                  height={16}
+                  alt=""
+                  aria-hidden="true"
+                  className="hidden [html[data-theme=dark]_&]:block"
+                />
+                Caskey Coding
+              </span>
             </CrossSiteLink>
           </p>
           <ul className="flex items-center gap-6">
