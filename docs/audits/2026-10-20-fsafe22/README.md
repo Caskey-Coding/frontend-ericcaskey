@@ -11,7 +11,7 @@ The three JSON files are unchanged.
 
 Refreshed against `main` at `cf9b0cd0b58a83d41def91c33ea2271af363ae43`
 (after #201). The directory keeps its original 2026-10-20 name. Of the
-three JSON files, only `installed.json` carries a timestamp: `observed_at`
+three JSON files, only `installed.json` carries a capture timestamp: `observed_at`
 `2026-11-11T02:25:39.543Z` (2026-11-10 in US local time).
 
 This is triage, not a dependency repair, a runtime security certification or
@@ -73,9 +73,10 @@ npm view serve version dependencies.compression dependencies.ajv
 
 ### Hosted receipt
 
-PR validation run 42946333175 ran on the PR head
-`f9f6cdfa5d096e8eba1734a5ded046914d487f1b`, whose `package-lock.json` and
-`package.json` are byte-identical in Git to `cf9b0cd`. Its `npm audit
+PR validation run 42946333175 (PR head `f9f6cdf`) checked out merge commit
+`f34974d` (`f9f6cdf` into `cf9b0cd`); both parents, and therefore the merged
+tree, carry the same `package-lock.json` and `package.json` blobs as
+`cf9b0cd`. Its `npm audit
 (advisory)` job (Node 20.20.2, npm 10.8.2 from `.nvmrc`) logged:
 
 - `npm ci`: `added 438 packages, and audited 445 packages`, followed by
@@ -127,7 +128,8 @@ snapshot alone.
 | 47 | sharp | no | no | fixed 2026-10-18 | reported, not saved |
 
 Derivation: of the 11 baseline IDs, 10 are absent from the current open set
-and 1 (45) remains; 5 alerts opened after the baseline (48, 49, 50, 51, 53);
+and 1 (45) remains; 5 currently open alerts (48, 49, 50, 51, 53) are not in
+the baseline;
 11 minus 10 plus 5 gives the current 6. Absence from the open set is
 receipted. How each alert closed (fixed or dismissed, when and by whom) is
 reported, not saved. No baseline ID is unaccounted for.
@@ -135,7 +137,8 @@ reported, not saved. No baseline ID is unaccounted for.
 ## Open Dependabot alerts
 
 All six concern `package-lock.json`. Consumer paths and locked versions are
-from `installed.json`; GHSA, severity and first patched version are from
+from `installed.json`; ajv's version is from `package-lock.json` at
+`cf9b0cd`. GHSA, severity and first patched version are from
 `alerts.json`. "Configured use" is a source observation; it does not
 establish deployed applicability.
 
