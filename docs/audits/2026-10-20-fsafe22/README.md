@@ -10,9 +10,9 @@ or a hosted CI log, and labels the rest as reported without a saved receipt.
 The three JSON files are unchanged.
 
 Refreshed against `main` at `cf9b0cd0b58a83d41def91c33ea2271af363ae43`
-(after #201). The directory keeps its original 2026-10-20 name. The JSON
-files were generated on 2026-11-10 local time (`installed.json`
-`observed_at` is `2026-11-11T02:25:39.543Z`).
+(after #201). The directory keeps its original 2026-10-20 name. Of the
+three JSON files, only `installed.json` carries a timestamp: `observed_at`
+`2026-11-11T02:25:39.543Z` (2026-11-10 in US local time).
 
 This is triage, not a dependency repair, a runtime security certification or
 a release decision.
@@ -107,7 +107,10 @@ that time. It does not observe the deployed artifact.
 ## FSAFE-9 baseline reconciliation
 
 The FSAFE-9 snapshot of 2026-10-17 recorded 11 open alerts, 0 critical:
-25, 26, 27, 28, 30, 31, 37, 41, 42, 45, 47.
+25, 26, 27, 28, 30, 31, 37, 41, 42, 45, 47. That snapshot is not committed
+in this repository. Ten of its IDs (all but 47) match the committed
+2026-10-21 `alerts.json` at `d25698e`; alert 47 (sharp) rests on the
+snapshot alone.
 
 | Alert | Package | Open on 2026-10-21 (`alerts.json` at `d25698e`) | Open on 2026-11-10 (`alerts.json`) | Reported closure | Closure receipt |
 | --- | --- | --- | --- | --- | --- |
@@ -249,12 +252,13 @@ loading was not traced, and no deployed artifact was inspected, so deployed
 applicability of every finding remains unknown.
 
 - `next.config.ts` declares `output: 'export'` and `images: { unoptimized:
-  true }`. `deploy-production.yml` builds the export and uploads it to static
-  hosting. This is configuration intent, not an observation of what the
-  deployed build loaded or shipped.
-- `serve` (and so compression, ajv and fast-uri) is a devDependency used by
-  `playwright.config.ts` as `npx serve out -l 3000 --no-clipboard` for local
-  and CI E2E runs, bound to a local port.
+  true }`. `deploy-production.yml` runs `npm run build` and publishes `out/`
+  with `scripts/deploy.mjs`. This is configuration intent, not an
+  observation of what the deployed build loaded or shipped.
+- `serve` (and so compression, ajv and fast-uri) is a devDependency started
+  by `playwright.config.ts` as `npx serve out -l 3000 --no-clipboard` during
+  local and CI E2E runs when `BASE_URL` is unset. The command names port
+  3000 and pins no host.
 - eslint-config-next, typescript-eslint, minimatch and zod are reached
   through lint dependencies (`installed.json` edges); `npm run lint` is the
   configured entry point.
@@ -281,7 +285,7 @@ applicability of every finding remains unknown.
 
 | Criterion | Evidence | Boundary | Grade | Gap |
 | --- | --- | --- | --- | --- |
-| FSAFE-9 baseline reconciled by count and ID | Baseline table; `alerts.json` at `d25698e` and current | Committed open-alert sets | Weak | Closure state, date and actor not saved |
+| FSAFE-9 baseline reconciled by count and ID | Baseline table; `alerts.json` at `d25698e` and current | Committed open-alert sets; alert 47 from the uncommitted snapshot only | Weak | Closure state, date and actor not saved |
 | Current hosted alerts | `alerts.json`, six open records | Hosted metadata, 2026-11-10 | Adequate | GitHub's analyzed commit is not reported |
 | Current full npm findings | `npm-findings.json` (12 records, 7 GHSAs); hosted log shows the same 12 | Registry advisory metadata | Adequate for counts; Weak for same-worktree linkage | Local exit code and worktree identity not saved |
 | Production-graph npm audit | Hosted log: `found 0 vulnerabilities` at `f9f6cdf` | Hosted CI install of the same lock, Node 20 | Adequate at that boundary | Local output not saved; log retention is limited |
