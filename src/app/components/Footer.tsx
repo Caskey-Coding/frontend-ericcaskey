@@ -20,7 +20,7 @@ export function Footer() {
                   height={16}
                   alt=""
                   aria-hidden="true"
-                  className="mr-1 inline-block align-[-2px] [html[data-theme=dark]_&]:hidden"
+                  className="mr-1 inline-block align-[-2px] [html[data-theme=dark]_&]:hidden [@media(prefers-color-scheme:dark)]:[html:not([data-theme])_&]:hidden"
                 />
                 <Image
                   src="/caskey-coding-mark-dark.svg"
@@ -28,7 +28,7 @@ export function Footer() {
                   height={16}
                   alt=""
                   aria-hidden="true"
-                  className="mr-1 hidden align-[-2px] [html[data-theme=dark]_&]:inline-block"
+                  className="mr-1 hidden align-[-2px] [html[data-theme=dark]_&]:inline-block [@media(prefers-color-scheme:dark)]:[html:not([data-theme])_&]:inline-block"
                 />
                 Caskey Coding
               </span>
