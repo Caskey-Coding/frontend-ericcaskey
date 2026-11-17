@@ -126,16 +126,6 @@ const OPEN_SOURCE_FIRST_ROWS = [
   ['src/app/page.tsx', 'E4', '<dd>Senior Software Engineer at Amazon</dd>'],
   ['src/app/page.tsx', 'E5', '<dd>Open-source guardrails, evals, and agent workflows</dd>'],
   ['src/app/page.tsx', 'claim (already live)', 'Safe by default. Validated before it ships.'],
-  ['src/app/lib/work.ts', 'E11', "context: 'Personal project · Open source'"],
-  ['src/app/lib/work.ts', 'E12 primary', "cta: 'Read the Ballast case study'"],
-  ['src/app/lib/work.ts', 'E12 secondary', "secondary: { cta: 'Inspect the source', href: 'https://github.com/CaskeyCoding/ballast' }"],
-  ['src/app/lib/work.ts', 'E13 kind', "kind: 'Open source'"],
-  ['src/app/lib/work.ts', 'E14 primary', "cta: 'Explore SpecSelf'"],
-  ['src/app/lib/work.ts', 'E14 secondary', "secondary: { cta: 'Inspect SpecSelf Starter', href: 'https://github.com/CaskeyCoding/specself-starter' }"],
-  ['src/app/lib/work.ts', 'E15 name', "name: 'Loop Harness'"],
-  ['src/app/lib/work.ts', 'E15 description', 'A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.'],
-  ['src/app/lib/work.ts', 'E15 action', "cta: 'Inspect Loop Harness on GitHub'"],
-  ['src/app/lib/work.ts', 'E15 href', "href: 'https://github.com/CaskeyCoding/loop-harness'"],
   ['src/app/page.tsx', 'E18', 'I am an AI reliability engineer and open-source builder. I build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery, and I write about them at caskeycoding.com. I am a Senior Software Engineer at Amazon. My open-source projects are personal work, separate from my role at Amazon.'],
   ['src/app/page.tsx', 'E19', 'I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.'],
   ['public/llms.txt', 'E21', 'Ballast (shipped, public versioned release; https://caskeycoding.com/case-studies/ballast), Loop Harness (shipped, public versioned release; https://github.com/CaskeyCoding/loop-harness), SpecSelf (active, evolving spec; https://specself.ai)'],
@@ -187,12 +177,56 @@ function numberHits(file, text) {
   return hits;
 }
 
+// Criterion 1a, per personalProjects record: each field is checked inside its
+// own record, so a value shared by two records cannot satisfy the other.
+const PROJECT_RECORDS = {
+  Ballast: {
+    'Ballast kind (already live)': "kind: 'Open source'",
+    'E11 context': "context: 'Personal project · Open source'",
+    'E12 primary href': "href: 'https://caskeycoding.com/case-studies/ballast',",
+    'E12 primary label': "cta: 'Read the Ballast case study',",
+    'E12 secondary': "secondary: { cta: 'Inspect the source', href: 'https://github.com/CaskeyCoding/ballast' }",
+  },
+  'Loop Harness': {
+    'E15 kind': "kind: 'Open source'",
+    'E15 context': "context: 'Personal project · Open source'",
+    'E15 description': "'A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.'",
+    'E15 action href': "href: 'https://github.com/CaskeyCoding/loop-harness',",
+    'E15 action label': "cta: 'Inspect Loop Harness on GitHub',",
+    'E15 status': "status: 'shipped',",
+    'E15 statusMeaning': "statusMeaning: 'Public versioned release',",
+  },
+  SpecSelf: {
+    'E13 kind': "kind: 'Open source'",
+    'E13 context': "context: 'Personal project · Open source'",
+    'E14 primary href': "href: 'https://specself.ai',",
+    'E14 primary label': "cta: 'Explore SpecSelf',",
+    'E14 secondary': "secondary: { cta: 'Inspect SpecSelf Starter', href: 'https://github.com/CaskeyCoding/specself-starter' }",
+  },
+};
+
+function projectRecord(work, name) {
+  const start = work.indexOf(`    name: '${name}',`);
+  if (start < 0) return '';
+  // A record ends at the next top-level closing brace of the array entry.
+  const rest = work.slice(start);
+  const end = rest.search(/\r?\n {2}\},/);
+  return end < 0 ? rest : rest.slice(0, end);
+}
+
 test('open-source-first: each string-literal row renders verbatim in its source file (1a)', () => {
   const missing = OPEN_SOURCE_FIRST_ROWS
     .filter(([file, , text]) => !readGoverned(file).includes(text))
     .map(([file, row, text]) => `${row} missing from ${file}: ${text}`);
-  assert.deepEqual(missing, [], `Open-source-first rows missing:\n${missing.join('\n')}`);
   const work = readGoverned('src/app/lib/work.ts');
+  for (const [name, fields] of Object.entries(PROJECT_RECORDS)) {
+    const record = projectRecord(work, name);
+    if (!record) missing.push(`${name} record missing from src/app/lib/work.ts`);
+    for (const [row, text] of Object.entries(fields)) {
+      if (record && !record.includes(text)) missing.push(`${row} missing from the ${name} record in src/app/lib/work.ts: ${text}`);
+    }
+  }
+  assert.deepEqual(missing, [], `Open-source-first rows missing:\n${missing.join('\n')}`);
   const order = ['Ballast', 'Loop Harness', 'SpecSelf'].map(name => work.indexOf(`name: '${name}'`));
   assert.ok(order.every((at, i) => at > 0 && (i === 0 || at > order[i - 1])), `personalProjects order must be Ballast, Loop Harness, SpecSelf (${order})`);
 });
