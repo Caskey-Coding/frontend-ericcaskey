@@ -18,7 +18,7 @@ Contact → (https://ericcaskey.com/contact)
 
 I build the checks around AI-assisted software delivery: guardrails that block unsafe output, evaluation gates that fail a build on regression, and written specs that tell an agent what done means. The method is open source in Ballast, Loop Harness, and SpecSelf, all built on my own time.
 
-The work draws on fifteen years in enterprise infrastructure. I am a Senior Software Engineer at Amazon, where I architect a workflow orchestration platform that gates every operation behind concurrent safety checks. Before Amazon, I spent nine years at Prudential Financial building remote-access, self-service, and cloud reliability systems.
+The work draws on fifteen years in enterprise infrastructure. I am a Senior Software Engineer at Amazon, where I architect a workflow orchestration platform that gates every automated operation behind concurrent safety checks. Before Amazon, I spent nine years at Prudential Financial building remote-access, self-service, and cloud reliability systems.
 
 Work
 
@@ -114,7 +114,7 @@ Eric Caskey is a Senior Software Engineer at Amazon with fifteen years in enterp
 
 I am an AI reliability engineer and open-source builder. On my own time, I design and build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery. The public work is the evidence: Ballast, Loop Harness, SpecSelf, and the case studies that document their decisions and limits.
 
-That work builds on fifteen years in enterprise infrastructure. I am a Senior Software Engineer at Amazon, where I architect a workflow orchestration platform that gates every operation behind concurrent safety checks, and I previously spent nine years at Prudential Financial. The open-source projects are personal work, separate from that role.
+That work builds on fifteen years in enterprise infrastructure. I am a Senior Software Engineer at Amazon, where I architect a workflow orchestration platform that gates every automated operation behind concurrent safety checks, and I previously spent nine years at Prudential Financial. The open-source projects are personal work, separate from that role.
 
 I came into tech in 2011 through Workforce Opportunity Services (https://medium.com/@wforceorg/success-story-eric-caskey-prudential-financial-d2d2e7258f49), placed at Prudential Financial while I was still serving in the NJ Army National Guard, and taught myself to code on the job. By 2013 I was the Remote Access Analyst: Tier 3 help desk work with a side project generating QR codes for MFA enrollment. That side project ran for eight years and produced over 300,000 activation codes. It also settled which job I wanted: the engineering one, not the support one.
 

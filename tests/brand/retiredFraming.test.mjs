@@ -149,8 +149,10 @@ const FORBIDDEN_PATTERNS = [
   /independent practice|my practice/i,
 ];
 // Spec 031 requirement 2 (and 030) permits exactly this sentence, which the
-// llms-full.txt contact mirror carries. It is removed before matching.
+// llms-full.txt contact mirror carries. It is removed before matching in that
+// file only; in every other governed file it is flagged like any other match.
 const PERMITTED_SENTENCE = 'I am not taking client work.';
+const PERMITTED_SENTENCE_FILE = 'public/llms-full.txt';
 
 function readGoverned(file) {
   return readFileSync(join(root, file), 'utf8');
@@ -159,7 +161,7 @@ function readGoverned(file) {
 function forbiddenHits(file, text) {
   const hits = [];
   text.split('\n').forEach((line, index) => {
-    const checked = line.replaceAll(PERMITTED_SENTENCE, '');
+    const checked = file === PERMITTED_SENTENCE_FILE ? line.replaceAll(PERMITTED_SENTENCE, '') : line;
     for (const pattern of FORBIDDEN_PATTERNS) {
       if (pattern.test(checked)) hits.push(`${file}:${index + 1}: ${pattern} in "${line.trim().slice(0, 120)}"`);
     }
@@ -247,7 +249,11 @@ test('open-source-first: the 1b and 1c rules catch their fixtures and pass the p
   for (const sample of ['Principal Engineer', 'a \u2014 b', 'millions of workflows', 'other things', 'a founder', 'no fees', 'client work', 'my practice', '100 actions per day']) {
     assert.ok(forbiddenHits('sample', sample).length > 0, sample);
   }
-  assert.deepEqual(forbiddenHits('sample', `Send a note. ${PERMITTED_SENTENCE} Recruiting`), []);
+  const contactLine = `Send a note. ${PERMITTED_SENTENCE} Recruiting`;
+  assert.deepEqual(forbiddenHits(PERMITTED_SENTENCE_FILE, contactLine), []);
+  for (const other of GOVERNED_FILES.filter(file => file !== PERMITTED_SENTENCE_FILE)) {
+    assert.ok(forbiddenHits(other, contactLine).length > 0, `the permitted sentence is flagged in ${other}`);
+  }
   for (const sample of ['3 million safety checks', '500,000 safety checks', '500,000 cumulative safety checks a day']) {
     assert.ok(numberHits('sample', sample).length > 0, sample);
   }

@@ -139,7 +139,7 @@ export default function Home() {
         <p>
           The work draws on fifteen years in enterprise infrastructure. I am a
           Senior Software Engineer at Amazon, where I architect a workflow
-          orchestration platform that gates every operation behind concurrent
+          orchestration platform that gates every automated operation behind concurrent
           safety checks. Before Amazon, I spent nine years at Prudential
           Financial building remote-access, self-service, and cloud
           reliability systems.

@@ -93,7 +93,7 @@ export default function About() {
         <p>
           That work builds on fifteen years in enterprise infrastructure. I am
           a Senior Software Engineer at Amazon, where I architect a workflow
-          orchestration platform that gates every operation behind concurrent
+          orchestration platform that gates every automated operation behind concurrent
           safety checks, and I previously spent nine years at Prudential
           Financial. The open-source projects are personal work, separate from
           that role.
