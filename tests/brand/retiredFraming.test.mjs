@@ -105,6 +105,121 @@ test('no reference to the removed caskeycoding.com Organization node in src/ or 
   assert.deepEqual(hits, [], `Organization reference found:\n${hits.join('\n')}`);
 });
 
+// Open-source-first copy refresh (caskeycoding-specs content-strategy 031,
+// acceptance criterion 1). Proves source-file content in the governed files
+// only, not rendering and not other files.
+const GOVERNED_FILES = [
+  'src/app/page.tsx',
+  'src/app/layout.tsx',
+  'src/app/lib/work.ts',
+  'src/app/about/page.tsx',
+  'public/llms.txt',
+  'public/llms-full.txt',
+  'src/app/lib/og-card.tsx',
+];
+
+// Criterion 1a: string-literal rows, verbatim, in their named source files.
+const OPEN_SOURCE_FIRST_ROWS = [
+  ['src/app/layout.tsx', 'E1', 'Eric Caskey: AI Reliability & Open-Source Engineering'],
+  ['src/app/layout.tsx', 'E2', 'Eric Caskey builds open-source guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery.'],
+  ['src/app/page.tsx', 'E3', '<dd>AI Reliability Engineer</dd>'],
+  ['src/app/page.tsx', 'E4', '<dd>Senior Software Engineer at Amazon</dd>'],
+  ['src/app/page.tsx', 'E5', '<dd>Open-source guardrails, evals, and agent workflows</dd>'],
+  ['src/app/page.tsx', 'claim (already live)', 'Safe by default. Validated before it ships.'],
+  ['src/app/lib/work.ts', 'E11', "context: 'Personal project · Open source'"],
+  ['src/app/lib/work.ts', 'E12 primary', "cta: 'Read the Ballast case study'"],
+  ['src/app/lib/work.ts', 'E12 secondary', "secondary: { cta: 'Inspect the source', href: 'https://github.com/CaskeyCoding/ballast' }"],
+  ['src/app/lib/work.ts', 'E13 kind', "kind: 'Open source'"],
+  ['src/app/lib/work.ts', 'E14 primary', "cta: 'Explore SpecSelf'"],
+  ['src/app/lib/work.ts', 'E14 secondary', "secondary: { cta: 'Inspect SpecSelf Starter', href: 'https://github.com/CaskeyCoding/specself-starter' }"],
+  ['src/app/lib/work.ts', 'E15 name', "name: 'Loop Harness'"],
+  ['src/app/lib/work.ts', 'E15 description', 'A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.'],
+  ['src/app/lib/work.ts', 'E15 action', "cta: 'Inspect Loop Harness on GitHub'"],
+  ['src/app/lib/work.ts', 'E15 href', "href: 'https://github.com/CaskeyCoding/loop-harness'"],
+  ['src/app/page.tsx', 'E18', 'I am an AI reliability engineer and open-source builder. I build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery, and I write about them at caskeycoding.com. I am a Senior Software Engineer at Amazon. My open-source projects are personal work, separate from my role at Amazon.'],
+  ['src/app/page.tsx', 'E19', 'I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.'],
+  ['public/llms.txt', 'E21', 'Ballast (shipped, public versioned release; https://caskeycoding.com/case-studies/ballast), Loop Harness (shipped, public versioned release; https://github.com/CaskeyCoding/loop-harness), SpecSelf (active, evolving spec; https://specself.ai)'],
+  ['src/app/lib/og-card.tsx', 'E22', '<span>Open-source guardrails, evals, and agent workflows</span>'],
+];
+
+// Criterion 1b: patterns that may not appear in any governed file. The em
+// dash is written as an escape so this file carries none.
+const FORBIDDEN_PATTERNS = [
+  /\u2014/,
+  /\bthings?\b/i,
+  /\bprincipal\b/i,
+  /\bmillions\b/i,
+  /actions(\/| per )day/i,
+  /founder/i,
+  /\bfees?\b/i,
+  /\bengagements?\b/i,
+  /\bclients?\b/i,
+  /independent practice|my practice/i,
+];
+// Spec 031 requirement 2 (and 030) permits exactly this sentence, which the
+// llms-full.txt contact mirror carries. It is removed before matching.
+const PERMITTED_SENTENCE = 'I am not taking client work.';
+
+function readGoverned(file) {
+  return readFileSync(join(root, file), 'utf8');
+}
+
+function forbiddenHits(file, text) {
+  const hits = [];
+  text.split('\n').forEach((line, index) => {
+    const checked = line.replaceAll(PERMITTED_SENTENCE, '');
+    for (const pattern of FORBIDDEN_PATTERNS) {
+      if (pattern.test(checked)) hits.push(`${file}:${index + 1}: ${pattern} in "${line.trim().slice(0, 120)}"`);
+    }
+  });
+  return hits;
+}
+
+// Criterion 1c: number-context rules, one line at a time.
+function numberHits(file, text) {
+  const hits = [];
+  text.split('\n').forEach((line, index) => {
+    const where = `${file}:${index + 1}`;
+    if (/3 million|3,000,000/.test(line) && !/monitor/i.test(line)) hits.push(`${where}: 3 million without monitor`);
+    if (/500,000/.test(line) && /per day|a day|daily|\/day/i.test(line)) hits.push(`${where}: 500,000 stated per day`);
+    if (/500,000/.test(line) && /safety checks/i.test(line) && !/cumulative/i.test(line)) hits.push(`${where}: 500,000 safety checks without cumulative`);
+  });
+  return hits;
+}
+
+test('open-source-first: each string-literal row renders verbatim in its source file (1a)', () => {
+  const missing = OPEN_SOURCE_FIRST_ROWS
+    .filter(([file, , text]) => !readGoverned(file).includes(text))
+    .map(([file, row, text]) => `${row} missing from ${file}: ${text}`);
+  assert.deepEqual(missing, [], `Open-source-first rows missing:\n${missing.join('\n')}`);
+  const work = readGoverned('src/app/lib/work.ts');
+  const order = ['Ballast', 'Loop Harness', 'SpecSelf'].map(name => work.indexOf(`name: '${name}'`));
+  assert.ok(order.every((at, i) => at > 0 && (i === 0 || at > order[i - 1])), `personalProjects order must be Ballast, Loop Harness, SpecSelf (${order})`);
+});
+
+test('open-source-first: no forbidden pattern in the governed files (1b)', () => {
+  const hits = GOVERNED_FILES.flatMap(file => forbiddenHits(file, readGoverned(file)));
+  assert.deepEqual(hits, [], `Forbidden pattern found:\n${hits.join('\n')}`);
+});
+
+test('open-source-first: number context rules hold in the governed files (1c)', () => {
+  const hits = GOVERNED_FILES.flatMap(file => numberHits(file, readGoverned(file)));
+  assert.deepEqual(hits, [], `Number context violation:\n${hits.join('\n')}`);
+});
+
+test('open-source-first: the 1b and 1c rules catch their fixtures and pass the permitted lines', () => {
+  for (const sample of ['Principal Engineer', 'a \u2014 b', 'millions of workflows', 'other things', 'a founder', 'no fees', 'client work', 'my practice', '100 actions per day']) {
+    assert.ok(forbiddenHits('sample', sample).length > 0, sample);
+  }
+  assert.deepEqual(forbiddenHits('sample', `Send a note. ${PERMITTED_SENTENCE} Recruiting`), []);
+  for (const sample of ['3 million safety checks', '500,000 safety checks', '500,000 cumulative safety checks a day']) {
+    assert.ok(numberHits('sample', sample).length > 0, sample);
+  }
+  for (const allowed of ['3 million monitors', '3,000,000 monitors standardized', '500,000 cumulative safety checks']) {
+    assert.deepEqual(numberHits('sample', allowed), [], allowed);
+  }
+});
+
 test('the pattern catches each retired term, including across a line break', () => {
   for (const sample of [
     'caskey engineering',

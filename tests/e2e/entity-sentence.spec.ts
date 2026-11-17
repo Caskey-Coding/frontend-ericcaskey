@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.use({ reducedMotion: 'reduce' });
 
 const LAYOUT_DESCRIPTION =
-  'Eric Caskey, Senior Software Engineer at Amazon: fifteen years of enterprise infrastructure and safe automation. Open-source projects and writing at caskeycoding.com.';
+  'Eric Caskey builds open-source guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery.';
 const PERSON_SENTENCE =
   'He has spent fifteen years across five roles making production infrastructure safe enough to automate: at Amazon since June 2022, and at Prudential Financial for nine years before that.';
 const FAQ_SENTENCE =

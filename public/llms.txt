@@ -19,7 +19,7 @@ This site covers the person and the career: employment history, how to reach me,
 - Continuity: 60,000 corporate users kept online through the early months of COVID
 - Automation: 200,000+ administrative actions automated; MFA self-service portal used 18,000+ times in six languages
 - Open-source projects and writing: Caskey Coding, https://caskeycoding.com
-- Independent builds: a spec-driven engineering platform (https://caskeycoding.com/case-studies/sdd-platform), Ballast (shipped, public versioned release; https://caskeycoding.com/case-studies/ballast), SpecSelf (active, evolving spec; https://specself.ai), the Finance Reviewer (https://caskeycoding.com/lab/investment-committee), Marathon Coach (https://caskeycoding.com/lab/marathon-coach)
+- Independent builds: a spec-driven engineering platform (https://caskeycoding.com/case-studies/sdd-platform), Ballast (shipped, public versioned release; https://caskeycoding.com/case-studies/ballast), Loop Harness (shipped, public versioned release; https://github.com/CaskeyCoding/loop-harness), SpecSelf (active, evolving spec; https://specself.ai), the Finance Reviewer (https://caskeycoding.com/lab/investment-committee), Marathon Coach (https://caskeycoding.com/lab/marathon-coach)
 - Contact: https://ericcaskey.com/contact
 - Canonical entity id: https://ericcaskey.com/#person
 

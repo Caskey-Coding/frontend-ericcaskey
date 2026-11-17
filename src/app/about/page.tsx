@@ -84,6 +84,21 @@ export default function About() {
 
       <section className="flex flex-col gap-5 leading-relaxed text-pretty">
         <p>
+          I am an AI reliability engineer and open-source builder. On my own
+          time, I design and build guardrails, evaluation gates, and
+          spec-driven agent workflows for AI-assisted software delivery. The
+          public work is the evidence: Ballast, Loop Harness, SpecSelf, and the
+          case studies that document their decisions and limits.
+        </p>
+        <p>
+          That work builds on fifteen years in enterprise infrastructure. I am
+          a Senior Software Engineer at Amazon, where I architect a workflow
+          orchestration platform that gates every operation behind concurrent
+          safety checks, and I previously spent nine years at Prudential
+          Financial. The open-source projects are personal work, separate from
+          that role.
+        </p>
+        <p>
           I came into tech in 2011 through{' '}
           <a
             href="https://medium.com/@wforceorg/success-story-eric-caskey-prudential-financial-d2d2e7258f49"
@@ -125,7 +140,7 @@ export default function About() {
           and mentored eight new-to-industry engineers in New York. In August
           2024 I moved into my current role as a Senior Software Engineer on a
           platform team, architecting a multi-region workflow orchestration
-          control plane whose guardrails have run 500,000 safety checks,
+          control plane whose guardrails have run 500,000 cumulative safety checks,
           validating every change before it lands. Since then I have mentored
           engineers on three continents. The lesson carried over from
           Prudential intact: the platforms worth building are the ones that

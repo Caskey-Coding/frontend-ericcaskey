@@ -75,31 +75,48 @@ export interface PersonalProject {
   description: string;
   href: string;
   cta: string;
+  // Optional second action, rendered as its own link beside the primary one.
+  secondary?: { cta: string; href: string };
   status: 'shipped' | 'active';
   statusMeaning: string;
 }
 
+// Home renders these before the employers; /work renders the same records as
+// tiles. Order: Ballast, Loop Harness, SpecSelf.
 export const personalProjects: PersonalProject[] = [
   {
     name: 'Ballast',
     kind: 'Open source',
-    context: 'Independent AI project · Open source',
+    context: 'Personal project · Open source',
     description:
       'An open-source RAG system with a guardrails gateway, engineered to refuse when it should.',
     href: 'https://caskeycoding.com/case-studies/ballast',
-    cta: 'Read how Ballast handles trust',
+    cta: 'Read the Ballast case study',
+    secondary: { cta: 'Inspect the source', href: 'https://github.com/CaskeyCoding/ballast' },
+    status: 'shipped',
+    statusMeaning: 'Public versioned release',
+  },
+  {
+    name: 'Loop Harness',
+    kind: 'Open source',
+    context: 'Personal project · Open source',
+    description:
+      'A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.',
+    href: 'https://github.com/CaskeyCoding/loop-harness',
+    cta: 'Inspect Loop Harness on GitHub',
     status: 'shipped',
     statusMeaning: 'Public versioned release',
   },
   {
     name: 'SpecSelf',
-    kind: 'Project',
-    context: 'Personal project',
+    kind: 'Open source',
+    context: 'Personal project · Open source',
     dates: '2026 – Present',
     description:
       'An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write.',
     href: 'https://specself.ai',
-    cta: 'SpecSelf Starter at specself.ai',
+    cta: 'Explore SpecSelf',
+    secondary: { cta: 'Inspect SpecSelf Starter', href: 'https://github.com/CaskeyCoding/specself-starter' },
     status: 'active',
     statusMeaning: 'Current development with an evolving spec',
   },

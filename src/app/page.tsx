@@ -23,7 +23,7 @@ const websiteJsonLd = {
 const HOME_FAQ = [
   {
     q: 'Who is Eric Caskey?',
-    a: "I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate. My open-source projects are personal work, separate from my role at Amazon.",
+    a: 'I am an AI reliability engineer and open-source builder. I build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery, and I write about them at caskeycoding.com. I am a Senior Software Engineer at Amazon. My open-source projects are personal work, separate from my role at Amazon.',
   },
   {
     q: 'What does Eric Caskey work on at Amazon?',
@@ -31,7 +31,7 @@ const HOME_FAQ = [
   },
   {
     q: 'What has Eric Caskey built outside work?',
-    a: "I built a spec-driven engineering platform that runs a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Coding. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer where the model narrates numbers it never derives.",
+    a: 'I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.',
   },
   {
     q: 'How do I contact Eric Caskey?',
@@ -89,11 +89,15 @@ export default function Home() {
         <dl className="identity-fields">
           <div>
             <dt>role:</dt>
-            <dd>Senior Software Engineer, Amazon</dd>
+            <dd>AI Reliability Engineer</dd>
+          </div>
+          <div>
+            <dt>day job:</dt>
+            <dd>Senior Software Engineer at Amazon</dd>
           </div>
           <div>
             <dt>focus:</dt>
-            <dd>Platform engineering / AI reliability</dd>
+            <dd>Open-source guardrails, evals, and agent workflows</dd>
           </div>
           <div>
             <dt>claim:</dt>
@@ -101,17 +105,46 @@ export default function Home() {
           </div>
         </dl>
         <div className="identity-cta">
+          <Link href="/work#projects" className="sr-btn sr-btn--p">
+            Explore the open-source work →
+          </Link>
           <CrossSiteLink
-            href="https://caskeycoding.com/case-studies"
+            href="https://caskeycoding.com"
             rel="noopener"
-            className="sr-btn sr-btn--p"
+            className="sr-btn sr-btn--s"
           >
-            Read the case studies →
+            Read the writing →
           </CrossSiteLink>
-          <Link href="/about" className="sr-btn sr-btn--s">About →</Link>
-          <Link href="/contact" className="sr-btn sr-btn--s">Contact →</Link>
+          {/* About and Contact are text links, not buttons. The span carries the
+              hover color because the base anchor color rule is unlayered. */}
+          <span className="inline-flex flex-wrap items-center gap-x-5" data-hero-text-links>
+            <Link href="/about" className="group inline-flex items-center min-h-[44px]">
+              <span className="group-hover:text-[color:var(--color-hero-accent)]">About →</span>
+            </Link>
+            <Link href="/contact" className="group inline-flex items-center min-h-[44px]">
+              <span className="group-hover:text-[color:var(--color-hero-accent)]">Contact →</span>
+            </Link>
+          </span>
         </div>
       </header>
+
+      <section className="flex flex-col gap-4 leading-relaxed text-pretty" data-intro="open-source-first">
+        <p>
+          I build the checks around AI-assisted software delivery: guardrails
+          that block unsafe output, evaluation gates that fail a build on
+          regression, and written specs that tell an agent what done means.
+          The method is open source in Ballast, Loop Harness, and SpecSelf,
+          all built on my own time.
+        </p>
+        <p>
+          The work draws on fifteen years in enterprise infrastructure. I am a
+          Senior Software Engineer at Amazon, where I architect a workflow
+          orchestration platform that gates every operation behind concurrent
+          safety checks. Before Amazon, I spent nine years at Prudential
+          Financial building remote-access, self-service, and cloud
+          reliability systems.
+        </p>
+      </section>
 
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
@@ -119,11 +152,11 @@ export default function Home() {
           <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Featured work</h2>
         </div>
         <div className="flex flex-col">
-          {featuredWork.map((employer) => (
-            <TimelineItem key={employer.company} {...employer} />
-          ))}
           {personalProjects.map((project) => (
             <ProjectCard key={project.name} project={project} />
+          ))}
+          {featuredWork.map((employer) => (
+            <TimelineItem key={employer.company} {...employer} />
           ))}
         </div>
         <p className="leading-relaxed">
@@ -134,6 +167,11 @@ export default function Home() {
           <CrossSiteLink href="https://caskeycoding.com">caskeycoding.com</CrossSiteLink>: case studies with
           the design decisions and the limits, a lesson series on running an
           engineering team of one, and a lab of working experiments.
+        </p>
+        <p className="leading-relaxed" data-writing-action>
+          <CrossSiteLink href="https://caskeycoding.com" rel="noopener">
+            Read the case studies and lessons →
+          </CrossSiteLink>
         </p>
       </section>
 
@@ -168,11 +206,14 @@ export default function Home() {
           <h2 id="about-eric-heading" className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">About Eric Caskey</h2>
         </div>
         <p className="leading-relaxed text-pretty">
-          Fifteen years in enterprise infrastructure, from a help desk at
-          Prudential Financial to the workflow orchestration and monitoring
-          platforms I own at Amazon. The through-line has not changed: remove
-          the failure mode instead of papering over it, and make the safe path
-          the default one. I share the work at <CrossSiteLink href="https://caskeycoding.com">Caskey Coding</CrossSiteLink>.
+          I am an AI reliability engineer and open-source builder. My projects
+          share one set of rules: a written spec first, deterministic checks in
+          the delivery path, and a human on consequential decisions.
+        </p>
+        <p className="leading-relaxed text-pretty">
+          The approach comes from infrastructure work where a bad change is
+          expensive. I am a Senior Software Engineer at Amazon and previously
+          worked at Prudential Financial.
         </p>
         <p><Link href="/about">More about me →</Link></p>
       </section>

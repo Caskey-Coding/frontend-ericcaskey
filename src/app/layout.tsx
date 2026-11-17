@@ -10,7 +10,7 @@ import { THEME_COLORS } from './lib/theme-colors';
 
 // Font palette aligned with caskeycoding.com: Inter for display + prose,
 // JetBrains Mono for the Systems Readout structural labels (spec rail, status
-// panel, eyebrows). No third typeface — same two faces as the engineering site.
+// panel, eyebrows). No third typeface: the same two faces as the engineering site.
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -26,11 +26,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://ericcaskey.com'),
   title: {
-    default: 'Eric Caskey: Platform Engineering & AI Reliability',
+    default: 'Eric Caskey: AI Reliability & Open-Source Engineering',
     template: '%s | Eric Caskey',
   },
   description:
-    'Eric Caskey, Senior Software Engineer at Amazon: fifteen years of enterprise infrastructure and safe automation. Open-source projects and writing at caskeycoding.com.',
+    'Eric Caskey builds open-source guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery.',
   openGraph: {
     siteName: 'Eric Caskey',
     locale: 'en_US',

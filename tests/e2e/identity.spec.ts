@@ -23,9 +23,10 @@ test('identity, avatar, curated essays and matching first-person FAQ exist witho
   await expect(hero).toHaveCount(1);
   await expect(hero.locator('h1')).toHaveText('Eric Caskey');
   await expect(hero.locator('p').filter({ hasText: '$ whoami' })).toHaveText('$ whoami');
-  await expect(hero.locator('dl.identity-fields dt')).toHaveText(['role:', 'focus:', 'claim:']);
-  await expect(hero.locator('dl.identity-fields dd')).toHaveCount(3);
-  await expect(hero.getByRole('link', { name: 'Read the case studies' })).toHaveAttribute('href', 'https://caskeycoding.com/case-studies');
+  await expect(hero.locator('dl.identity-fields dt')).toHaveText(['role:', 'day job:', 'focus:', 'claim:']);
+  await expect(hero.locator('dl.identity-fields dd')).toHaveCount(4);
+  await expect(hero.getByRole('link', { name: 'Explore the open-source work' })).toHaveAttribute('href', '/work#projects');
+  await expect(hero.getByRole('link', { name: 'Read the writing' })).toHaveAttribute('href', 'https://caskeycoding.com');
   const avatar = hero.locator('.identity-avatar img');
   await expect(avatar).toHaveAttribute('width', '80');
   await expect(avatar).toHaveAttribute('height', '80');
@@ -102,6 +103,7 @@ test('homepage metrics belong to one employer and home/work claims and project s
   const homeProjects: Record<string, { status: string; meaning: string | null }> = {};
   for (const [project, status, meaning] of [
     ['Ballast', 'shipped', 'Public versioned release'],
+    ['Loop Harness', 'shipped', 'Public versioned release'],
     ['SpecSelf', 'active', 'Current development with an evolving spec'],
   ]) {
     const chip = page.locator(`[data-project="${project}"] span.project-status`);
@@ -138,7 +140,9 @@ test('saved and inbound themes override OS, toggle persists, handoff and unrelat
   await assertTheme(page, 'dark');
   await expect(page).toHaveURL(/\/\?keep=yes#main$/);
   expect(await page.evaluate(() => localStorage.getItem('eric-caskey-theme'))).toBe('dark');
-  const outbound = page.locator('.identity-cta a').first();
+  // The primary hero action is internal (/work#projects); the writing action
+  // is the hero's outbound cross-site link.
+  const outbound = page.locator('.identity-cta').getByRole('link', { name: 'Read the writing' });
   await outbound.focus();
   await expect(outbound).toHaveAttribute('href', /\?theme=dark$/);
   await page.getByRole('button', { name: 'Switch to light mode' }).click();
