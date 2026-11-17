@@ -1,4 +1,4 @@
-# Eric Caskey, full text (manually updated 2026-10-19 to match the page sources)
+# Eric Caskey, full text (manually updated 2026-11-17 to match the page sources)
 
 # Home (https://ericcaskey.com/)
 
@@ -192,8 +192,14 @@ A selection of what I build on my own time, on the same stack I use at work. Mos
 Method · Spec-driven engineering platform: One engineer, a fleet of AI coding agents, a work queue, and an attested merge gate, written up as a case study and taught as a lesson series. (https://caskeycoding.com/case-studies/sdd-platform)
 Tool · Marathon Coach: Grounded AI marathon training plans with Garmin integration. (https://caskeycoding.com/lab/marathon-coach)
 Tool · Finance Reviewer: Deterministic factor scores narrated through six investor perspectives. (https://caskeycoding.com/lab/investment-committee)
-Open source · Ballast (status: shipped): An open-source RAG system with a guardrails gateway, engineered to refuse when it should. (https://caskeycoding.com/case-studies/ballast)
-Project · SpecSelf (status: active, 2026 – Present): An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write. (https://specself.ai)
+Open source · Ballast (status: shipped): An open-source RAG system with a guardrails gateway, engineered to refuse when it should.
+Read the Ballast case study → (https://caskeycoding.com/case-studies/ballast)
+Inspect the source → (https://github.com/CaskeyCoding/ballast)
+Open source · Loop Harness (status: shipped): A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.
+Inspect Loop Harness on GitHub → (https://github.com/CaskeyCoding/loop-harness)
+Open source · SpecSelf (status: active, 2026 – Present): An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write.
+Explore SpecSelf → (https://specself.ai)
+Inspect SpecSelf Starter → (https://github.com/CaskeyCoding/specself-starter)
 Engine · C++ pricing engine: A Black-Scholes options engine tuned from 15 to 215 million prices a second on AVX2 SIMD. (https://caskeycoding.com/blog/pricing-215-million-options-a-second)
 Playground · Market visualizations: Real-data 3D views of market structure, volatility surfaces, and factor behavior. (https://caskeycoding.com/lab)
 Platform · Finance research platform: The decision engine, backtester, and methodology behind the Reviewer, documented in the open. (https://caskeycoding.com/finance/methodology)

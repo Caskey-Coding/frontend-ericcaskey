@@ -116,6 +116,7 @@ const GOVERNED_FILES = [
   'public/llms.txt',
   'public/llms-full.txt',
   'src/app/lib/og-card.tsx',
+  'src/app/lib/og.ts',
 ];
 
 // Criterion 1a: string-literal rows, verbatim, in their named source files.
@@ -130,6 +131,7 @@ const OPEN_SOURCE_FIRST_ROWS = [
   ['src/app/page.tsx', 'E19', 'I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.'],
   ['public/llms.txt', 'E21', 'Ballast (shipped, public versioned release; https://caskeycoding.com/case-studies/ballast), Loop Harness (shipped, public versioned release; https://github.com/CaskeyCoding/loop-harness), SpecSelf (active, evolving spec; https://specself.ai)'],
   ['src/app/lib/og-card.tsx', 'E22', '<span>Open-source guardrails, evals, and agent workflows</span>'],
+  ['src/app/lib/og.ts', 'E24', "'Eric Caskey: open-source guardrails, evals, and agent workflows. Safe by default. Validated before it ships.'"],
 ];
 
 // Criterion 1b: patterns that may not appear in any governed file. The em
