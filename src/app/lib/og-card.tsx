@@ -36,7 +36,7 @@ export async function renderOgCard(): Promise<ImageResponse> {
         </div>
         <div style={{ display: 'flex', marginTop: 14, fontSize: 26 }}>
           <span style={{ color: MUTED, width: 120 }}>focus:</span>
-          <span>Platform engineering / AI reliability</span>
+          <span>Open-source guardrails, evals, and agent workflows</span>
         </div>
         <div style={{ display: 'flex', marginTop: 36, paddingTop: 26, borderTop: '1px solid #38382c', fontSize: 34, lineHeight: 1.3 }}>
           Safe by default. Validated before it ships.

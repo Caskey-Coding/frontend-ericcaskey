@@ -149,7 +149,8 @@ export default function Work() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-5">
+      {/* The home hero primary action targets /work#projects. */}
+      <section id="projects" className="flex flex-col gap-5 scroll-mt-6">
         <div className="flex flex-col gap-1">
           <p className="eyebrow">Projects</p>
           <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Selected builds</h2>

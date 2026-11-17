@@ -1,4 +1,4 @@
-# Eric Caskey, full text (manually updated 2026-10-19 to match the page sources)
+# Eric Caskey, full text (manually updated 2026-11-17 to match the page sources)
 
 # Home (https://ericcaskey.com/)
 
@@ -6,17 +6,40 @@ $ whoami
 
 Eric Caskey
 
-role: Senior Software Engineer, Amazon
-focus: Platform engineering / AI reliability
+role: AI Reliability Engineer
+day job: Senior Software Engineer at Amazon
+focus: Open-source guardrails, evals, and agent workflows
 claim: Safe by default. Validated before it ships.
 
-Read the case studies → (https://caskeycoding.com/case-studies)
+Explore the open-source work → (https://ericcaskey.com/work#projects)
+Read the writing → (https://caskeycoding.com)
 About → (https://ericcaskey.com/about)
 Contact → (https://ericcaskey.com/contact)
+
+I build the checks around AI-assisted software delivery: guardrails that block unsafe output, evaluation gates that fail a build on regression, and written specs that tell an agent what done means. The method is open source in Ballast, Loop Harness, and SpecSelf, all built on my own time.
+
+The work draws on fifteen years in enterprise infrastructure. I am a Senior Software Engineer at Amazon, where I architect a workflow orchestration platform that gates every automated operation behind concurrent safety checks. Before Amazon, I spent nine years at Prudential Financial building remote-access, self-service, and cloud reliability systems.
 
 Work
 
 Featured work
+
+Ballast · Personal project · Open source
+status: shipped (Public versioned release)
+An open-source RAG system with a guardrails gateway, engineered to refuse when it should.
+Read the Ballast case study → (https://caskeycoding.com/case-studies/ballast)
+Inspect the source → (https://github.com/CaskeyCoding/ballast)
+
+Loop Harness · Personal project · Open source
+status: shipped (Public versioned release)
+A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.
+Inspect Loop Harness on GitHub → (https://github.com/CaskeyCoding/loop-harness)
+
+SpecSelf · Personal project · Open source · 2026 – Present
+status: active (Current development with an evolving spec)
+An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write.
+Explore SpecSelf → (https://specself.ai)
+Inspect SpecSelf Starter → (https://github.com/CaskeyCoding/specself-starter)
 
 Amazon, Software Engineer → Senior Software Engineer, Jun 2022 – Present: Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. I also own the monitoring platform that standardizes monitors across application stages.
 guardrails: 500,000 cumulative safety checks
@@ -31,19 +54,11 @@ automation: 200,000+ administrative actions
 VPN continuity: 60,000 corporate users
 Case study on Caskey Coding → (https://caskeycoding.com/case-studies/mfa-at-scale)
 
-Ballast · Independent AI project · Open source
-status: shipped (Public versioned release)
-An open-source RAG system with a guardrails gateway, engineered to refuse when it should.
-Read how Ballast handles trust → (https://caskeycoding.com/case-studies/ballast)
-
-SpecSelf · Personal project · 2026 – Present
-status: active (Current development with an evolving spec)
-An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write.
-SpecSelf Starter at specself.ai → (https://specself.ai)
-
 More on the work page → (https://ericcaskey.com/work)
 
 I write up what I build at caskeycoding.com (https://caskeycoding.com): case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments.
+
+Read the case studies and lessons → (https://caskeycoding.com)
 
 Writing
 
@@ -67,7 +82,9 @@ Who
 
 About Eric Caskey
 
-Fifteen years in enterprise infrastructure, from a help desk at Prudential Financial to the workflow orchestration and monitoring platforms I own at Amazon. The through-line has not changed: remove the failure mode instead of papering over it, and make the safe path the default one. I share the work at Caskey Coding (https://caskeycoding.com).
+I am an AI reliability engineer and open-source builder. My projects share one set of rules: a written spec first, deterministic checks in the delivery path, and a human on consequential decisions.
+
+The approach comes from infrastructure work where a bad change is expensive. I am a Senior Software Engineer at Amazon and previously worked at Prudential Financial.
 
 More about me → (https://ericcaskey.com/about)
 
@@ -76,13 +93,13 @@ Questions
 Common questions
 
 Who is Eric Caskey?
-I'm a Senior Software Engineer at Amazon and a platform engineer based in New Jersey. Before Amazon, I worked in remote access and cloud engineering at Prudential Financial. I build production infrastructure that is safe enough to automate. My open-source projects are personal work, separate from my role at Amazon.
+I am an AI reliability engineer and open-source builder. I build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery, and I write about them at caskeycoding.com. I am a Senior Software Engineer at Amazon. My open-source projects are personal work, separate from my role at Amazon.
 
 What does Eric Caskey work on at Amazon?
 I own the monitoring platform that standardizes monitors across application stages, and I architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change. I also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.
 
 What has Eric Caskey built outside work?
-I built a spec-driven engineering platform that runs a fleet of AI coding agents through a work queue and an attested merge gate, written up as a case study and a lesson series on Caskey Coding. I also built Ballast, an open-source RAG system with a guardrails gateway, engineered to refuse when it should; SpecSelf, a spec-driven personal operating system whose AI agents read but never write; a C++ Black-Scholes options engine; and a Finance Reviewer where the model narrates numbers it never derives.
+I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.
 
 How do I contact Eric Caskey?
 The contact form at ericcaskey.com/contact is the fastest route. I read everything and reply within a week. You can also find me on LinkedIn at linkedin.com/in/ericrcaskey and on GitHub at github.com/CaskeyCoding.
@@ -95,13 +112,17 @@ About
 
 Eric Caskey is a Senior Software Engineer at Amazon with fifteen years in enterprise infrastructure, from the NJ Army National Guard and Prudential Financial to the workflow orchestration and monitoring platforms he owns today. This page is the long version, in his own words.
 
+I am an AI reliability engineer and open-source builder. On my own time, I design and build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery. The public work is the evidence: Ballast, Loop Harness, SpecSelf, and the case studies that document their decisions and limits.
+
+That work builds on fifteen years in enterprise infrastructure. I am a Senior Software Engineer at Amazon, where I architect a workflow orchestration platform that gates every automated operation behind concurrent safety checks, and I previously spent nine years at Prudential Financial. The open-source projects are personal work, separate from that role.
+
 I came into tech in 2011 through Workforce Opportunity Services (https://medium.com/@wforceorg/success-story-eric-caskey-prudential-financial-d2d2e7258f49), placed at Prudential Financial while I was still serving in the NJ Army National Guard, and taught myself to code on the job. By 2013 I was the Remote Access Analyst: Tier 3 help desk work with a side project generating QR codes for MFA enrollment. That side project ran for eight years and produced over 300,000 activation codes. It also settled which job I wanted: the engineering one, not the support one.
 
 From there I moved up through Remote Access SRE and Senior Remote Access SRE at Prudential, where I built the MFA self-service portal used more than 18,000 times in six languages, automated over 200,000 administrative actions, and kept the VPN running for 60,000 corporate users through the early months of COVID. Most of that work was figuring out how to make safety-critical infrastructure quiet: how to remove failure modes rather than paper over them.
 
 My last year there, from July 2021, was as a Cloud Engineer in Site Reliability Engineering: hands-on AWS and Azure ownership at Fortune 100 scale, building the monitoring flow that alerted leadership channels to global cloud outages in real time and partnering with application teams to unblock deployments between on-prem and the cloud. It was a deliberate pivot, and it is the year that made the next move possible.
 
-In June 2022 I joined Amazon, where I built a monitoring lifecycle platform that onboarded more than 2,750 application stages and brought 3 million monitors under standardized management, and hired and mentored eight new-to-industry engineers in New York. In August 2024 I moved into my current role as a Senior Software Engineer on a platform team, architecting a multi-region workflow orchestration control plane whose guardrails have run 500,000 safety checks, validating every change before it lands. Since then I have mentored engineers on three continents. The lesson carried over from Prudential intact: the platforms worth building are the ones that stay quiet while everything they watch does not.
+In June 2022 I joined Amazon, where I built a monitoring lifecycle platform that onboarded more than 2,750 application stages and brought 3 million monitors under standardized management, and hired and mentored eight new-to-industry engineers in New York. In August 2024 I moved into my current role as a Senior Software Engineer on a platform team, architecting a multi-region workflow orchestration control plane whose guardrails have run 500,000 cumulative safety checks, validating every change before it lands. Since then I have mentored engineers on three continents. The lesson carried over from Prudential intact: the platforms worth building are the ones that stay quiet while everything they watch does not.
 
 Outside work I carry the same convictions into an engineering team of one: one engineer, a fleet of AI coding agents, and a spec-driven method where every feature starts as a written spec and nothing merges until it passes the same gate the pipeline runs. Caskey Coding carries the case studies, a lesson series that teaches the setup one file at a time, the numbers posts that count what it produces and what it costs, and backtests that report what did not work. The builds include Ballast, an open-source RAG system engineered to refuse when it should; SpecSelf, a spec-driven operating system for a life whose agents read but never write; a C++ options engine tuned to 215 million prices a second; and AI finance tools where the model narrates numbers it is never allowed to derive. The selected builds are on the work page (https://ericcaskey.com/work); the full writeups live on Caskey Coding.
 
@@ -171,8 +192,14 @@ A selection of what I build on my own time, on the same stack I use at work. Mos
 Method · Spec-driven engineering platform: One engineer, a fleet of AI coding agents, a work queue, and an attested merge gate, written up as a case study and taught as a lesson series. (https://caskeycoding.com/case-studies/sdd-platform)
 Tool · Marathon Coach: Grounded AI marathon training plans with Garmin integration. (https://caskeycoding.com/lab/marathon-coach)
 Tool · Finance Reviewer: Deterministic factor scores narrated through six investor perspectives. (https://caskeycoding.com/lab/investment-committee)
-Open source · Ballast (status: shipped): An open-source RAG system with a guardrails gateway, engineered to refuse when it should. (https://caskeycoding.com/case-studies/ballast)
-Project · SpecSelf (status: active, 2026 – Present): An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write. (https://specself.ai)
+Open source · Ballast (status: shipped): An open-source RAG system with a guardrails gateway, engineered to refuse when it should.
+Read the Ballast case study → (https://caskeycoding.com/case-studies/ballast)
+Inspect the source → (https://github.com/CaskeyCoding/ballast)
+Open source · Loop Harness (status: shipped): A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.
+Inspect Loop Harness on GitHub → (https://github.com/CaskeyCoding/loop-harness)
+Open source · SpecSelf (status: active, 2026 – Present): An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write.
+Explore SpecSelf → (https://specself.ai)
+Inspect SpecSelf Starter → (https://github.com/CaskeyCoding/specself-starter)
 Engine · C++ pricing engine: A Black-Scholes options engine tuned from 15 to 215 million prices a second on AVX2 SIMD. (https://caskeycoding.com/blog/pricing-215-million-options-a-second)
 Playground · Market visualizations: Real-data 3D views of market structure, volatility surfaces, and factor behavior. (https://caskeycoding.com/lab)
 Platform · Finance research platform: The decision engine, backtester, and methodology behind the Reviewer, documented in the open. (https://caskeycoding.com/finance/methodology)
