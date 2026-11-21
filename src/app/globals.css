@@ -412,7 +412,6 @@ textarea.field-input { resize: vertical; }
 .identity-fields > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.75rem; }
 .identity-fields dt { color: var(--color-hero-muted); }
 .identity-fields dd { min-width: 0; overflow-wrap: anywhere; }
-.identity-fields .identity-claim { font-size: clamp(1.125rem, 3vw, 1.4rem); line-height: 1.5; font-weight: 500; }
 .identity-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; padding-top: 1.75rem; margin-top: 1.75rem; border-top: 1px solid var(--color-hero-line); font-size: 0.875rem; }
 .sr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0.7rem 1rem; border-radius: var(--radius-md); text-decoration: none; font-weight: 500; }
 .sr-btn--p { background: var(--color-hero-accent); color: var(--color-hero-bg); font-weight: 600; }
@@ -425,8 +424,6 @@ textarea.field-input { resize: vertical; }
 .work-metrics dt { color: var(--color-text-secondary); font-size: 0.875rem; }
 .work-metrics dd { color: var(--color-text-primary); font-size: 0.9375rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .project-status { display: inline-block; width: fit-content; padding: 0.2rem 0.55rem; border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); font: 0.875rem/1.5 var(--font-code); color: var(--color-accent); }
-.identity-faq dt { font-family: var(--font-code); font-size: 0.9375rem; }
-.identity-faq dd { color: var(--color-text-secondary); }
 @media (max-width: 440px) {
   .identity-fields > div { grid-template-columns: 1fr; gap: 0.15rem; }
   .work-metrics > div { grid-template-columns: 1fr; gap: 0.1rem; }

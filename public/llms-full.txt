@@ -1,4 +1,4 @@
-# Eric Caskey, full text (manually updated 2026-11-17 to match the page sources)
+# Eric Caskey, full text (manually updated 2026-11-21 to match the page sources)
 
 # Home (https://ericcaskey.com/)
 
@@ -6,103 +6,33 @@ $ whoami
 
 Eric Caskey
 
-role: AI Reliability Engineer
-day job: Senior Software Engineer at Amazon
-focus: Open-source guardrails, evals, and agent workflows
-claim: Safe by default. Validated before it ships.
+role: Platform engineer
 
-Explore the open-source work → (https://ericcaskey.com/work#projects)
-Read the writing → (https://caskeycoding.com)
-About → (https://ericcaskey.com/about)
-Contact → (https://ericcaskey.com/contact)
+I build platforms that help engineers make changes to production systems safely and see how their applications are running.
 
-I build the checks around AI-assisted software delivery: guardrails that block unsafe output, evaluation gates that fail a build on regression, and written specs that tell an agent what done means. The method is open source in Ballast, Loop Harness, and SpecSelf, all built on my own time.
+Explore my platform experiments → (https://ericcaskey.com/work#projects)
 
-The work draws on fifteen years in enterprise infrastructure. I am a Senior Software Engineer at Amazon, where I architect a workflow orchestration platform that gates every automated operation behind concurrent safety checks. Before Amazon, I spent nine years at Prudential Financial building remote-access, self-service, and cloud reliability systems.
+Selected projects
 
-Work
+Loop Harness gives a coding agent one backlog item at a time. The item carries the checks it has to pass and identifies work that needs a human. The backlog format and the rules for running the loop are both public.
 
-Featured work
+Inspect the protocol (https://github.com/CaskeyCoding/loop-harness)
 
-Ballast · Personal project · Open source
-status: shipped (Public versioned release)
-An open-source RAG system with a guardrails gateway, engineered to refuse when it should.
-Read the Ballast case study → (https://caskeycoding.com/case-studies/ballast)
-Inspect the source → (https://github.com/CaskeyCoding/ballast)
+SpecSelf lets me keep principles, goals, and decisions in plain Markdown. An agent can point out that a project serves none of my goals. I decide whether to change the project or reconsider the goal. You can try a weekly review with fictional data before writing anything about yourself.
 
-Loop Harness · Personal project · Open source
-status: shipped (Public versioned release)
-A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.
-Inspect Loop Harness on GitHub → (https://github.com/CaskeyCoding/loop-harness)
-
-SpecSelf · Personal project · Open source · 2026 – Present
-status: active (Current development with an evolving spec)
-An operating system for a life, run like a spec-driven codebase: principles, goals, and decisions as versioned spec files, with AI agents that read but never write.
-Explore SpecSelf → (https://specself.ai)
-Inspect SpecSelf Starter → (https://github.com/CaskeyCoding/specself-starter)
-
-Amazon, Software Engineer → Senior Software Engineer, Jun 2022 – Present: Architected a workflow orchestration platform built safe by default: validation guardrails run before every automated change, and a spec-as-code system gives AI coding agents curated context instead of raw access. I also own the monitoring platform that standardizes monitors across application stages.
-guardrails: 500,000 cumulative safety checks
-monitoring: 3 million monitors
-monitoring coverage: 2,750+ application stages
-Case study on Caskey Coding → (https://caskeycoding.com/case-studies/workflow-orchestration)
-
-Prudential Financial, Remote Access Analyst → Senior Remote Access SRE → Cloud Engineer, SRE, Apr 2013 – Jun 2022: Built the MFA self-service portal, automated administrative work, and kept the VPN running through the early months of COVID.
-MFA self-service: over 18,000 uses
-portal languages: six languages
-automation: 200,000+ administrative actions
-VPN continuity: 60,000 corporate users
-Case study on Caskey Coding → (https://caskeycoding.com/case-studies/mfa-at-scale)
-
-More on the work page → (https://ericcaskey.com/work)
-
-I write up what I build at caskeycoding.com (https://caskeycoding.com): case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments.
-
-Read the case studies and lessons → (https://caskeycoding.com)
+Try the worked example (https://specself.ai/start/)
 
 Writing
 
-Selected writing
+I write about the decisions behind the software. One essay follows a C++ options pricer through the measurements that changed how I optimized it. Another uses Ballast, a small question-answering app, to show how I tested whether its answers held up against its sources.
 
-Ballast: An LLM App Whose Best Feature Is Saying 'I Don't Know' · June 27, 2026 · Caskey Coding (https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know)
-A RAG system whose most important feature is refusing to answer. How trust got built into the architecture instead of the prompt.
-
-Designing Safety Guardrails for Distributed Workflow Orchestration · April 10, 2026 · Caskey Coding (https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration)
-What I've learned building validation engines for infrastructure where an incorrect “yes” is a production incident.
-
-More on the writing page → (https://ericcaskey.com/writing)
+Browse selected writing (https://ericcaskey.com/writing)
 
 Get in touch
 
-Get in touch about an engineering project, a question about the writing, or a professional conversation. I read everything and reply within a week. The contact form is the fastest route.
+If you want to talk about platform engineering, speaking, or something I wrote, I'd like to hear from you. I read every message and reply within a week.
 
-Contact → (https://ericcaskey.com/contact)
-
-Who
-
-About Eric Caskey
-
-I am an AI reliability engineer and open-source builder. My projects share one set of rules: a written spec first, deterministic checks in the delivery path, and a human on consequential decisions.
-
-The approach comes from infrastructure work where a bad change is expensive. I am a Senior Software Engineer at Amazon and previously worked at Prudential Financial.
-
-More about me → (https://ericcaskey.com/about)
-
-Questions
-
-Common questions
-
-Who is Eric Caskey?
-I am an AI reliability engineer and open-source builder. I build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery, and I write about them at caskeycoding.com. I am a Senior Software Engineer at Amazon. My open-source projects are personal work, separate from my role at Amazon.
-
-What does Eric Caskey work on at Amazon?
-I own the monitoring platform that standardizes monitors across application stages, and I architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change. I also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.
-
-What has Eric Caskey built outside work?
-I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.
-
-How do I contact Eric Caskey?
-The contact form at ericcaskey.com/contact is the fastest route. I read everything and reply within a week. You can also find me on LinkedIn at linkedin.com/in/ericrcaskey and on GitHub at github.com/CaskeyCoding.
+Send me a note (https://ericcaskey.com/contact)
 
 # About (https://ericcaskey.com/about)
 

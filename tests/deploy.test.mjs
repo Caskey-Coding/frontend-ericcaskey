@@ -7,11 +7,14 @@ import { join } from 'node:path';
 import { deploy, validateExport, verifyLive, resolveAwsLaunch } from '../scripts/deploy.mjs';
 
 const contactApi = 'https://api.example.test';
-const writing = `<section id="selected-writing"><article><h3>Ballast</h3><a href="https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know">Read essay</a></article><article><h3>Workflow guardrails</h3><a href="https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration">Read essay</a></article></section>`;
+const projects = `<section id="selected-projects"><h2>Selected projects</h2><p><strong>Loop Harness</strong> gives a coding agent one backlog item at a time. <a href="https://github.com/CaskeyCoding/loop-harness" rel="noopener">Inspect the protocol</a></p><p><strong>SpecSelf</strong> lets me keep principles in Markdown. <a href="https://specself.ai/start/?theme=dark" rel="noopener">Try the worked example</a></p></section>`;
+const loopHarnessLink = '<a href="https://github.com/CaskeyCoding/loop-harness" rel="noopener">Inspect the protocol</a>';
+const writing = `<section id="writing"><h2>Writing</h2><p>I write about the decisions behind the software. <a href="/writing">Browse selected writing</a></p></section>`;
+const contact = `<section id="get-in-touch"><h2>Get in touch</h2><p>I read every message.</p><a href="/contact">Send me a note</a></section>`;
 const identity = `<header data-identity="spec"><h1>Eric Caskey</h1><img src="/eric-caskey-avatar-160.jpg" width="80" height="80" alt="Eric Caskey"></header>`;
 const metrics = `<article data-employer="Amazon"><p>500,000 cumulative safety checks</p><p>The monitoring platform owns 3 million monitors and 2,750+ application stages.</p></article><article data-employer="Prudential Financial"><p>18,000 uses; 200,000+ administrative actions; 60,000 corporate users.</p></article>`;
 const person = `<script type="application/ld+json">${JSON.stringify({ '@type': 'Person', '@id': 'https://ericcaskey.com/#person', image: 'https://ericcaskey.com/eric-caskey-1200.jpg' })}</script>`;
-const home = `${identity}${metrics}${writing}${person}`;
+const home = `${identity}${projects}${writing}${contact}${person}`;
 const assets = '<script src="/_next/static/app.js"></script><link rel="stylesheet" href="/_next/static/app.css">';
 const document = body => `<html><body>${body}${assets}</body></html>`;
 
@@ -122,16 +125,21 @@ test('Windows native AWS is direct; shim arguments are quoted and injection refu
 // Each fault must reach both real content gates: a mocked HTTP boundary keeps
 // this regression independent of production while retaining response parsing.
 for (const [name, body, error] of [
-  ['missing cards', home.replace(writing, ''), /writing cards/],
-  ['script-only fake cards', home.replace(writing, `<script type="application/json">${JSON.stringify(writing)}</script>`), /writing cards/],
-  ['cards outside selected writing', home.replace('id="selected-writing"', 'id="other"'), /writing cards/],
-  ['empty article padding one real card', home.replace('</a></article><article><h3>Workflow guardrails</h3>', '</a>').replace('</section>', '<article></article></section>'), /writing cards/],
-  ['wrong essay destination', home.replace('https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know', 'https://example.test/essay'), /writing cards/],
+  ['missing projects section', home.replace(projects, ''), /home link .*loop-harness/],
+  ['script-only fake projects', home.replace(projects, `<script type="application/json">${JSON.stringify(projects)}</script>`), /home link .*loop-harness/],
+  ['projects outside their section', home.replace('id="selected-projects"', 'id="other"'), /home link .*loop-harness/],
+  ['Loop Harness link moved into #writing', home.replace(loopHarnessLink, '').replace('<a href="/writing">', `${loopHarnessLink}<a href="/writing">`), /home link .*loop-harness.*#selected-projects/],
+  ['wrong SpecSelf destination', home.replace('https://specself.ai/start/?theme=dark', 'https://specself.ai/'), /home link .*specself/],
+  ['empty SpecSelf anchor', home.replace('>Try the worked example<', '><'), /home link .*specself/],
+  ['missing writing link', home.replace(writing, ''), /home link \/writing/],
+  ['wrong writing destination', home.replace('href="/writing"', 'href="https://caskeycoding.com"'), /home link \/writing/],
+  ['missing contact link', home.replace(contact, ''), /home link \/contact/],
+  ['hero with no home sections', `${identity}${person}`, /home link/],
   ['missing identity marker', home.replace('data-identity="spec"', ''), /identity marker/],
   ['script-only heading', home.replace('<h1>Eric Caskey</h1>', '<script type="application/json">"<h1>Eric Caskey</h1>"</script>'), /heading/],
   ['changed full Person image', home.replace('eric-caskey-1200.jpg', 'avatar.jpg'), /Person image/],
   ['large avatar source', home.replace('/eric-caskey-avatar-160.jpg', '/eric-caskey-1200.jpg'), /avatar/],
-  ...['500,000', '3 million', '2,750+', '18,000', '200,000+', '60,000'].map(metric => [`duplicate ${metric}`, `${home}<p>${metric}</p>`, /metric.*once/]),
+  ...['500,000', '3 million', '2,750+', '18,000', '200,000+', '60,000'].map(metric => [`duplicate ${metric}`, `${home}${metrics}<p>${metric}</p>`, /metric.*at most once/]),
 ]) {
   test(`strict preflight and live check reject ${name}`, async t => {
     const config = fixture(t);
@@ -143,15 +151,15 @@ for (const [name, body, error] of [
 
 test('strict missing content cannot reach AWS', async t => {
   const config = fixture(t);
-  writeFileSync(join(config.outDir, 'index.html'), document(home.replace(writing, '')));
+  writeFileSync(join(config.outDir, 'index.html'), document(home.replace(projects, '')));
   let commands = 0;
   await assert.rejects(deploy(config, { run: () => { commands++; } }));
-  assert.equal(commands, 0, 'missing writing cards must be refused before AWS');
+  assert.equal(commands, 0, 'missing home project links must be refused before AWS');
 });
 
 test('script/schema metric copies do not count as visible duplicates', async t => {
   const config = fixture(t);
-  writeFileSync(join(config.outDir, 'index.html'), document(`${home}<script>self.__next_f.push(${JSON.stringify(metrics)})</script><style>/* 500,000 */</style><!-- 500,000 -->`));
+  writeFileSync(join(config.outDir, 'index.html'), document(`${home}${metrics}<script>self.__next_f.push(${JSON.stringify(metrics)})</script><style>/* 500,000 */</style><!-- 500,000 -->`));
   validateExport(config);
   await verifyLive(contactApi, liveFixture(config));
 });

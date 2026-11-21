@@ -123,12 +123,12 @@ const GOVERNED_FILES = [
 const OPEN_SOURCE_FIRST_ROWS = [
   ['src/app/layout.tsx', 'E1', 'Eric Caskey: AI Reliability & Open-Source Engineering'],
   ['src/app/layout.tsx', 'E2', 'Eric Caskey builds open-source guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery.'],
-  ['src/app/page.tsx', 'E3', '<dd>AI Reliability Engineer</dd>'],
-  ['src/app/page.tsx', 'E4', '<dd>Senior Software Engineer at Amazon</dd>'],
-  ['src/app/page.tsx', 'E5', '<dd>Open-source guardrails, evals, and agent workflows</dd>'],
-  ['src/app/page.tsx', 'claim (already live)', 'Safe by default. Validated before it ships.'],
-  ['src/app/page.tsx', 'E18', 'I am an AI reliability engineer and open-source builder. I build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery, and I write about them at caskeycoding.com. I am a Senior Software Engineer at Amazon. My open-source projects are personal work, separate from my role at Amazon.'],
-  ['src/app/page.tsx', 'E19', 'I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.'],
+  // E3, E4, E5, the claim, E18 and E19 left Home with the owner-approved
+  // 2026-11-18 homepage copy (pending a 031 amendment); these rows pin it.
+  ['src/app/page.tsx', 'home 2026-11-18 role', '<dd>Platform engineer</dd>'],
+  ['src/app/page.tsx', 'home 2026-11-18 action', 'Explore my platform experiments →'],
+  ['src/app/page.tsx', 'home 2026-11-18 Loop Harness link', '<a href="https://github.com/CaskeyCoding/loop-harness" rel="noopener">Inspect the protocol</a>'],
+  ['src/app/page.tsx', 'home 2026-11-18 SpecSelf link', '<CrossSiteLink href="https://specself.ai/start/" rel="noopener">Try the worked example</CrossSiteLink>'],
   ['public/llms.txt', 'E21', 'Ballast (shipped, public versioned release; https://caskeycoding.com/case-studies/ballast), Loop Harness (shipped, public versioned release; https://github.com/CaskeyCoding/loop-harness), SpecSelf (active, evolving spec; https://specself.ai)'],
   ['src/app/lib/og-card.tsx', 'E22', '<span>Open-source guardrails, evals, and agent workflows</span>'],
   ['src/app/lib/og.ts', 'E24', "'Eric Caskey: open-source guardrails, evals, and agent workflows. Safe by default. Validated before it ships.'"],
