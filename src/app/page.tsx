@@ -14,47 +14,12 @@ const websiteJsonLd = {
   author: { '@id': PERSON_ID, '@type': 'Person', name: 'Eric Caskey' },
 };
 
-// The visible answers and structured data deliberately share one source.
-const HOME_FAQ = [
-  {
-    q: 'Who is Eric Caskey?',
-    a: 'I am an AI reliability engineer and open-source builder. I build guardrails, evaluation gates, and spec-driven agent workflows for AI-assisted software delivery, and I write about them at caskeycoding.com. I am a Senior Software Engineer at Amazon. My open-source projects are personal work, separate from my role at Amazon.',
-  },
-  {
-    q: 'What does Eric Caskey work on at Amazon?',
-    a: "I own the monitoring platform that standardizes monitors across application stages, and I architected a workflow orchestration platform built safe by default. Its validation guardrails run before every automated change. I also drove the platform's spec-as-code system, which gives AI coding agents curated context instead of raw access.",
-  },
-  {
-    q: 'What has Eric Caskey built outside work?',
-    a: 'I built Ballast, an open-source RAG system with a guardrails gateway and an evaluation gate, and Loop Harness, a backlog schema and loop protocol for controlled agent work. I also built SpecSelf Starter, a local-first Markdown template for principles, goals, and reviews, and SpecSelf Local, a read-only MCP server for selected Markdown. The wider portfolio includes a C++ options-pricing engine tuned from 15 million to 215 million prices per second.',
-  },
-  {
-    q: 'How do I contact Eric Caskey?',
-    a: 'The contact form at ericcaskey.com/contact is the fastest route. I read everything and reply within a week. You can also find me on LinkedIn at linkedin.com/in/ericrcaskey and on GitHub at github.com/CaskeyCoding.',
-  },
-];
-
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  '@id': 'https://ericcaskey.com/#faq',
-  mainEntity: HOME_FAQ.map(({ q, a }) => ({
-    '@type': 'Question',
-    name: q,
-    acceptedAnswer: { '@type': 'Answer', text: a },
-  })),
-};
-
 export default function Home() {
   return (
     <article className="sr flex flex-col gap-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       <header className="identity-hero" data-identity="spec">
@@ -125,21 +90,6 @@ export default function Home() {
           message and reply within a week.
         </p>
         <Link href="/contact" className="btn-primary">Send me a note</Link>
-      </section>
-
-      <section className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <p className="eyebrow">Questions</p>
-          <h2 className="text-xl font-semibold [letter-spacing:var(--ls-tight)]">Common questions</h2>
-        </div>
-        <dl className="identity-faq flex flex-col gap-4">
-          {HOME_FAQ.map(({ q, a }) => (
-            <div key={q}>
-              <dt className="font-semibold">{q}</dt>
-              <dd className="leading-relaxed text-pretty mt-1">{a}</dd>
-            </div>
-          ))}
-        </dl>
       </section>
     </article>
   );

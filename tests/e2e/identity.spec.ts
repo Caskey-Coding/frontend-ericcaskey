@@ -15,7 +15,7 @@ const PAST_BUSINESS_NAMES = ['Caskey Coding, LLC', 'Caskey Coding LLC'];
 const RETIRED_PATTERN =
   /Caskey\s+Engineering|Caskey\s+Coding,?\s+LLC|legalName|independent\s+(?:engineering\s+)?practice|workflow[-\s]+assessment|implementation\s+pilot/i;
 
-test('identity, avatar, home copy links and matching first-person FAQ exist without JavaScript', async ({ browser, baseURL }) => {
+test('identity, avatar, and home copy links exist without JavaScript, with no FAQ or FAQPage', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ baseURL, javaScriptEnabled: false, reducedMotion: 'reduce' });
   const page = await context.newPage();
   await page.goto('/');
@@ -43,15 +43,11 @@ test('identity, avatar, home copy links and matching first-person FAQ exist with
   }
   const schemas = await page.locator('script[type="application/ld+json"]').evaluateAll(nodes => nodes.map(node => JSON.parse(node.textContent ?? '{}')));
   expect(schemas.find(value => value['@type'] === 'Person').image).toBe('https://ericcaskey.com/eric-caskey-1200.jpg');
-  const questions = schemas.find(value => value['@type'] === 'FAQPage').mainEntity;
-  const rendered = await page.locator('dl.identity-faq > div').evaluateAll(rows => rows.map(row => ({
-    name: row.querySelector('dt')?.textContent,
-    answer: row.querySelector('dd')?.textContent,
-  })));
-  expect(rendered).toEqual(questions.map((question: { name: string; acceptedAnswer: { text: string } }) => ({ name: question.name, answer: question.acceptedAnswer.text })));
-  expect(rendered.length).toBeGreaterThan(0);
-  for (const { answer } of rendered) expect(answer).toMatch(/\bI(?:\b|')/);
-  await expect(page.locator('dl.identity-faq')).toContainText('reply within a week');
+  // The FAQ left Home with the 2026-11-18 copy; no structured data may
+  // describe questions the page no longer shows.
+  expect(schemas.filter(value => value['@type'] === 'FAQPage')).toEqual([]);
+  await expect(page.locator('dl.identity-faq')).toHaveCount(0);
+  await expect(page.locator('main #get-in-touch')).toContainText('reply within a week');
   await expect(page.locator('main a[href="/contact"]').first()).toBeVisible();
   await context.close();
 });
