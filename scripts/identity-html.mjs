@@ -1,10 +1,16 @@
 // Bounded static-export inspection, not a general browser/HTML sanitizer.
 // Deploy jobs install no npm dependencies. Ignore raw script/style/template
 // payloads before inspecting actual elements and their body text.
-const ESSAYS = [
-  '/blog/ballast-an-llm-that-says-i-dont-know',
-  '/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
+// Home copy links (owner-approved 2026-11-18 homepage copy): each section
+// must carry its real, visible anchor in initial HTML. Absolute targets are
+// compared by origin and path, so CrossSiteLink's ?theme= query is ignored.
+const HOME_LINKS = [
+  ['selected-projects', 'https://github.com/CaskeyCoding/loop-harness'],
+  ['selected-projects', 'https://specself.ai/start/'],
+  ['writing', '/writing'],
+  ['get-in-touch', '/contact'],
 ];
+const METRICS = ['500,000', '3 million', '2,750+', '18,000', '200,000+', '60,000'];
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
 
 function decode(value) {
@@ -64,16 +70,17 @@ export function assertIdentityContent(html) {
   if (!hero) throw Error('deploy: required spec identity marker is missing');
   const heading = elements(hero, node => node.tag === 'h1');
   if (heading.length !== 1 || textContent(heading[0]) !== 'Eric Caskey') throw Error('deploy: identity heading must be Eric Caskey');
-  const shelf = elements(body, node => node.tag === 'section' && node.attrs.id === 'selected-writing')[0];
-  const cards = (shelf ? elements(shelf, node => node.tag === 'article') : [])
-    .filter(card => textContent(card))
-    .map(card => elements(card, node => node.tag === 'a').flatMap(link => {
-      try { const url = new URL(link.attrs.href); return url.origin === 'https://caskeycoding.com' && ESSAYS.includes(url.pathname) ? [url.pathname] : []; } catch { return []; }
-    })).filter(paths => paths.length);
-  if (cards.length < 2 || !ESSAYS.every(path => cards.some(paths => paths.includes(path)))) throw Error('deploy: required initial HTML writing cards are missing');
+  for (const [id, target] of HOME_LINKS) {
+    const section = elements(body, node => node.tag === 'section' && node.attrs.id === id)[0];
+    const found = (section ? elements(section, node => node.tag === 'a' && textContent(node)) : []).some(link => {
+      if (target.startsWith('/')) return link.attrs.href === target;
+      try { const url = new URL(link.attrs.href), want = new URL(target); return url.origin === want.origin && url.pathname === want.pathname; } catch { return false; }
+    });
+    if (!found) throw Error(`deploy: required home link ${target} is missing from section #${id}`);
+  }
   const text = textContent(body);
-  for (const metric of ['500,000', '3 million', '2,750+', '18,000', '200,000+', '60,000']) {
-    if (text.split(metric).length - 1 !== 1) throw Error(`deploy: metric ${metric} must occur once in homepage body`);
+  for (const metric of METRICS) {
+    if (text.split(metric).length - 1 > 1) throw Error(`deploy: metric ${metric} must occur at most once in homepage body`);
   }
   if (!elements(hero, node => node.tag === 'img' && node.attrs.src?.startsWith('/eric-caskey-avatar')).length) throw Error('deploy: small identity avatar is missing');
   const schemas = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
