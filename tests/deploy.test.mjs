@@ -8,6 +8,7 @@ import { deploy, validateExport, verifyLive, resolveAwsLaunch } from '../scripts
 
 const contactApi = 'https://api.example.test';
 const projects = `<section id="selected-projects"><h2>Selected projects</h2><p><strong>Loop Harness</strong> gives a coding agent one backlog item at a time. <a href="https://github.com/CaskeyCoding/loop-harness" rel="noopener">Inspect the protocol</a></p><p><strong>SpecSelf</strong> lets me keep principles in Markdown. <a href="https://specself.ai/start/?theme=dark" rel="noopener">Try the worked example</a></p></section>`;
+const loopHarnessLink = '<a href="https://github.com/CaskeyCoding/loop-harness" rel="noopener">Inspect the protocol</a>';
 const writing = `<section id="writing"><h2>Writing</h2><p>I write about the decisions behind the software. <a href="/writing">Browse selected writing</a></p></section>`;
 const contact = `<section id="get-in-touch"><h2>Get in touch</h2><p>I read every message.</p><a href="/contact">Send me a note</a></section>`;
 const identity = `<header data-identity="spec"><h1>Eric Caskey</h1><img src="/eric-caskey-avatar-160.jpg" width="80" height="80" alt="Eric Caskey"></header>`;
@@ -127,6 +128,7 @@ for (const [name, body, error] of [
   ['missing projects section', home.replace(projects, ''), /home link .*loop-harness/],
   ['script-only fake projects', home.replace(projects, `<script type="application/json">${JSON.stringify(projects)}</script>`), /home link .*loop-harness/],
   ['projects outside their section', home.replace('id="selected-projects"', 'id="other"'), /home link .*loop-harness/],
+  ['Loop Harness link moved into #writing', home.replace(loopHarnessLink, '').replace('<a href="/writing">', `${loopHarnessLink}<a href="/writing">`), /home link .*loop-harness.*#selected-projects/],
   ['wrong SpecSelf destination', home.replace('https://specself.ai/start/?theme=dark', 'https://specself.ai/'), /home link .*specself/],
   ['empty SpecSelf anchor', home.replace('>Try the worked example<', '><'), /home link .*specself/],
   ['missing writing link', home.replace(writing, ''), /home link \/writing/],
