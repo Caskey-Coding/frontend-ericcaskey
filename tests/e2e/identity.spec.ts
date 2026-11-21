@@ -2,20 +2,20 @@ import { test, expect, type Page } from '@playwright/test';
 
 test.use({ reducedMotion: 'reduce' });
 
-const essays = [
-  'https://caskeycoding.com/blog/ballast-an-llm-that-says-i-dont-know',
-  'https://caskeycoding.com/blog/designing-safety-guardrails-for-distributed-workflow-orchestration',
+const HOME_LINKS = [
+  ['Inspect the protocol', 'https://github.com/CaskeyCoding/loop-harness'],
+  ['Try the worked example', 'https://specself.ai/start/'],
+  ['Browse selected writing', '/writing'],
+  ['Send me a note', '/contact'],
 ];
 const themeColors = { light: '#f5f3eb', dark: '#13130f' };
-const BRIDGE_SENTENCE =
-  'I write up what I build at caskeycoding.com: case studies with the design decisions and the limits, a lesson series on running an engineering team of one, and a lab of working experiments.';
 const CONTACT_LINE =
   'Questions about one of the open-source projects, something I wrote, or a speaking or professional conversation? Send a note. I am not taking client work.';
 const PAST_BUSINESS_NAMES = ['Caskey Coding, LLC', 'Caskey Coding LLC'];
 const RETIRED_PATTERN =
   /Caskey\s+Engineering|Caskey\s+Coding,?\s+LLC|legalName|independent\s+(?:engineering\s+)?practice|workflow[-\s]+assessment|implementation\s+pilot/i;
 
-test('identity, avatar, curated essays and matching first-person FAQ exist without JavaScript', async ({ browser, baseURL }) => {
+test('identity, avatar, home copy links and matching first-person FAQ exist without JavaScript', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ baseURL, javaScriptEnabled: false, reducedMotion: 'reduce' });
   const page = await context.newPage();
   await page.goto('/');
@@ -23,10 +23,10 @@ test('identity, avatar, curated essays and matching first-person FAQ exist witho
   await expect(hero).toHaveCount(1);
   await expect(hero.locator('h1')).toHaveText('Eric Caskey');
   await expect(hero.locator('p').filter({ hasText: '$ whoami' })).toHaveText('$ whoami');
-  await expect(hero.locator('dl.identity-fields dt')).toHaveText(['role:', 'day job:', 'focus:', 'claim:']);
-  await expect(hero.locator('dl.identity-fields dd')).toHaveCount(4);
-  await expect(hero.getByRole('link', { name: 'Explore the open-source work' })).toHaveAttribute('href', '/work#projects');
-  await expect(hero.getByRole('link', { name: 'Read the writing' })).toHaveAttribute('href', 'https://caskeycoding.com');
+  await expect(hero.locator('dl.identity-fields dt')).toHaveText(['role:']);
+  await expect(hero.locator('dl.identity-fields dd')).toHaveText(['Platform engineer']);
+  await expect(hero.getByRole('link')).toHaveCount(1);
+  await expect(hero.getByRole('link', { name: 'Explore my platform experiments →' })).toHaveAttribute('href', '/work#projects');
   const avatar = hero.locator('.identity-avatar img');
   await expect(avatar).toHaveAttribute('width', '80');
   await expect(avatar).toHaveAttribute('height', '80');
@@ -37,9 +37,10 @@ test('identity, avatar, curated essays and matching first-person FAQ exist witho
     height: image.getBoundingClientRect().height,
     crop: getComputedStyle(image).objectFit,
   }))).toEqual({ loaded: true, smallSource: true, width: 80, height: 80, crop: 'cover' });
-  const cards = page.locator('section#selected-writing article');
-  expect(await cards.count()).toBeGreaterThanOrEqual(2);
-  for (const url of essays) await expect(cards.locator(`a[href="${url}"]`)).toBeVisible();
+  // Without JavaScript the theme query is never appended, so exact hrefs hold.
+  for (const [name, href] of HOME_LINKS) {
+    await expect(page.locator('main').getByRole('link', { name, exact: true })).toHaveAttribute('href', href);
+  }
   const schemas = await page.locator('script[type="application/ld+json"]').evaluateAll(nodes => nodes.map(node => JSON.parse(node.textContent ?? '{}')));
   expect(schemas.find(value => value['@type'] === 'Person').image).toBe('https://ericcaskey.com/eric-caskey-1200.jpg');
   const questions = schemas.find(value => value['@type'] === 'FAQPage').mainEntity;
@@ -52,19 +53,12 @@ test('identity, avatar, curated essays and matching first-person FAQ exist witho
   for (const { answer } of rendered) expect(answer).toMatch(/\bI(?:\b|')/);
   await expect(page.locator('dl.identity-faq')).toContainText('reply within a week');
   await expect(page.locator('main a[href="/contact"]').first()).toBeVisible();
-  // Without JavaScript the theme query is never appended, so the exact href holds.
-  const bridge = page.locator('main [data-bridge="independent-work"]');
-  await expect(bridge).toHaveText(BRIDGE_SENTENCE);
-  await expect(bridge.locator('a[href="https://caskeycoding.com"]')).toHaveText('caskeycoding.com');
   await context.close();
 });
 
 test('sister site is named Caskey Coding and no page links the retired offer, at 390px phone width', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  const bridge = page.locator('main [data-bridge="independent-work"]');
-  await expect(bridge).toBeVisible();
-  await expect(bridge).toHaveText(BRIDGE_SENTENCE);
   await expect(page.locator('footer').getByRole('link', { name: 'Caskey Coding' })).toBeVisible();
   for (const path of ['/', '/about', '/work', '/writing', '/contact']) {
     await page.goto(path);
@@ -84,23 +78,23 @@ test('sister site is named Caskey Coding and no page links the retired offer, at
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Amazon, Prudential Financial, Caskey Coding LLC, NJ Army National Guard\.$/);
 });
 
-test('homepage metrics belong to one employer and home/work claims and project statuses agree', async ({ page }) => {
+test('employer metrics appear once each on /work, in their own employer, and home repeats none of them', async ({ page }) => {
   await page.goto('/');
+  const home = await page.locator('main').innerText();
+  await page.goto('/work');
   const body = await page.locator('body').innerText();
-  const employerText: Record<string, string> = {};
   for (const [employer, metrics] of [
     ['Amazon', ['500,000 cumulative safety checks', '3 million monitors', '2,750+ application stages']],
     ['Prudential Financial', ['18,000', '200,000+ administrative actions', '60,000 corporate users']],
   ] as const) {
     const entry = page.locator(`article[data-employer="${employer}"]`);
-    employerText[employer] = await entry.innerText();
     for (const metric of metrics) {
-      expect(body.split(metric).length - 1, `${metric} visible only once`).toBe(1);
+      expect(body.split(metric).length - 1, `${metric} visible only once on /work`).toBe(1);
+      expect(home, `${metric} not repeated on home`).not.toContain(metric);
       await expect(entry.locator('.work-metrics')).toContainText(metric);
     }
     await expect(entry.locator('.project-status')).toHaveCount(0);
   }
-  const homeProjects: Record<string, { status: string; meaning: string | null }> = {};
   for (const [project, status, meaning] of [
     ['Ballast', 'shipped', 'Public versioned release'],
     ['Loop Harness', 'shipped', 'Public versioned release'],
@@ -109,17 +103,6 @@ test('homepage metrics belong to one employer and home/work claims and project s
     const chip = page.locator(`[data-project="${project}"] span.project-status`);
     await expect(chip).toHaveText(`status: ${status}`);
     await expect(chip).toHaveAttribute('title', meaning);
-    homeProjects[project] = { status: await chip.innerText(), meaning: await chip.getAttribute('title') };
-  }
-  await page.goto('/work');
-  for (const [employer, text] of Object.entries(employerText)) {
-    expect(await page.locator(`article[data-employer="${employer}"]`).innerText()).toBe(text);
-  }
-  await expect(page.locator('[data-employer] .project-status')).toHaveCount(0);
-  for (const [project, expected] of Object.entries(homeProjects)) {
-    const chip = page.locator(`[data-project="${project}"] span.project-status`);
-    await expect(chip).toHaveText(expected.status);
-    expect(await chip.getAttribute('title')).toBe(expected.meaning);
   }
 });
 
@@ -140,9 +123,9 @@ test('saved and inbound themes override OS, toggle persists, handoff and unrelat
   await assertTheme(page, 'dark');
   await expect(page).toHaveURL(/\/\?keep=yes#main$/);
   expect(await page.evaluate(() => localStorage.getItem('eric-caskey-theme'))).toBe('dark');
-  // The primary hero action is internal (/work#projects); the writing action
-  // is the hero's outbound cross-site link.
-  const outbound = page.locator('.identity-cta').getByRole('link', { name: 'Read the writing' });
+  // The hero action is internal (/work#projects); the SpecSelf example link
+  // is the home page's outbound cross-site link.
+  const outbound = page.locator('main').getByRole('link', { name: 'Try the worked example' });
   await outbound.focus();
   await expect(outbound).toHaveAttribute('href', /\?theme=dark$/);
   await page.getByRole('button', { name: 'Switch to light mode' }).click();
@@ -232,7 +215,7 @@ for (const mode of ['light', 'dark'] as const) {
       // Neither is evidence that browser toolbar zoom was changed.
       const geometry = await page.evaluate(() => {
         const targets = [...document.querySelectorAll<HTMLElement>(
-          '.identity-hero h1, .identity-claim, .identity-cta a, .identity-avatar img, nav[aria-label="Primary"] a, .theme-toggle',
+          '.identity-hero h1, .identity-fields dd, .identity-hero [data-intro], .identity-cta a, .identity-avatar img, nav[aria-label="Primary"] a, .theme-toggle',
         )];
         return {
           overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,

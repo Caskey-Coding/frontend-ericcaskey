@@ -1,21 +1,23 @@
 import { test, expect, type Page } from '@playwright/test';
 
-// Open-source-first copy refresh (caskeycoding-specs content-strategy 031,
-// acceptance criterion 4). Runs against the local production build in
-// Chromium at desktop width and at a 390px phone width. It proves rendering
-// and link resolution there, not the deployed site.
+// Home copy (owner-approved 2026-11-18 homepage copy, superseding the 031
+// home rows pending a spec amendment) and the /work project tiles from
+// caskeycoding-specs content-strategy 031, acceptance criterion 4. Runs
+// against the local production build in Chromium at desktop width and at a
+// 390px phone width. It proves rendering and link resolution there, not the
+// deployed site.
 
 test.use({ reducedMotion: 'reduce' });
 
-const HERO_FIELDS = [
-  ['role:', 'AI Reliability Engineer'],
-  ['day job:', 'Senior Software Engineer at Amazon'],
-  ['focus:', 'Open-source guardrails, evals, and agent workflows'],
-  ['claim:', 'Safe by default. Validated before it ships.'],
-];
+const HERO_INTRO =
+  'I build platforms that help engineers make changes to production systems safely and see how their applications are running.';
+const HERO_ACTION = 'Explore my platform experiments →';
 
-const LOOP_HARNESS_DESCRIPTION =
-  'A versioned backlog schema and loop protocol for agent work. The agent takes one item per iteration, verifies before merge, and never starts an item marked for a human.';
+// Home "Selected projects": project name, then its one link's name and target.
+const HOME_PROJECTS: Array<[string, string, string]> = [
+  ['Loop Harness', 'Inspect the protocol', 'https://github.com/CaskeyCoding/loop-harness'],
+  ['SpecSelf', 'Try the worked example', 'https://specself.ai/start/'],
+];
 
 // Card name, then each action's accessible name and target, in order.
 const CARD_LINKS: Array<[string, Array<[string, string]>]> = [
@@ -32,9 +34,10 @@ const CARD_LINKS: Array<[string, Array<[string, string]>]> = [
   ]],
 ];
 
-// Every external target the new copy adds.
+// Every external target the /work tiles and the home copy link to.
 const NEW_EXTERNAL_LINKS = [
   'https://caskeycoding.com',
+  'https://specself.ai/start/',
   'https://caskeycoding.com/case-studies/ballast',
   'https://github.com/CaskeyCoding/ballast',
   'https://github.com/CaskeyCoding/loop-harness',
@@ -67,60 +70,47 @@ for (const viewport of [
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
     });
 
-    test('hero shows the four fields, two actions, and About and Contact as text links', async ({ page }) => {
+    test('hero shows the role, the one-sentence intro, and a single action', async ({ page }) => {
       await page.goto('/');
       const hero = page.locator('header.identity-hero');
       const rows = hero.locator('dl.identity-fields > div');
-      await expect(rows).toHaveCount(4);
-      for (const [index, [term, value]] of HERO_FIELDS.entries()) {
-        await expect(rows.nth(index).locator('dt')).toHaveText(term);
-        await expect(rows.nth(index).locator('dd')).toHaveText(value);
-        await expect(rows.nth(index)).toBeVisible();
-      }
-      const cta = hero.locator('.identity-cta');
-      await expect(cta.getByRole('link', { name: 'Explore the open-source work →' })).toHaveAttribute('href', '/work#projects');
-      expect(withoutTheme(await cta.getByRole('link', { name: 'Read the writing →' }).getAttribute('href'))).toBe(withoutTheme('https://caskeycoding.com'));
-      for (const [name, href] of [['About →', '/about'], ['Contact →', '/contact']]) {
-        const link = cta.getByRole('link', { name, exact: true });
-        await expect(link).toBeVisible();
-        await expect(link).toHaveAttribute('href', href);
-        await expect(link).not.toHaveClass(/sr-btn|btn-/);
-      }
-      const about = await cta.getByRole('link', { name: 'About →', exact: true }).boundingBox();
-      const contact = await cta.getByRole('link', { name: 'Contact →', exact: true }).boundingBox();
-      expect(Math.abs(about!.y - contact!.y), 'About and Contact sit beside each other').toBeLessThan(4);
+      await expect(rows).toHaveCount(1);
+      await expect(rows.locator('dt')).toHaveText('role:');
+      await expect(rows.locator('dd')).toHaveText('Platform engineer');
+      await expect(hero.locator('[data-intro]')).toHaveText(HERO_INTRO);
+      await expect(hero.locator('[data-intro]')).toBeVisible();
+      const links = hero.getByRole('link');
+      await expect(links).toHaveCount(1);
+      await expect(links.first()).toHaveAccessibleName(HERO_ACTION);
+      await expect(links.first()).toHaveAttribute('href', '/work#projects');
       await expectNoHorizontalOverflow(page, '/');
     });
 
-    test('Ballast and Loop Harness lead the project cards, above Amazon, with two-link cards', async ({ page }) => {
+    test('home shows Selected projects, Writing and Get in touch in order, with their links and no cards', async ({ page }) => {
       await page.goto('/');
-      const cards = page.locator('main article[data-project]');
-      await expect(cards).toHaveCount(3);
-      await expect(cards.nth(0)).toHaveAttribute('data-project', 'Ballast');
-      await expect(cards.nth(1)).toHaveAttribute('data-project', 'Loop Harness');
-      const amazon = page.locator('article[data-employer="Amazon"]');
-      const amazonTop = (await amazon.boundingBox())!.y;
-      for (const index of [0, 1]) {
-        expect((await cards.nth(index).boundingBox())!.y, 'project card above Amazon').toBeLessThan(amazonTop);
+      const headings = page.locator('main h2');
+      await expect(headings).toHaveText(['Selected projects', 'Writing', 'Get in touch']);
+      const projects = page.locator('main [data-home-project]');
+      await expect(projects).toHaveCount(HOME_PROJECTS.length);
+      for (const [index, [name, label, href]] of HOME_PROJECTS.entries()) {
+        const entry = projects.nth(index);
+        await expect(entry).toHaveAttribute('data-home-project', name);
+        await expect(entry.locator('strong')).toHaveText(name);
+        const anchors = entry.getByRole('link');
+        await expect(anchors).toHaveCount(1);
+        await expect(anchors.first()).toHaveAccessibleName(label);
+        await expect(anchors.first()).toBeVisible();
+        expect(withoutTheme(await anchors.first().getAttribute('href'))).toBe(withoutTheme(href));
       }
-      const loopHarness = page.locator('article[data-project="Loop Harness"]');
-      await expect(loopHarness).toContainText(LOOP_HARNESS_DESCRIPTION);
-      for (const [name, links] of CARD_LINKS) {
-        const card = page.locator(`article[data-project="${name}"]`);
-        const anchors = card.getByRole('link');
-        await expect(anchors).toHaveCount(links.length);
-        for (const [index, [label, href]] of links.entries()) {
-          await expect(anchors.nth(index)).toHaveAccessibleName(label);
-          await expect(anchors.nth(index)).toBeVisible();
-          expect(withoutTheme(await anchors.nth(index).getAttribute('href'))).toBe(withoutTheme(href));
-        }
-      }
+      await expect(page.locator('main').getByRole('link', { name: 'Browse selected writing', exact: true })).toHaveAttribute('href', '/writing');
+      await expect(page.locator('main').getByRole('link', { name: 'Send me a note', exact: true })).toHaveAttribute('href', '/contact');
+      await expect(page.locator('main article[data-project], main [data-employer]')).toHaveCount(0);
       await expectNoHorizontalOverflow(page, '/');
     });
 
     test('the primary hero action opens /work with the project tiles in view', async ({ page }) => {
       await page.goto('/');
-      await page.locator('.identity-cta').getByRole('link', { name: 'Explore the open-source work →' }).click();
+      await page.locator('.identity-cta').getByRole('link', { name: HERO_ACTION }).click();
       await expect(page).toHaveURL(/\/work#projects$/);
       const section = page.locator('section#projects');
       await expect(section).toHaveCount(1);
@@ -142,7 +132,7 @@ for (const viewport of [
   });
 }
 
-test('every external link the new copy adds returns HTTP 200', async ({ request }) => {
+test('every external link the /work tiles and the home copy use returns HTTP 200', async ({ request }) => {
   for (const url of NEW_EXTERNAL_LINKS) {
     const response = await request.get(url, { maxRedirects: 5, timeout: 20_000 });
     expect(response.status(), url).toBe(200);
