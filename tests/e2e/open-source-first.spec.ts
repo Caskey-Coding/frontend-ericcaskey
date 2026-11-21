@@ -1,10 +1,9 @@
 import { test, expect, type Page } from '@playwright/test';
 
-// Home copy (owner-approved 2026-11-18 homepage copy, superseding the 031
-// home rows pending a spec amendment) and the /work project tiles from
-// caskeycoding-specs content-strategy 031, acceptance criterion 4. Runs
-// against the local production build in Chromium at desktop width and at a
-// 390px phone width. It proves rendering and link resolution there, not the
+// Home copy (caskeycoding-specs content-strategy 031, "Home amendment,
+// 2026-11-21") and the /work project tiles from 031, acceptance criterion 4.
+// Runs against the local production build in Chromium at desktop width and at
+// a 390px phone width. It proves rendering and link resolution there, not the
 // deployed site.
 
 test.use({ reducedMotion: 'reduce' });
@@ -104,7 +103,8 @@ for (const viewport of [
       }
       await expect(page.locator('main').getByRole('link', { name: 'Browse selected writing', exact: true })).toHaveAttribute('href', '/writing');
       await expect(page.locator('main').getByRole('link', { name: 'Send me a note', exact: true })).toHaveAttribute('href', '/contact');
-      await expect(page.locator('main article[data-project], main [data-employer]')).toHaveCount(0);
+      await expect(page.locator('main [data-project], main [data-employer]')).toHaveCount(0);
+      await expect(page.locator('main .project-status')).toHaveCount(0);
       await expectNoHorizontalOverflow(page, '/');
     });
 
